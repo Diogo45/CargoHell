@@ -89,9 +89,9 @@ public class PlayerController : MonoBehaviour
         #region Apply Input
 
         if (moveForward)
-            transform.position += transform.up * moveSpeed;
+            transform.position += transform.up * moveSpeed * Time.deltaTime;
         if (moveBackward)
-            transform.position -= transform.up * moveSpeed;
+            transform.position -= transform.up * moveSpeed * Time.deltaTime;
         if (rotateClockWise)
             transform.Rotate(Vector3.forward, rotationSpeed);
         if (rotateCounterClockWise)

@@ -31,24 +31,34 @@ public class ShieldController : MonoBehaviour
 
             var cross = Vector3.Cross(transform.up, collision.transform.up);
 
-            Debug.Log(deltaAngle);
+            Debug.Log("1 "+ deltaAngle);
 
-            if(cross.z > 0 && (deltaAngle > 90 || deltaAngle < 180))
+            if(cross.z > 0 && (deltaAngle > 90 && deltaAngle < 180))
             {
-                deltaAngle = deltaAngle - 360;
+                deltaAngle = -(deltaAngle - 360);
 
             }
-            else if (cross.z < 0 && (deltaAngle > 90 || deltaAngle < 180))
+            else if (cross.z < 0 && (deltaAngle > 90 && deltaAngle < 180))
             {
-                deltaAngle = 360 - deltaAngle;
+                deltaAngle = -(360 - deltaAngle);
+            }
+            else if (cross.z > 0 && (deltaAngle > 0 && deltaAngle < 90))
+            {
+                deltaAngle = 180 - deltaAngle;
+
+            }
+            else if (cross.z < 0 && (deltaAngle > 0 && deltaAngle < 90))
+            {
+                deltaAngle = deltaAngle - 180;
             }
 
+            Debug.Log("2 " + deltaAngle);
             //if(deltaAngle < 90 || deltaAngle > 270)
             //{
             //    deltaAngle = 180 - deltaAngle;
             //}
-            
-            collision.transform.Rotate(new Vector3(0, 0, -deltaAngle));
+
+            collision.transform.Rotate(new Vector3(0, 0, deltaAngle));
         }
     }
 

@@ -16,7 +16,7 @@ public class ProjectileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.up * projectileSpeed;
+        transform.position += transform.up * projectileSpeed * Time.deltaTime;
 
 
         Debug.DrawRay(transform.position, transform.up);
