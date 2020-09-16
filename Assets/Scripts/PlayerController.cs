@@ -7,7 +7,12 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
 
     
-    public int damage = 0;
+    private int maxPossibleHealth = 7;
+
+    public int maxCurrentHealth = 3;
+
+    public int currentHealth = 3;
+    private bool hasCollided = false;
 
 
     [Range(0, 360)]
@@ -21,17 +26,25 @@ public class PlayerController : MonoBehaviour
     private bool rotateClockWise = false;
     private bool rotateCounterClockWise = false;
 
+
+    public int MaxPossibleHealth { get => maxPossibleHealth; set => maxPossibleHealth = value; }
+
     void Start()
     {
 
     }
 
 
-    public void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Projectile")
         {
-            damage++;
+            if (!hasCollided)
+            {
+                currentHealth--;
+                Destroy(collision.gameObject);
+                hasCollided = true;
+            }
         }
     }
 
@@ -108,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
         #endregion
 
-
+        hasCollided = false;
 
     }
 }
