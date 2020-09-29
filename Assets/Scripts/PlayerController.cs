@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    public GameObject Projectile;
     
     private int maxPossibleHealth = 7;
 
@@ -106,9 +106,16 @@ public class PlayerController : MonoBehaviour
         if (moveBackward)
             transform.position -= transform.up * moveSpeed * Time.deltaTime;
         if (rotateClockWise)
-            transform.Rotate(Vector3.forward, rotationSpeed);
+            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
         if (rotateCounterClockWise)
-            transform.Rotate(Vector3.forward, -rotationSpeed);
+            transform.Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            var newProj = Instantiate(Projectile, transform.position + (transform.up * 1.5f), Quaternion.identity);
+            newProj.transform.up = transform.up;
+            newProj.tag = "ProjectileReflected";
+        }
 
         #endregion
 
@@ -120,6 +127,8 @@ public class PlayerController : MonoBehaviour
         transform.position = Camera.main.ViewportToWorldPoint(pos);
 
         #endregion
+
+
 
         hasCollided = false;
 
