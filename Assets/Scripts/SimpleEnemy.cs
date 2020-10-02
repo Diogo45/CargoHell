@@ -18,10 +18,12 @@ public class SimpleEnemy : MonoBehaviour
     private bool hasCollided;
     private int health = 1;
 
+    private bool enteredScene = false;
+
     void Start()
     {
-        directionLocal = transform.InverseTransformDirection(direction);
-        //transform.up = directionLocal;
+        //directionLocal = transform.InverseTransformDirection(direction);
+        transform.up = -direction;
     }
 
 
@@ -35,7 +37,7 @@ public class SimpleEnemy : MonoBehaviour
                 Destroy(collision.gameObject);
                 hasCollided = true;
             }
-           
+
         }
     }
 
@@ -43,27 +45,39 @@ public class SimpleEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += (directionLocal * speed) * Time.deltaTime;
+        transform.position += (direction * speed) * Time.deltaTime;
 
         projectileTimer += Time.deltaTime;
 
-        if(projectileTimer > timerThreshold)
+        if (projectileTimer > timerThreshold)
         {
             projectileTimer = 0f;
-            var newProj = Instantiate(projectile, transform.position + (directionLocal * 0.5f), Quaternion.identity);
-            newProj.transform.up = directionLocal;
+            var newProj = Instantiate(projectile, transform.position + (direction * 0.5f), Quaternion.identity);
+            newProj.transform.up = direction;
+        }
+
+        var pos = Camera.main.WorldToViewportPoint(transform.position);
+
+
+        if (enteredScene)
+        {
+            if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
+                GameObject.Destroy(gameObject);
+        }
+
+        if (pos.x < 1 && pos.x > 0 && pos.y < 1 && pos.y > 0)
+        {
+            enteredScene = true;
         }
 
 
-        var pos = Camera.main.WorldToViewportPoint(transform.position);
-        if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
-            GameObject.Destroy(gameObject);
-
-        if(health <= 0)
+        if (health <= 0)
         {
             var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
             newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
+            LevelController.instance.currentEnemyCount["SimpleEnemy"]--;
             Destroy(gameObject);
+
             //Animação bonitinha
         }
     }

@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1878856299377727576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1878856299377727577}
+  - component: {fileID: -6988277077502076259}
+  m_Layer: 0
+  m_Name: LevelController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1878856299377727577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878856299377727576}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3051084, y: 0.08210388, z: -4.8063965}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6988277077502076259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878856299377727576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac5f441070026443b812485f55c85dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionAnim: {fileID: 4423235050795805989, guid: ff8e04a385048b8439b91f1ec62c0765,
+    type: 3}
+  enemyTypes:
+    _Buckets: 00000000ffffffffffffffff
+    _HashCodes: 1061887b0000000000000000
+    _Next: ffffffff0000000000000000
+    _Count: 1
+    _Version: 24
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys:
+    - SimpleEnemy
+    - 
+    - 
+    _Values:
+    - {fileID: 6878950240519721720, guid: 65e48b96a2742294bbe881e171bda964, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+  enemySpawnCount:
+    _Buckets: 00000000ffffffffffffffff
+    _HashCodes: 1061887b0000000000000000
+    _Next: ffffffff0000000000000000
+    _Count: 1
+    _Version: 4
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys:
+    - SimpleEnemy
+    - 
+    - 
+    _Values: 050000000000000000000000
+  currentEnemyCount:
+    _Buckets: 00000000ffffffffffffffff
+    _HashCodes: 1061887b0000000000000000
+    _Next: ffffffff0000000000000000
+    _Count: 1
+    _Version: 5
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys:
+    - SimpleEnemy
+    - 
+    - 
+    _Values: 000000000000000000000000
