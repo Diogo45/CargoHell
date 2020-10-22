@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleEnemy : MonoBehaviour
+public class SimpleEnemy : IEnemy
 {
     // Start is called before the first frame update
 
-    public float speed;
     public Vector3 direction;
     private Vector3 directionLocal;
-    public GameObject projectile;
-    public GameObject explosion;
+
 
     private float projectileTimer;
     public float timerThreshold;
-
     private bool hasCollided;
-    private int health = 1;
+
 
     private bool enteredScene = false;
 
@@ -49,7 +46,7 @@ public class SimpleEnemy : MonoBehaviour
 
         projectileTimer += Time.deltaTime;
 
-        if (projectileTimer > timerThreshold)
+        if (projectileTimer > timerThreshold + Random.Range(-timerThreshold, timerThreshold)/2f)
         {
             projectileTimer = 0f;
             var newProj = Instantiate(projectile, transform.position + (direction * 0.5f), Quaternion.identity);
@@ -62,7 +59,13 @@ public class SimpleEnemy : MonoBehaviour
         if (enteredScene)
         {
             if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
-                GameObject.Destroy(gameObject);
+            {
+                LevelController.instance.enemySpawnCount["SimpleEnemy"]++;
+                Destroy(transform.parent.gameObject);
+                Destroy(gameObject);
+            }
+              
+
         }
 
         if (pos.x < 1 && pos.x > 0 && pos.y < 1 && pos.y > 0)
@@ -75,10 +78,10 @@ public class SimpleEnemy : MonoBehaviour
         {
             var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
             newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
-            LevelController.instance.currentEnemyCount["SimpleEnemy"]--;
+            //LevelController.instance.enemySpawnCount["SimpleEnemy"]--;
+            Destroy(transform.parent.gameObject);
             Destroy(gameObject);
 
-            //Animação bonitinha
         }
     }
 }

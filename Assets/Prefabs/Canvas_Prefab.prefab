@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 76950302}
   - component: {fileID: 76950301}
   - component: {fileID: 76950303}
+  - component: {fileID: 905526517}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -35,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.098000005, y: 0.67}
   m_AnchorMax: {x: 0.569, y: 0.86600006}
-  m_AnchoredPosition: {x: -0.99998474, y: 0}
+  m_AnchoredPosition: {x: -0.9999695, y: 0}
   m_SizeDelta: {x: -2, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &76950302
@@ -88,6 +89,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!223 &905526517
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76950299}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 297038205
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &218993142
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +136,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 218993142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 76950300}
@@ -123,7 +145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.8322422}
   m_AnchorMax: {x: 0.29138213, y: 1}
-  m_AnchoredPosition: {x: 102.50011, y: -62.5}
+  m_AnchoredPosition: {x: 102.50012, y: -62.5}
   m_SizeDelta: {x: 205, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &218993145

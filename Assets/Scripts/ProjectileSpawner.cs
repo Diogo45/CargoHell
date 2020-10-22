@@ -7,7 +7,6 @@ public class ProjectileSpawner : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject projectile;
-    public GameObject player;
 
 
     void Start()
@@ -24,7 +23,9 @@ public class ProjectileSpawner : MonoBehaviour
 
             var newProjectile = Instantiate(projectile, mousePos + projectile.transform.position,Quaternion.identity );
 
-            newProjectile.transform.rotation = projectile.transform.rotation;
+            newProjectile.transform.up = Vector2.left;
+
+            //newProjectile.transform.rotation = projectile.transform.rotation;
         }
 
 

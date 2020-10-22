@@ -12,13 +12,10 @@ public class LevelController : MonoBehaviour
     public static LevelController instance;
 
     public GameObject explosionAnim;
-
-    
      
     public GameObjectDictionary enemyTypes;
 
     public IntObjectDictionary enemySpawnCount;
-    public IntObjectDictionary currentEnemyCount;
 
     private int frame = 0;
     // Start is called before the first frame update
@@ -67,9 +64,8 @@ public class LevelController : MonoBehaviour
         var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos, Quaternion.identity);
         var comp = (SimpleEnemy)newEnemy.GetComponentInChildren(typeof(SimpleEnemy));
         comp.direction = direction;
-        Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
+        //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
 
-        currentEnemyCount[enemyType]++;
         enemySpawnCount[enemyType]--;
 
         yield return new WaitForSeconds(delay);
@@ -82,9 +78,9 @@ public class LevelController : MonoBehaviour
     {
         foreach (var enemyType in enemyTypes.Keys)
         {
-            if (enemySpawnCount[enemyType] - currentEnemyCount[enemyType] > 0)
+            if (enemySpawnCount[enemyType] > 0)
             {
-                Debug.Log("Spawn a new Enemy");
+                //Debug.Log("Spawn a new Enemy");
                 StartCoroutine(SpawnEnemy(enemyType, Random.Range(2f,4f)));
             }
         }

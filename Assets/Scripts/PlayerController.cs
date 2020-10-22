@@ -26,14 +26,16 @@ public class PlayerController : MonoBehaviour
     private bool rotateClockWise = false;
     private bool rotateCounterClockWise = false;
 
-
+    private Material material;
     public int MaxPossibleHealth { get => maxPossibleHealth; set => maxPossibleHealth = value; }
 
     void Start()
     {
-
+        material = gameObject.GetComponent<SpriteRenderer>().material;
     }
 
+
+   
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -45,6 +47,29 @@ public class PlayerController : MonoBehaviour
                 Destroy(collision.gameObject);
                 hasCollided = true;
             }
+        }
+
+        if(collision.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<IEnemy>().health = 0;
+            currentHealth--;
+        }
+    
+        if(collision.tag == "Enemy" || collision.tag == "Projectile")
+        {
+            StartCoroutine(DamageColor());
+        }
+    }
+
+
+    IEnumerator DamageColor()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            SetColor(Color.white);
+            yield return new WaitForSeconds(0.1f);
+            SetColor(new Color(1, 1, 1, 0));
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -127,10 +152,16 @@ public class PlayerController : MonoBehaviour
         transform.position = Camera.main.ViewportToWorldPoint(pos);
 
         #endregion
-
-
-
         hasCollided = false;
 
     }
+
+
+    private void SetColor(Color color)
+    {
+        material.SetColor("_Color", color);
+    }
+
+
+
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6878950241720565780}
   m_Layer: 0
   m_Name: Enemy01_Green_Frame_1_png_processed
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,13 +96,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad6ec7265dd3b946b6d225a4a0b59f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
-  direction: {x: 0, y: -1, z: 0}
+  health: 1
   projectile: {fileID: 8474159051582411123, guid: 115a57c9ee4936b45b03adbcced4b6b7,
     type: 3}
   explosion: {fileID: 4423235050795805989, guid: ff8e04a385048b8439b91f1ec62c0765,
     type: 3}
-  timerThreshold: 1
+  explosionSound: {fileID: 8300000, guid: f0975ed3e55f1cc4d9cbc6cde1737200, type: 3}
+  speed: 2
+  direction: {x: 0, y: -1, z: 0}
+  timerThreshold: 2
 --- !u!61 &1875865499696664395
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -113,7 +115,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.039265305}
@@ -139,7 +141,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0011461899, y: 0.0032626987}
@@ -166,7 +168,7 @@ GameObject:
   - component: {fileID: 6878950240519721719}
   m_Layer: 0
   m_Name: Enemy1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
