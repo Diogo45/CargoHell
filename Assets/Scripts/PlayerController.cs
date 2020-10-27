@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     private Material material;
     public int MaxPossibleHealth { get => maxPossibleHealth; set => maxPossibleHealth = value; }
 
+
+    public float AngularSpeed;
+
     void Start()
     {
         material = gameObject.GetComponent<SpriteRenderer>().material;
@@ -76,6 +79,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         #region Input
 
         if (Input.GetKeyDown(KeyCode.A))
@@ -126,14 +131,38 @@ public class PlayerController : MonoBehaviour
 
         #region Apply Input
 
+
+        Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        angle -= 90f;
+
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, AngularSpeed * Time.deltaTime);
+
         if (moveForward)
+        {
             transform.position += transform.up * moveSpeed * Time.deltaTime;
+
+        }
         if (moveBackward)
+        {
             transform.position -= transform.up * moveSpeed * Time.deltaTime;
-        if (rotateClockWise)
-            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
-        if (rotateCounterClockWise)
-            transform.Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
+           
+        }
+
+
+       
+
+        
+
+
+        //if (rotateClockWise)
+        //    transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+        //if (rotateCounterClockWise)
+        //    transform.Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

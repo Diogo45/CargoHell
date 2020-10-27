@@ -37,6 +37,7 @@ public class ShieldController : MonoBehaviour
 
             //var normalVector = hit.normal;
             //var normalVector = hit.normal;
+
             var normalVector = hit - (Vector2)(player.transform.position + player.transform.up / 3.5f); 
             debugNormal = normalVector;
             //debugPoint = hit.point;
