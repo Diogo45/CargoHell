@@ -235,8 +235,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 8474159051582411123, guid: 115a57c9ee4936b45b03adbcced4b6b7,
     type: 3}
-  maxCurrentHealth: 7
-  currentHealth: 7
+  maxCurrentHealth: 3
+  currentHealth: 3
   rotationSpeed: 150
   moveSpeed: 5
   AngularSpeed: 7
