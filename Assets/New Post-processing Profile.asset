@@ -14,6 +14,97 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
   - {fileID: 8595251635280306151}
+  - {fileID: 469261126265146564}
+  - {fileID: 7220886299831097435}
+  - {fileID: 318341270458104536}
+--- !u!114 &318341270458104536
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b77c5407dc277943b591ade9e6b18c5, type: 3}
+  m_Name: LensDistortion
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 33
+  intensityX:
+    overrideState: 1
+    value: 0
+  intensityY:
+    overrideState: 0
+    value: 1
+  centerX:
+    overrideState: 0
+    value: 0
+  centerY:
+    overrideState: 0
+    value: 0
+  scale:
+    overrideState: 0
+    value: 1
+--- !u!114 &469261126265146564
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  spectralLut:
+    overrideState: 1
+    value: {fileID: 2800000, guid: ec9faf61563c393478d275aaa07bc060, type: 3}
+    defaultState: 1
+  intensity:
+    overrideState: 1
+    value: 0.2
+  fastMode:
+    overrideState: 0
+    value: 1
+--- !u!114 &7220886299831097435
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65e486e4de6e5448a8fbb43dc8756a0, type: 3}
+  m_Name: Grain
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  colored:
+    overrideState: 0
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 0.287
+  size:
+    overrideState: 1
+    value: 1.33
+  lumContrib:
+    overrideState: 0
+    value: 0.997
 --- !u!114 &8595251635280306151
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -32,22 +123,22 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.82
+    value: 0.86
   threshold:
     overrideState: 1
-    value: 0
+    value: 0.6
   softKnee:
     overrideState: 0
-    value: 0.5
+    value: 1
   clamp:
     overrideState: 0
-    value: 65472
+    value: 65474.96
   diffusion:
     overrideState: 0
-    value: 7
+    value: 8.18
   anamorphicRatio:
     overrideState: 0
-    value: -0.46
+    value: 1
   color:
     overrideState: 0
     value: {r: 1, g: 0, b: 0, a: 1}
@@ -56,8 +147,8 @@ MonoBehaviour:
     value: 0
   dirtTexture:
     overrideState: 0
-    value: {fileID: 0}
+    value: {fileID: 2800000, guid: ad69cff0c867cec48ab0693f0df8fff3, type: 3}
     defaultState: 1
   dirtIntensity:
     overrideState: 0
-    value: 67.05
+    value: 11.5
