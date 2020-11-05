@@ -68,12 +68,12 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   spectralLut:
-    overrideState: 0
+    overrideState: 1
     value: {fileID: 2800000, guid: ec9faf61563c393478d275aaa07bc060, type: 3}
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.2
+    value: 0
   fastMode:
     overrideState: 0
     value: 1
@@ -92,7 +92,7 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 1
+    value: 0
   colored:
     overrideState: 0
     value: 1
@@ -123,10 +123,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.86
+    value: 0.69
   threshold:
     overrideState: 1
-    value: 0.6
+    value: 0
   softKnee:
     overrideState: 0
     value: 1
@@ -134,21 +134,21 @@ MonoBehaviour:
     overrideState: 0
     value: 65474.96
   diffusion:
-    overrideState: 0
-    value: 8.18
+    overrideState: 1
+    value: 7.21
   anamorphicRatio:
     overrideState: 0
     value: 1
   color:
     overrideState: 0
-    value: {r: 1, g: 0, b: 0, a: 1}
+    value: {r: 1, g: 0.8160377, b: 0.8160377, a: 1}
   fastMode:
     overrideState: 0
     value: 0
   dirtTexture:
     overrideState: 0
-    value: {fileID: 2800000, guid: ad69cff0c867cec48ab0693f0df8fff3, type: 3}
+    value: {fileID: 10307, guid: 0000000000000000f000000000000000, type: 0}
     defaultState: 1
   dirtIntensity:
     overrideState: 0
-    value: 11.5
+    value: 11.4

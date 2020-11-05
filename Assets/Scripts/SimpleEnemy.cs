@@ -61,6 +61,7 @@ public class SimpleEnemy : IEnemy
             if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
             {
                 LevelController.instance.enemySpawnCount["SimpleEnemy"]++;
+                LevelController.instance.spawned["SimpleEnemy"]--;
                 Destroy(transform.parent.gameObject);
                 Destroy(gameObject);
             }
@@ -79,6 +80,7 @@ public class SimpleEnemy : IEnemy
             var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
             newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
             //LevelController.instance.enemySpawnCount["SimpleEnemy"]--;
+            LevelController.instance.spawned["SimpleEnemy"]--;
             Destroy(transform.parent.gameObject);
             Destroy(gameObject);
 

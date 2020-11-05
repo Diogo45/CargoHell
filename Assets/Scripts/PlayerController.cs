@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject GameOverCanvas;
+
     public GameObject Projectile;
     
     private int maxPossibleHealth = 7;
@@ -183,8 +185,30 @@ public class PlayerController : MonoBehaviour
         #endregion
         hasCollided = false;
 
+
+        if (currentHealth <= 0)
+        {
+            StartCoroutine(DeathAnim());
+
+        }
+
+
     }
 
+
+    IEnumerator DeathAnim()
+    {
+        var newExplosion = Instantiate(LevelController.instance.explosionAnim, transform.position, Quaternion.identity);
+        newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
+        yield return new WaitForSeconds(5);
+
+        GameOverCanvas.SetActive(true);
+
+        transform.GetChild(0).gameObject.SetActive(false);
+        gameObject.SetActive(false);
+
+        yield break;
+    }
 
     private void SetColor(Color color)
     {

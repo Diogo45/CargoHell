@@ -14,7 +14,7 @@ public class PlayButtonController : MonoBehaviour
         btn.onClick.AddListener(TaskOnClick);
     }
 
-    void TaskOnClick()
+    public void TaskOnClick()
     {
         Debug.Log("You have clicked the button!");
         SceneManager.LoadScene("TestLevel");

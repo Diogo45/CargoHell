@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 [System.Serializable]public class GameObjectDictionary : SerializableDictionary<string, GameObject> { }
 [System.Serializable]public class IntObjectDictionary : SerializableDictionary<string, int> { }
@@ -16,6 +16,12 @@ public class LevelController : MonoBehaviour
     public GameObjectDictionary enemyTypes;
 
     public IntObjectDictionary enemySpawnCount;
+    public IntObjectDictionary spawned;
+
+
+    public IntObjectDictionary maxScreenEnemies;
+
+    //private int enemyTotal;
 
     private int frame = 0;
     // Start is called before the first frame update
@@ -32,11 +38,28 @@ public class LevelController : MonoBehaviour
         }
 
 
+        spawned = new IntObjectDictionary();
+
+        foreach (var enemyType in enemyTypes.Keys)
+        {
+            spawned.Add(enemyType, 0);
+        }
+
+
+        for (int i = 0; i < maxScreenEnemies["SimpleEnemy"]; i++)
+        {
+            StartCoroutine((SpawnEnemy("SimpleEnemy", Random.Range(2f, 4f))));
+        }
+
+
     }
 
     IEnumerator SpawnEnemy(string enemyType, float delay)
     {
-
+        if (spawned[enemyType] > maxScreenEnemies[enemyType])
+        {
+            yield break;
+        }
         int side = Random.Range(0, 4);
         float inSide = Random.Range(0.1f, 0.9f);
         Vector3 spawnPos = Vector3.zero;
@@ -67,6 +90,7 @@ public class LevelController : MonoBehaviour
         //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
 
         enemySpawnCount[enemyType]--;
+        spawned[enemyType]++;
 
         yield return new WaitForSeconds(delay);
 
@@ -84,7 +108,40 @@ public class LevelController : MonoBehaviour
                 StartCoroutine(SpawnEnemy(enemyType, Random.Range(2f,4f)));
             }
         }
-       
+
+
+
         frame++;
+
+        foreach (var enemyType in enemyTypes.Keys)
+        {
+            if (enemySpawnCount[enemyType] != 0)
+            {
+                return;
+            }
+
+            if (spawned[enemyType] > 0)
+            {
+                return;
+            }
+        }
+
+
+
+
+    }
+
+
+    private void LateUpdate()
+    {
+        //enemyTotal = 0;
+        //foreach (var item in spawned)
+        //{
+        //    enemyTotal += item.Value;    
+        //}
+
+
+      
+
     }
 }
