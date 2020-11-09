@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject GameOverCanvas;
 
     public GameObject Projectile;
     
@@ -33,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
 
     public float AngularSpeed;
+
+
 
     void Start()
     {
@@ -186,29 +187,13 @@ public class PlayerController : MonoBehaviour
         hasCollided = false;
 
 
-        if (currentHealth <= 0)
-        {
-            StartCoroutine(DeathAnim());
-
-        }
+ 
 
 
     }
 
 
-    IEnumerator DeathAnim()
-    {
-        var newExplosion = Instantiate(LevelController.instance.explosionAnim, transform.position, Quaternion.identity);
-        newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
-        yield return new WaitForSeconds(5);
-
-        GameOverCanvas.SetActive(true);
-
-        transform.GetChild(0).gameObject.SetActive(false);
-        gameObject.SetActive(false);
-
-        yield break;
-    }
+   
 
     private void SetColor(Color color)
     {

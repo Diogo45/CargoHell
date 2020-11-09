@@ -6,17 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class PlayButtonController : MonoBehaviour
 {
-    public Button playButton;
 
-    void Start()
+
+    public void ToMenu()
     {
-        Button btn = playButton.GetComponent<Button>();
-        btn.onClick.AddListener(TaskOnClick);
+        SceneManager.LoadScene("Menu");
     }
 
-    public void TaskOnClick()
+
+    public void Level01()
     {
-        Debug.Log("You have clicked the button!");
         SceneManager.LoadScene("TestLevel");
     }
 }
