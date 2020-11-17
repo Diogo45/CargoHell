@@ -34,6 +34,7 @@ public class LevelController : MonoBehaviour
     public IntObjectDictionary maxScreenEnemies;
 
     private bool hasWon = false;
+    private bool hasLost = false;
   
 
     //private int enemyTotal;
@@ -98,8 +99,8 @@ public class LevelController : MonoBehaviour
                 break;
         }
 
-        var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos, Quaternion.identity);
-        var comp = (SimpleEnemy)newEnemy.GetComponentInChildren(typeof(SimpleEnemy));
+        var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
+        var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
         comp.direction = direction;
         //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
 
@@ -112,6 +113,7 @@ public class LevelController : MonoBehaviour
 
     IEnumerator DeathAnim()
     {
+        hasLost = true;
         var newExplosion = Instantiate(explosionAnim, Player.transform.position, Quaternion.identity);
         newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
         Destroy(Player.transform.GetChild(0).gameObject);
@@ -164,10 +166,36 @@ public class LevelController : MonoBehaviour
             StartCoroutine(DeathAnim());
         }
 
-        if (!hasWon && enemySpawnCount["SimpleEnemy"] <= 0 && spawned["SimpleEnemy"] <= 0)
+        //TODO: Make the win animation generic for every enemy type
+        bool isThereEnemiesLeft = false;
+        foreach (var item in enemySpawnCount.Values)
         {
-            StartCoroutine(WinAnim());
+            if (item > 0)
+            {
+                isThereEnemiesLeft = true;
+                break;
+            }
+
         }
+
+        if (!isThereEnemiesLeft)
+        {
+            foreach (var item in spawned.Values)
+            {
+                if (item > 0)
+                {
+                    isThereEnemiesLeft = true;
+                    break;
+                }
+            }
+
+            if (!hasWon && !hasLost && !isThereEnemiesLeft)
+            {
+                StartCoroutine(WinAnim());
+            }
+        }
+
+       
 
         foreach (var enemyType in enemyTypes.Keys)
         {

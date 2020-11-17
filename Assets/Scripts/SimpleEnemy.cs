@@ -6,7 +6,6 @@ public class SimpleEnemy : IEnemy
 {
     // Start is called before the first frame update
 
-    public Vector3 direction;
     private Vector3 directionLocal;
 
 
@@ -17,10 +16,13 @@ public class SimpleEnemy : IEnemy
 
     private bool enteredScene = false;
 
+    
+
     void Start()
     {
         //directionLocal = transform.InverseTransformDirection(direction);
         transform.up = -direction;
+        
     }
 
 

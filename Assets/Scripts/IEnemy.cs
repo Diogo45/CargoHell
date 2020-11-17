@@ -8,6 +8,7 @@ public class IEnemy : MonoBehaviour
     public GameObject projectile;
     public GameObject explosion;
     public AudioClip explosionSound;
+    public Vector3 direction;
 
     public float speed;
 
