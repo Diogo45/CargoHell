@@ -3228,75 +3228,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4763551238880713282}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &7832390432286682419
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1812838881627001944, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812838881627001944, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812838881627001944, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812838881627001944, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812838881627001944, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812838881627001944, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812838881627001944, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812838881627001944, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812838881627001944, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812838881627001944, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812838881627001944, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1812838881627001947, guid: 3ec071dc12eb61c44b727e3d6c00977c,
-        type: 3}
-      propertyPath: m_Name
-      value: ProjectilePurble
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3ec071dc12eb61c44b727e3d6c00977c, type: 3}
 --- !u!114 &8774018235232998276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3338,14 +3269,14 @@ MonoBehaviour:
     _HashCodes: 1061887b6dc4170400000000
     _Next: ffffffffffffffff00000000
     _Count: 2
-    _Version: 20
+    _Version: 21
     _FreeList: -1
     _FreeCount: 0
     _Keys:
     - SimpleEnemy
     - EnemySniper
     - 
-    _Values: 050000000100000000000000
+    _Values: 050000000200000000000000
   spawned:
     _Buckets: ffffffffffffffffffffffff
     _HashCodes: 000000000000000000000000
@@ -3364,11 +3295,11 @@ MonoBehaviour:
     _HashCodes: 1061887b6dc4170400000000
     _Next: ffffffffffffffff00000000
     _Count: 2
-    _Version: 13
+    _Version: 14
     _FreeList: -1
     _FreeCount: 0
     _Keys:
     - SimpleEnemy
     - EnemySniper
     - 
-    _Values: 030000000100000000000000
+    _Values: 030000000200000000000000
