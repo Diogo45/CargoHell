@@ -9,6 +9,25 @@ using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour
 {
 
+    public class SceneArgs
+    {
+        [System.Serializable]
+        public struct EnemyConfig
+        {
+            public string enemyType;
+
+            public int side;
+            public float posInSide;
+
+        }
+
+        public EnemyConfig[] enemyPositions = { new EnemyConfig { enemyType = "SimpleEnemy", side = 1, posInSide = 0.7f }, new EnemyConfig { enemyType = "EnemySniper", side = 3, posInSide = 0.4f } };
+
+
+    }
+
+    
+
     public static LevelController instance;
 
     public GameObject explosionAnim;
@@ -35,7 +54,7 @@ public class LevelController : MonoBehaviour
 
     private bool hasWon = false;
     private bool hasLost = false;
-  
+
 
     //private int enemyTotal;
 
@@ -43,6 +62,9 @@ public class LevelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        #region Singleton, é isso
+
         if (instance == null)
         {
             instance = this;
@@ -52,7 +74,7 @@ public class LevelController : MonoBehaviour
             Destroy(gameObject);
         }
 
-
+        #endregion
         spawned = new IntObjectDictionary();
 
         foreach (var enemyType in enemyTypes.Keys)
@@ -66,6 +88,8 @@ public class LevelController : MonoBehaviour
             StartCoroutine((SpawnEnemy("SimpleEnemy", Random.Range(2f, 4f))));
         }
 
+        var sceneArgs = new SceneArgs();
+        System.IO.File.WriteAllText(string.Format("{0}\\BaseLevel.json", Application.dataPath), JsonUtility.ToJson(sceneArgs));
 
     }
 
@@ -151,12 +175,9 @@ public class LevelController : MonoBehaviour
         {
             if (enemySpawnCount[enemyType] > 0)
             {
-                //Debug.Log("Spawn a new Enemy");
                 StartCoroutine(SpawnEnemy(enemyType, Random.Range(2f, 4f)));
             }
         }
-
-
 
         frame++;
 
@@ -195,7 +216,7 @@ public class LevelController : MonoBehaviour
             }
         }
 
-       
+
 
         foreach (var enemyType in enemyTypes.Keys)
         {
@@ -216,7 +237,7 @@ public class LevelController : MonoBehaviour
     }
 
 
-    
+
 
     private void LateUpdate()
     {

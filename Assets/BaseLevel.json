@@ -1,0 +1,14 @@
+{
+    "enemyPositions": [
+        {
+            "enemyType": "SimpleEnemy",
+            "side": 1,
+            "posInSide": 0.699999988079071
+        },
+        {
+            "enemyType": "EnemySniper",
+            "side": 3,
+            "posInSide": 0.4000000059604645
+        }
+    ]
+}
