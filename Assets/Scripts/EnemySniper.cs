@@ -11,7 +11,6 @@ public class EnemySniper : IEnemy
     private bool hasCollided;
 
 
-    private bool enteredScene = false;
 
     private GameObject aimAt;
 
@@ -41,6 +40,8 @@ public class EnemySniper : IEnemy
     // Update is called once per frame
     void Update()
     {
+        base.Update();
+
         if (aimAt)
         {
             Vector2 dir = aimAt.transform.position - transform.position;
@@ -68,25 +69,8 @@ public class EnemySniper : IEnemy
             newProj.transform.up = transform.up;
         }
 
-        var pos = Camera.main.WorldToViewportPoint(transform.position);
+        //var pos = Camera.main.WorldToViewportPoint(transform.position);
 
-
-        if (enteredScene)
-        {
-            if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
-            {
-                LevelController.instance.enemySpawnCount["EnemySniper"]++;
-                LevelController.instance.spawned["EnemySniper"]--;
-                Destroy(gameObject);
-            }
-
-
-        }
-
-        if (pos.x < 1 && pos.x > 0 && pos.y < 1 && pos.y > 0)
-        {
-            enteredScene = true;
-        }
 
 
         if (health <= 0)

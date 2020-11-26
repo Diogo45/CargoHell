@@ -21,12 +21,62 @@ public class LevelController : MonoBehaviour
 
         }
 
-        public EnemyConfig[] enemyPositions = { new EnemyConfig { enemyType = "SimpleEnemy", side = 1, posInSide = 0.7f }, new EnemyConfig { enemyType = "EnemySniper", side = 3, posInSide = 0.4f } };
+        [System.Serializable]
+        public struct EnemyConfigList
+        {
+            [SerializeField]
+            public List<EnemyConfig> enemyPositions;
+        }
 
+        public List<EnemyConfigList> config = new List<EnemyConfigList>();
+
+
+
+
+
+        public int[] SpawnFrames = { 0, 600 };
+
+        public int LevelMusic;
+
+        public SceneArgs()
+        {
+            config.Add(new EnemyConfigList
+            {
+                enemyPositions = new List<EnemyConfig>
+                {
+                    new EnemyConfig
+                    {
+                        enemyType = "EnemySniper", side = 1, posInSide = 0.7f },
+                    new EnemyConfig
+                    {
+                        enemyType = "EnemySniper", side = 3, posInSide = 0.4f }
+
+                }
+            });
+
+            config.Add(new EnemyConfigList
+            {
+                enemyPositions = new List<EnemyConfig>
+                {
+                    new EnemyConfig
+                    {
+                        enemyType = "SimpleEnemy", side = 1, posInSide = 0.7f },
+                    new EnemyConfig
+                    {
+                        enemyType = "SimpleEnemy", side = 3, posInSide = 0.4f }
+
+                }
+            });
+
+        }
 
     }
 
-    
+    public TextAsset sceneFile;
+    public bool IsFile = false;
+
+    public SceneArgs sceneArgs;
+    public int spawnFrame = 0;
 
     public static LevelController instance;
 
@@ -59,10 +109,11 @@ public class LevelController : MonoBehaviour
     //private int enemyTotal;
 
     private int frame = 0;
+    private bool finishedSpawn = false;
+
     // Start is called before the first frame update
     void Start()
     {
-
         #region Singleton, é isso
 
         if (instance == null)
@@ -73,8 +124,41 @@ public class LevelController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
         #endregion
+        sceneArgs = new SceneArgs();
+        System.IO.File.WriteAllText(string.Format("{0}\\Levels\\BaseLevel.json", Application.dataPath), JsonUtility.ToJson(sceneArgs));
+
+        Debug.Log(JsonUtility.ToJson(sceneArgs));
+
+        if (sceneFile)
+        {
+            IsFile = true;
+            //Debug.Log(@"Levels\" + sceneFile.name);
+            var jsonText = System.IO.File.ReadAllText(Application.dataPath + @"\Levels\" + sceneFile.name + ".json");
+            sceneArgs = JsonUtility.FromJson<SceneArgs>(jsonText);
+            if (sceneArgs.config[spawnFrame].enemyPositions.Count != sceneArgs.SpawnFrames.Length)
+            {
+                Debug.LogError("ENEMY POS LENGTH DIFFERENT FROM SCENE FRAMES LENGTH");
+            }
+
+            enemySpawnCount = new IntObjectDictionary();
+
+            for (int i = 0; i < sceneArgs.config.Count; i++)
+            {
+                for (int j = 0; j < sceneArgs.config[i].enemyPositions.Count; j++)
+                {
+                    var enemy = sceneArgs.config[i].enemyPositions[j].enemyType;
+                    if (!enemySpawnCount.ContainsKey(enemy))
+                    {
+                        enemySpawnCount.Add(enemy, 0);
+                    }
+                    enemySpawnCount[enemy]++;
+                }
+            }
+
+        }
+
+   
         spawned = new IntObjectDictionary();
 
         foreach (var enemyType in enemyTypes.Keys)
@@ -83,19 +167,23 @@ public class LevelController : MonoBehaviour
         }
 
 
-        for (int i = 0; i < maxScreenEnemies["SimpleEnemy"]; i++)
-        {
-            StartCoroutine((SpawnEnemy("SimpleEnemy", Random.Range(2f, 4f))));
-        }
 
-        var sceneArgs = new SceneArgs();
-        System.IO.File.WriteAllText(string.Format("{0}\\BaseLevel.json", Application.dataPath), JsonUtility.ToJson(sceneArgs));
+       
+
+        //for (int i = 0; i < maxScreenEnemies["SimpleEnemy"]; i++)
+        //{
+        //    StartCoroutine((SpawnEnemyRand("SimpleEnemy", Random.Range(2f, 4f))));
+        //}
+
+
+
 
     }
 
-    IEnumerator SpawnEnemy(string enemyType, float delay)
+
+    IEnumerator SpawnEnemyRand(string enemyType, float delay)
     {
-        if (spawned[enemyType] > maxScreenEnemies[enemyType])
+        if (spawned[enemyType] >= maxScreenEnemies[enemyType])
         {
             yield break;
         }
@@ -122,6 +210,52 @@ public class LevelController : MonoBehaviour
                 direction = Vector2.right;
                 break;
         }
+
+        var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
+        var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
+        comp.direction = direction;
+        //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
+
+        enemySpawnCount[enemyType]--;
+        spawned[enemyType]++;
+
+        yield return new WaitForSeconds(delay);
+
+    }
+
+    IEnumerator SpawnEnemyFile(int i, float delay)
+    {
+        string enemyType = sceneArgs.config[spawnFrame].enemyPositions[i].enemyType;
+        if (spawned[enemyType] >= maxScreenEnemies[enemyType])
+        {
+            yield break;
+        }
+        int side = sceneArgs.config[spawnFrame].enemyPositions[i].side;
+        float inSide = sceneArgs.config[spawnFrame].enemyPositions[i].posInSide;
+        Vector3 spawnPos = Vector3.zero;
+        Vector2 direction = Vector2.zero;
+        switch (side)
+        {
+            case 0:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 1, 0));
+                direction = Vector2.down;
+                break;
+            case 1:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(1, inSide, 0));
+                direction = Vector2.left;
+                break;
+            case 2:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 0, 0));
+                direction = Vector2.up;
+                break;
+            case 3:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(0, inSide, 0));
+                direction = Vector2.right;
+                break;
+        }
+        //spawn Fixo
+        //se sobrevi
+        //bloquinhos de spawn
 
         var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
         var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
@@ -171,13 +305,40 @@ public class LevelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (var enemyType in enemyTypes.Keys)
+
+        if (IsFile)
         {
-            if (enemySpawnCount[enemyType] > 0)
+            if (sceneArgs.SpawnFrames[spawnFrame] <= frame && !finishedSpawn)
             {
-                StartCoroutine(SpawnEnemy(enemyType, Random.Range(2f, 4f)));
+                for (int i = 0; i < sceneArgs.config[spawnFrame].enemyPositions.Count; i++)
+                {
+                    StartCoroutine(SpawnEnemyFile(i, Random.Range(2f, 4f)));
+                }
+                if (spawnFrame < sceneArgs.config.Count - 1)
+                {
+                    spawnFrame++;
+                }
+                else
+                {
+                    finishedSpawn = true;
+                }
+
+            }
+
+
+        }
+        else
+        {
+            foreach (var enemyType in enemyTypes.Keys)
+            {
+                if (enemySpawnCount[enemyType] > 0)
+                {
+                    StartCoroutine(SpawnEnemyRand(enemyType, Random.Range(2f, 4f)));
+
+                }
             }
         }
+
 
         frame++;
 
@@ -189,6 +350,8 @@ public class LevelController : MonoBehaviour
 
         //TODO: Make the win animation generic for every enemy type
         bool isThereEnemiesLeft = false;
+
+
         foreach (var item in enemySpawnCount.Values)
         {
             if (item > 0)
@@ -198,6 +361,7 @@ public class LevelController : MonoBehaviour
             }
 
         }
+
 
         if (!isThereEnemiesLeft)
         {
@@ -217,19 +381,18 @@ public class LevelController : MonoBehaviour
         }
 
 
+        //foreach (var enemyType in enemyTypes.Keys)
+        //{
+        //    if (enemySpawnCount[enemyType] != 0)
+        //    {
+        //        return;
+        //    }
 
-        foreach (var enemyType in enemyTypes.Keys)
-        {
-            if (enemySpawnCount[enemyType] != 0)
-            {
-                return;
-            }
-
-            if (spawned[enemyType] > 0)
-            {
-                return;
-            }
-        }
+        //    if (spawned[enemyType] > 0)
+        //    {
+        //        return;
+        //    }
+        //}
 
 
 
@@ -239,16 +402,32 @@ public class LevelController : MonoBehaviour
 
 
 
-    private void LateUpdate()
+    public (Vector2, Vector2) RequestRandomPos()
     {
-        //enemyTotal = 0;
-        //foreach (var item in spawned)
-        //{
-        //    enemyTotal += item.Value;    
-        //}
+        int side = Random.Range(0, 4);
+        float inSide = Random.Range(0.1f, 0.9f);
+        Vector3 spawnPos = Vector3.zero;
+        Vector2 direction = Vector2.zero;
+        switch (side)
+        {
+            case 0:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 1, 0));
+                direction = Vector2.down;
+                break;
+            case 1:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(1, inSide, 0));
+                direction = Vector2.left;
+                break;
+            case 2:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 0, 0));
+                direction = Vector2.up;
+                break;
+            case 3:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(0, inSide, 0));
+                direction = Vector2.right;
+                break;
+        }
 
-
-
-
+        return (spawnPos, direction);
     }
 }

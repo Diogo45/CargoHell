@@ -14,7 +14,6 @@ public class SimpleEnemy : IEnemy
     private bool hasCollided;
 
 
-    private bool enteredScene = false;
 
     
 
@@ -44,6 +43,9 @@ public class SimpleEnemy : IEnemy
     // Update is called once per frame
     void Update()
     {
+
+        base.Update();
+
         transform.position += (direction * speed) * Time.deltaTime;
 
         projectileTimer += Time.deltaTime;
@@ -55,26 +57,25 @@ public class SimpleEnemy : IEnemy
             newProj.transform.up = direction;
         }
 
-        var pos = Camera.main.WorldToViewportPoint(transform.position);
 
 
-        if (enteredScene)
-        {
-            if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
-            {
-                LevelController.instance.enemySpawnCount["SimpleEnemy"]++;
-                LevelController.instance.spawned["SimpleEnemy"]--;
-                Destroy(transform.parent.gameObject);
-                Destroy(gameObject);
-            }
+        //if (enteredScene)
+        //{
+        //    if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
+        //    {
+        //        LevelController.instance.enemySpawnCount["SimpleEnemy"]++;
+        //        LevelController.instance.spawned["SimpleEnemy"]--;
+        //        Destroy(transform.parent.gameObject);
+        //        Destroy(gameObject);
+        //    }
               
 
-        }
+        //}
 
-        if (pos.x < 1 && pos.x > 0 && pos.y < 1 && pos.y > 0)
-        {
-            enteredScene = true;
-        }
+        //if (pos.x < 1 && pos.x > 0 && pos.y < 1 && pos.y > 0)
+        //{
+        //    enteredScene = true;
+        //}
 
 
         if (health <= 0)
