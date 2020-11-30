@@ -45,6 +45,7 @@ public class SimpleEnemy : IEnemy
     {
 
         base.Update();
+        transform.up = -direction;
 
         transform.position += (direction * speed) * Time.deltaTime;
 
@@ -84,7 +85,7 @@ public class SimpleEnemy : IEnemy
             newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
             //LevelController.instance.enemySpawnCount["SimpleEnemy"]--;
             LevelController.instance.spawned["SimpleEnemy"]--;
-            Destroy(transform.parent.gameObject);
+            //Destroy(transform.parent.gameObject);
             Destroy(gameObject);
 
         }

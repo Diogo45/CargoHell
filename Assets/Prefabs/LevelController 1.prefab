@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6427536317852529000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5514053384919717163}
+  - component: {fileID: 2418899906210031201}
+  - component: {fileID: 6572762989820363121}
+  m_Layer: 0
+  m_Name: LevelController 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5514053384919717163
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427536317852529000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2418899906210031201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427536317852529000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac5f441070026443b812485f55c85dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneFile: {fileID: 4900000, guid: 2cf874b47ef703148b810d6a68d50f53, type: 3}
+  IsFile: 0
+  spawnFrame: 0
+  levelClips:
+  - {fileID: 8300000, guid: f4b488cd5886f6042be924ba1406b1d9, type: 3}
+  - {fileID: 8300000, guid: 82fdcbe04c90d734e90c96f938c1609c, type: 3}
+  - {fileID: 8300000, guid: ca9a489c6c15d964588b8b7dc4c368f3, type: 3}
+  - {fileID: 8300000, guid: 910d17e287b75c247a7063b01491eee7, type: 3}
+  - {fileID: 8300000, guid: 2468354c8cc3af4499e9ff9a70a27f3b, type: 3}
+  - {fileID: 8300000, guid: a3fb0755b3f29504281ecb93bc76a199, type: 3}
+  explosionAnim: {fileID: 4423235050795805989, guid: ff8e04a385048b8439b91f1ec62c0765,
+    type: 3}
+  Player: {fileID: 0}
+  doubleAudio: {fileID: 0}
+  LevelAudioSource: {fileID: 0}
+  GameOverAudioClip: {fileID: 8300000, guid: 11af740290430784bbc2cb42767d751d, type: 3}
+  GameOverCanvas: {fileID: 0}
+  WinCanvas: {fileID: 0}
+  enemyTypes:
+    _Buckets: 00000000ffffffff01000000
+    _HashCodes: 1061887b6dc4170400000000
+    _Next: ffffffffffffffff00000000
+    _Count: 2
+    _Version: 73
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys:
+    - SimpleEnemy
+    - EnemySniper
+    - 
+    _Values:
+    - {fileID: 3230391293598469966, guid: 8ac40ee8d4d560a4e98ca7ee23a5434b, type: 3}
+    - {fileID: 4354932906295119671, guid: 586d42554b2c78943a35f377740ee966, type: 3}
+    - {fileID: 0}
+  enemySpawnCount:
+    _Buckets: 00000000ffffffff01000000
+    _HashCodes: 1061887b6dc4170400000000
+    _Next: ffffffffffffffff00000000
+    _Count: 2
+    _Version: 30
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys:
+    - SimpleEnemy
+    - EnemySniper
+    - 
+    _Values: 190000000f00000000000000
+  spawned:
+    _Buckets: ffffffffffffffffffffffff
+    _HashCodes: 000000000000000000000000
+    _Next: 000000000000000000000000
+    _Count: 0
+    _Version: 2
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys:
+    - 
+    - 
+    - 
+    _Values: 000000000000000000000000
+  maxScreenEnemies:
+    _Buckets: 00000000ffffffff01000000
+    _HashCodes: 1061887b6dc4170400000000
+    _Next: ffffffffffffffff00000000
+    _Count: 2
+    _Version: 19
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys:
+    - SimpleEnemy
+    - EnemySniper
+    - 
+    _Values: 040000000200000000000000
+--- !u!222 &6572762989820363121
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427536317852529000}
+  m_CullTransparentMesh: 0

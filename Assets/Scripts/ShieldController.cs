@@ -26,7 +26,7 @@ public class ShieldController : MonoBehaviour
 
 
 
-        if (collision.gameObject.tag == "Projectile"  || collision.gameObject.tag == "ProjectileReflected")
+        if (collision.gameObject.tag == "Projectile"  || collision.gameObject.tag == "ProjectileReflected" || collision.gameObject.tag == "ProjectileSpinner")
         {
             //RaycastHit2D hit = Physics2D.Raycast(collision.transform.position, collision.transform.up, 100);
 
@@ -43,11 +43,16 @@ public class ShieldController : MonoBehaviour
             //debugPoint = hit.point;
             debugPoint = hit;
             collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
-            if(collision.tag == "ProjectileReflected")
-            {
 
+            if(player.tag == "Spinner")
+            {
+                collision.tag = "ProjectileSpinner";
             }
-            collision.tag = "ProjectileReflected";
+            else
+            {
+                collision.tag = "ProjectileReflected";
+            }
+            
 
             //Vector2 hitCenter = (Vector2)transform.position - hit.oint;
             //Vector2.Angle(hitCenter, transform.up);

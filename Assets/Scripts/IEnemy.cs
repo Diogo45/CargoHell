@@ -10,7 +10,6 @@ public class IEnemy : MonoBehaviour
     public AudioClip explosionSound;
     public Vector3 direction;
     private bool enteredScene = false;
-
     public float speed;
 
     public void Update()

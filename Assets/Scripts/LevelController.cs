@@ -36,7 +36,7 @@ public class LevelController : MonoBehaviour
 
         public int[] SpawnFrames = { 0, 600 };
 
-        public int LevelMusic;
+        public int LevelMusic = 2;
 
         public SceneArgs()
         {
@@ -78,13 +78,15 @@ public class LevelController : MonoBehaviour
     public SceneArgs sceneArgs;
     public int spawnFrame = 0;
 
+    public List<AudioClip> levelClips;
+
     public static LevelController instance;
 
     public GameObject explosionAnim;
     public GameObject Player;
 
     public DoubleAudioSource doubleAudio;
-    public AudioClip LevelAudioClip;
+    public AudioSource LevelAudioSource;
     public AudioClip GameOverAudioClip;
 
     #region CanvasRefs
@@ -108,7 +110,7 @@ public class LevelController : MonoBehaviour
 
     //private int enemyTotal;
 
-    private int frame = 0;
+    private float frame = 0f;
     private bool finishedSpawn = false;
 
     // Start is called before the first frame update
@@ -128,7 +130,7 @@ public class LevelController : MonoBehaviour
         sceneArgs = new SceneArgs();
         System.IO.File.WriteAllText(string.Format("{0}\\Levels\\BaseLevel.json", Application.dataPath), JsonUtility.ToJson(sceneArgs));
 
-        Debug.Log(JsonUtility.ToJson(sceneArgs));
+        //Debug.Log(JsonUtility.ToJson(sceneArgs));
 
         if (sceneFile)
         {
@@ -136,7 +138,7 @@ public class LevelController : MonoBehaviour
             //Debug.Log(@"Levels\" + sceneFile.name);
             var jsonText = System.IO.File.ReadAllText(Application.dataPath + @"\Levels\" + sceneFile.name + ".json");
             sceneArgs = JsonUtility.FromJson<SceneArgs>(jsonText);
-            if (sceneArgs.config[spawnFrame].enemyPositions.Count != sceneArgs.SpawnFrames.Length)
+            if (sceneArgs.config.Count != sceneArgs.SpawnFrames.Length)
             {
                 Debug.LogError("ENEMY POS LENGTH DIFFERENT FROM SCENE FRAMES LENGTH");
             }
@@ -166,8 +168,8 @@ public class LevelController : MonoBehaviour
             spawned.Add(enemyType, 0);
         }
 
-
-
+        LevelAudioSource.clip = levelClips[sceneArgs.LevelMusic];
+        LevelAudioSource.Play();
        
 
         //for (int i = 0; i < maxScreenEnemies["SimpleEnemy"]; i++)
@@ -183,7 +185,7 @@ public class LevelController : MonoBehaviour
 
     IEnumerator SpawnEnemyRand(string enemyType, float delay)
     {
-        if (spawned[enemyType] >= maxScreenEnemies[enemyType])
+        if (!IsFile && spawned[enemyType] >= maxScreenEnemies[enemyType])
         {
             yield break;
         }
@@ -226,10 +228,10 @@ public class LevelController : MonoBehaviour
     IEnumerator SpawnEnemyFile(int i, float delay)
     {
         string enemyType = sceneArgs.config[spawnFrame].enemyPositions[i].enemyType;
-        if (spawned[enemyType] >= maxScreenEnemies[enemyType])
-        {
-            yield break;
-        }
+        //if (spawned[enemyType] >= maxScreenEnemies[enemyType])
+        //{
+        //    yield break;
+        //}
         int side = sceneArgs.config[spawnFrame].enemyPositions[i].side;
         float inSide = sceneArgs.config[spawnFrame].enemyPositions[i].posInSide;
         Vector3 spawnPos = Vector3.zero;
@@ -265,7 +267,8 @@ public class LevelController : MonoBehaviour
         enemySpawnCount[enemyType]--;
         spawned[enemyType]++;
 
-        yield return new WaitForSeconds(delay);
+        //yield return new WaitForSeconds(delay);
+        yield return null;
 
     }
 
@@ -340,7 +343,7 @@ public class LevelController : MonoBehaviour
         }
 
 
-        frame++;
+        frame+=Time.deltaTime;
 
 
         if (Player != null && Player.GetComponent<PlayerController>().currentHealth <= 0)
