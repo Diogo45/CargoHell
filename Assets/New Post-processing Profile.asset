@@ -49,7 +49,7 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   scale:
-    overrideState: 0
+    overrideState: 1
     value: 1
 --- !u!114 &469261126265146564
 MonoBehaviour:

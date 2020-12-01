@@ -1,0 +1,91 @@
+{
+    "config": [
+        {
+            "enemyPositions": [
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 1,
+                    "posInSide": 0.8
+                },
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 1,
+                    "posInSide": 0.2
+                }
+            ]
+        },
+        {
+            "enemyPositions": [
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 3,
+                    "posInSide": 0.4
+                },
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 3,
+                    "posInSide": 0.6
+                }
+            ]
+        },
+        {
+            "enemyPositions": [
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 1,
+                    "posInSide": 0.5
+                },
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 3,
+                    "posInSide": 0.4
+                }
+            ]
+        },
+
+        {
+            "enemyPositions": [
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 0,
+                    "posInSide": 0.5
+                },
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 0,
+                    "posInSide": 0.5
+                },
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 3,
+                    "posInSide": 0.4
+                }
+            ]
+        }
+
+        ,
+
+        {
+            "enemyPositions": [
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 2,
+                    "posInSide": 0.7
+                },
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 1,
+                    "posInSide": 0.3
+                }
+            ]
+        }
+    ],
+    "SpawnFrames": [
+        0,
+        2,
+        15,
+        27,
+        35
+    ],
+    "LevelMusic": 4
+}

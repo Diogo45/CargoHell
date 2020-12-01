@@ -10,16 +10,6 @@
                 {
                     "enemyType": "SimpleEnemy",
                     "side": 1,
-                    "posInSide": 0.6
-                },
-                {
-                    "enemyType": "SimpleEnemy",
-                    "side": 1,
-                    "posInSide": 0.4
-                },
-                {
-                    "enemyType": "SimpleEnemy",
-                    "side": 1,
                     "posInSide": 0.2
                 }
             ]
@@ -28,20 +18,35 @@
             "enemyPositions": [
                 {
                     "enemyType": "SimpleEnemy",
+                    "side": 1,
+                    "posInSide": 0.4
+                },
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 1,
+                    "posInSide": 0.6
+                }
+            ]
+        },
+        {
+            "enemyPositions": [
+                {
+                    "enemyType": "SimpleEnemy",
                     "side": 0,
-                    "posInSide": 0.5
+                    "posInSide": 0.4
                 },
                 {
                     "enemyType": "SimpleEnemy",
                     "side": 3,
-                    "posInSide": 0.5
+                    "posInSide": 0.6
                 }
             ]
         }
     ],
     "SpawnFrames": [
         0,
-        10
+        2,
+        15
     ],
     "LevelMusic": 2
 }

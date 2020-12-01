@@ -214,6 +214,8 @@ public class LevelController : MonoBehaviour
         }
 
         var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
+      
+
         var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
         comp.direction = direction;
         //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
@@ -221,7 +223,7 @@ public class LevelController : MonoBehaviour
         enemySpawnCount[enemyType]--;
         spawned[enemyType]++;
 
-        yield return new WaitForSeconds(delay);
+        yield return null;
 
     }
 
@@ -260,12 +262,23 @@ public class LevelController : MonoBehaviour
         //bloquinhos de spawn
 
         var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
-        var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
-        comp.direction = direction;
-        //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
 
-        enemySpawnCount[enemyType]--;
-        spawned[enemyType]++;
+        if (enemyType == "Spinner")
+        {
+            var comp = (IObject)newEnemy.GetComponentInChildren(typeof(IObject));
+            comp.direction = direction;
+        }
+        else
+        {
+            var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
+            comp.direction = direction;
+            //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
+
+            enemySpawnCount[enemyType]--;
+            spawned[enemyType]++;
+
+        }
+
 
         //yield return new WaitForSeconds(delay);
         yield return null;

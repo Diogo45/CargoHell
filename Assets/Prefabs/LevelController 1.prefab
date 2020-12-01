@@ -68,21 +68,21 @@ MonoBehaviour:
   GameOverCanvas: {fileID: 0}
   WinCanvas: {fileID: 0}
   enemyTypes:
-    _Buckets: 00000000ffffffff01000000
-    _HashCodes: 1061887b6dc4170400000000
-    _Next: ffffffffffffffff00000000
-    _Count: 2
-    _Version: 73
+    _Buckets: 00000000ffffffff02000000
+    _HashCodes: 1061887b6dc4170459dfcb0c
+    _Next: ffffffffffffffff01000000
+    _Count: 3
+    _Version: 89
     _FreeList: -1
     _FreeCount: 0
     _Keys:
     - SimpleEnemy
     - EnemySniper
-    - 
+    - Spinner
     _Values:
     - {fileID: 3230391293598469966, guid: 8ac40ee8d4d560a4e98ca7ee23a5434b, type: 3}
     - {fileID: 4354932906295119671, guid: 586d42554b2c78943a35f377740ee966, type: 3}
-    - {fileID: 0}
+    - {fileID: 4215495705930402437, guid: a9ccac84c35fcc348ab81867a1719ea1, type: 3}
   enemySpawnCount:
     _Buckets: 00000000ffffffff01000000
     _HashCodes: 1061887b6dc4170400000000

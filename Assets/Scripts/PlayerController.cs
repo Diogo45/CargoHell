@@ -60,8 +60,14 @@ public class PlayerController : MonoBehaviour
             collision.gameObject.GetComponent<IEnemy>().health = 0;
             currentHealth--;
         }
-    
-        if(collision.tag == "Enemy" || collision.tag == "Projectile")
+
+        if (collision.tag == "Object")
+        {
+            collision.gameObject.GetComponent<IObject>().health = 0;
+            currentHealth--;
+        }
+
+        if (collision.tag == "Enemy" || collision.tag == "Projectile")
         {
             StartCoroutine(DamageColor());
         }

@@ -8,6 +8,7 @@ TagManager:
   - ProjectileReflected
   - Enemy
   - canvas
+  - Object
   layers:
   - Default
   - TransparentFX
