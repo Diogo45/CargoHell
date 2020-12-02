@@ -38,7 +38,7 @@
                 {
                     "enemyType": "Spinner",
                     "side": 1,
-                    "posInSide": 0.4
+                    "posInSide": 0.5
                 }
             ]
         },
@@ -63,11 +63,11 @@
                 {
                     "enemyType": "Spinner",
                     "side": 0,
-                    "posInSide": 0.1
+                    "posInSide": 0.5
                 },
                 {
                     "enemyType": "Spinner",
-                    "side": 3,
+                    "side": 2,
                     "posInSide": 0.9
                 }
             ]
