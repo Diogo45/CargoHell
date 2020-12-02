@@ -87,5 +87,8 @@
         27,
         35
     ],
-    "LevelMusic": 3
+    "LevelMusic": 3,
+    "ShaderVariables": {
+        "nebulaHue": 1
+    }
 }

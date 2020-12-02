@@ -8,14 +8,30 @@ public class PlayButtonController : MonoBehaviour
 {
 
 
+
     public void ToMenu()
     {
         SceneManager.LoadScene("Menu");
     }
 
-
-    public void Level01()
+    public void Leve0_1()
     {
-        SceneManager.LoadScene("TestLevel");
+        SceneManager.LoadScene("Level1");
+    }
+
+
+    public void Leve1_2()
+    {
+        SceneManager.LoadScene("Level2");
+    }
+
+    public void Leve2_3()
+    {
+        SceneManager.LoadScene("Level3");
+    }
+
+    public void Leve3_4()
+    {
+        SceneManager.LoadScene("Level4");
     }
 }

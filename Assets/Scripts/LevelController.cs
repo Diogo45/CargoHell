@@ -22,6 +22,12 @@ public class LevelController : MonoBehaviour
         }
 
         [System.Serializable]
+        public struct ShaderVar
+        {
+            public float nebulaHue;
+        }
+
+        [System.Serializable]
         public struct EnemyConfigList
         {
             [SerializeField]
@@ -70,6 +76,11 @@ public class LevelController : MonoBehaviour
 
         }
 
+        public ShaderVar ShaderVariables = new ShaderVar
+        {
+            nebulaHue = 0.65f
+        };
+
     }
 
     public TextAsset sceneFile;
@@ -103,6 +114,8 @@ public class LevelController : MonoBehaviour
     public IntObjectDictionary spawned;
     // Max number of enemies of each type that can present on screen at one time
     public IntObjectDictionary maxScreenEnemies;
+    //PowerUp List
+    public List<GameObject> powerUpPrefabs;
 
     private bool hasWon = false;
     private bool hasLost = false;
@@ -113,6 +126,7 @@ public class LevelController : MonoBehaviour
     private float frame = 0f;
     private bool finishedSpawn = false;
 
+    public Material nebulaMat;
     // Start is called before the first frame update
     void Start()
     {
@@ -149,7 +163,9 @@ public class LevelController : MonoBehaviour
             {
                 for (int j = 0; j < sceneArgs.config[i].enemyPositions.Count; j++)
                 {
+                    
                     var enemy = sceneArgs.config[i].enemyPositions[j].enemyType;
+                    if (enemy == "Spinner") continue;
                     if (!enemySpawnCount.ContainsKey(enemy))
                     {
                         enemySpawnCount.Add(enemy, 0);
@@ -170,7 +186,7 @@ public class LevelController : MonoBehaviour
 
         LevelAudioSource.clip = levelClips[sceneArgs.LevelMusic];
         LevelAudioSource.Play();
-       
+
 
         //for (int i = 0; i < maxScreenEnemies["SimpleEnemy"]; i++)
         //{
@@ -178,8 +194,8 @@ public class LevelController : MonoBehaviour
         //}
 
 
-
-
+        nebulaMat.SetFloat("_NebulaHue", sceneArgs.ShaderVariables.nebulaHue);
+        StartCoroutine(SpawnPowerUp());
     }
 
 
@@ -285,39 +301,14 @@ public class LevelController : MonoBehaviour
 
     }
 
-    IEnumerator DeathAnim()
+    IEnumerator SpawnPowerUp()
     {
-        hasLost = true;
-        var newExplosion = Instantiate(explosionAnim, Player.transform.position, Quaternion.identity);
-        newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
-        Destroy(Player.transform.GetChild(0).gameObject);
+        yield return new WaitForSeconds(Random.Range(25f, 30f));
+        Vector2 pos = new Vector2(Random.Range(0.1f, 0.9f), Random.Range(0.1f, 0.9f));
+        Instantiate(powerUpPrefabs[0], Camera.main.ViewportToWorldPoint(new Vector3(pos.x, pos.y, 0) + Vector3.forward * 30), Quaternion.identity);
+        yield return SpawnPowerUp();
 
-        Destroy(Player);
-
-        yield return new WaitForSeconds(.5f);
-
-        GameOverCanvas.SetActive(true);
-
-        doubleAudio.CrossFade(GameOverAudioClip, 0.5f, 0.5f);
-
-        yield break;
     }
-
-
-    IEnumerator WinAnim()
-    {
-
-        yield return new WaitForSeconds(.5f);
-
-        WinCanvas.SetActive(true);
-
-        doubleAudio.CrossFade(GameOverAudioClip, 0.5f, 0.5f);
-        hasWon = true;
-
-        yield break;
-    }
-
-
     // Update is called once per frame
     void Update()
     {
@@ -415,6 +406,38 @@ public class LevelController : MonoBehaviour
 
     }
 
+
+    IEnumerator DeathAnim()
+    {
+        hasLost = true;
+        var newExplosion = Instantiate(explosionAnim, Player.transform.position, Quaternion.identity);
+        newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
+        Destroy(Player.transform.GetChild(0).gameObject);
+
+        Destroy(Player);
+
+        yield return new WaitForSeconds(.5f);
+
+        GameOverCanvas.SetActive(true);
+
+        doubleAudio.CrossFade(GameOverAudioClip, 0.5f, 0.5f);
+
+        yield break;
+    }
+
+
+    IEnumerator WinAnim()
+    {
+
+        yield return new WaitForSeconds(.5f);
+
+        WinCanvas.SetActive(true);
+
+        doubleAudio.CrossFade(GameOverAudioClip, 0.5f, 0.5f);
+        hasWon = true;
+
+        yield break;
+    }
 
 
 

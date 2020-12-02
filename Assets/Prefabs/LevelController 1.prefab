@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac5f441070026443b812485f55c85dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneFile: {fileID: 4900000, guid: 2cf874b47ef703148b810d6a68d50f53, type: 3}
+  sceneFile: {fileID: 4900000, guid: b0dc80375fa47f641ab171d92a036e4c, type: 3}
   IsFile: 0
   spawnFrame: 0
   levelClips:
@@ -122,6 +122,9 @@ MonoBehaviour:
     - EnemySniper
     - 
     _Values: 040000000200000000000000
+  powerUpPrefabs:
+  - {fileID: 1108002224396697418, guid: 24a8ecad9fe7aa14782837c9cfef0c1e, type: 3}
+  nebulaMat: {fileID: 2100000, guid: 8fa1901cf7cb13c4da4b78d1a2a1c0b5, type: 2}
 --- !u!222 &6572762989820363121
 CanvasRenderer:
   m_ObjectHideFlags: 0

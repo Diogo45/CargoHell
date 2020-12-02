@@ -7,7 +7,7 @@ public class SpinnerController : IObject
     // Start is called before the first frame update
 
     public float rotationSpeed;
-
+    private float repeat = 1;
     void Start()
     {
 

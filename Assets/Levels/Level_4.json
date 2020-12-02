@@ -3,12 +3,12 @@
         {
             "enemyPositions": [
                 {
-                    "enemyType": "SimpleEnemy",
-                    "side": 1,
-                    "posInSide": 0.8
+                    "enemyType": "EnemySniper",
+                    "side": 0,
+                    "posInSide": 0.2
                 },
                 {
-                    "enemyType": "SimpleEnemy",
+                    "enemyType": "EnemySniper",
                     "side": 1,
                     "posInSide": 0.2
                 }
@@ -19,12 +19,7 @@
                 {
                     "enemyType": "SimpleEnemy",
                     "side": 3,
-                    "posInSide": 0.4
-                },
-                {
-                    "enemyType": "SimpleEnemy",
-                    "side": 3,
-                    "posInSide": 0.6
+                    "posInSide": 0.5
                 }
             ]
         },
@@ -32,12 +27,17 @@
             "enemyPositions": [
                 {
                     "enemyType": "SimpleEnemy",
-                    "side": 1,
+                    "side": 3,
                     "posInSide": 0.5
                 },
                 {
-                    "enemyType": "SimpleEnemy",
+                    "enemyType": "EnemySniper",
                     "side": 3,
+                    "posInSide": 0.2
+                },
+                {
+                    "enemyType": "Spinner",
+                    "side": 1,
                     "posInSide": 0.4
                 }
             ]
@@ -51,14 +51,24 @@
                     "posInSide": 0.5
                 },
                 {
-                    "enemyType": "SimpleEnemy",
-                    "side": 0,
-                    "posInSide": 0.5
+                    "enemyType": "EnemySniper",
+                    "side": 1,
+                    "posInSide": 0.8
                 },
                 {
                     "enemyType": "SimpleEnemy",
                     "side": 3,
                     "posInSide": 0.4
+                },
+                {
+                    "enemyType": "Spinner",
+                    "side": 0,
+                    "posInSide": 0.1
+                },
+                {
+                    "enemyType": "Spinner",
+                    "side": 3,
+                    "posInSide": 0.9
                 }
             ]
         }
@@ -73,9 +83,9 @@
                     "posInSide": 0.7
                 },
                 {
-                    "enemyType": "SimpleEnemy",
-                    "side": 1,
-                    "posInSide": 0.3
+                    "enemyType": "EnemySniper",
+                    "side": 2,
+                    "posInSide": 0.5
                 }
             ]
         }
@@ -87,8 +97,8 @@
         27,
         35
     ],
-    "LevelMusic": 4,
     "ShaderVariables": {
-        "nebulaHue": 0.5
-    }
+        "nebulaHue": 0.75
+    },
+    "LevelMusic": 1
 }

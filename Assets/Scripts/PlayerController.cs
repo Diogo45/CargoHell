@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject Projectile;
-    
+
     private int maxPossibleHealth = 7;
 
     public int maxCurrentHealth = 3;
@@ -41,11 +41,22 @@ public class PlayerController : MonoBehaviour
     }
 
 
-   
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Projectile")
+        if (collision.gameObject.tag == "PowerUpHealth")
+        {
+            if(currentHealth < maxCurrentHealth)
+            {
+                currentHealth++;
+                Destroy(collision.gameObject);
+            }
+            
+        }
+
+
+        if (collision.gameObject.tag == "Projectile")
         {
             if (!hasCollided)
             {
@@ -55,7 +66,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(collision.tag == "Enemy")
+        if (collision.tag == "Enemy")
         {
             collision.gameObject.GetComponent<IEnemy>().health = 0;
             currentHealth--;
@@ -159,13 +170,13 @@ public class PlayerController : MonoBehaviour
         if (moveBackward)
         {
             transform.position -= transform.up * moveSpeed * Time.deltaTime;
-           
+
         }
 
 
-       
 
-        
+
+
 
 
         //if (rotateClockWise)
@@ -193,13 +204,13 @@ public class PlayerController : MonoBehaviour
         hasCollided = false;
 
 
- 
+
 
 
     }
 
 
-   
+
 
     private void SetColor(Color color)
     {

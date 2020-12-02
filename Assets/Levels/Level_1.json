@@ -48,5 +48,9 @@
         2,
         15
     ],
-    "LevelMusic": 2
+    "LevelMusic": 2,
+    "ShaderVariables": {
+        "nebulaHue": 0.65
+    }
+    
 }
