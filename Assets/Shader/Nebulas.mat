@@ -83,7 +83,7 @@ Material:
     - _Mode: 0
     - _NebulaBright: -0.18
     - _NebulaHarmonics: 2
-    - _NebulaHue: 0.65
+    - _NebulaHue: 0.75
     - _NebulaIntensity: -0.05
     - _NebulaSat: 0.67
     - _OcclusionStrength: 1
@@ -98,7 +98,7 @@ Material:
     - _StarDensity: 1.16
     - _StarGridSide: 3.96
     - _StarHarmonics: 7.07
-    - _StarSat: 0.31
+    - _StarSat: 0.35
     - _TimeScale: 50
     - _UVSec: 0
     - _ZWrite: 1

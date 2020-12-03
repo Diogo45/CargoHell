@@ -182,7 +182,7 @@
                 float4 front_stars = float4(0.0f, 0.0f, 0.0f, 1.0f);
                 float4 back_stars = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
-                for (float j = 1; j < _StarHarmonics; j++)
+                for (float j = 2; j < _StarHarmonics; j++)
                 {
                     front_stars += BrightStar(uv, fine_noise, j) / j;
                 }
