@@ -124,6 +124,7 @@ MonoBehaviour:
     _Values: 040000000200000000000000
   powerUpPrefabs:
   - {fileID: 1108002224396697418, guid: 24a8ecad9fe7aa14782837c9cfef0c1e, type: 3}
+  - {fileID: 368294850616983019, guid: 97852930d6369bf4588636f6aded1026, type: 3}
   nebulaMat: {fileID: 2100000, guid: 8fa1901cf7cb13c4da4b78d1a2a1c0b5, type: 2}
 --- !u!222 &6572762989820363121
 CanvasRenderer:

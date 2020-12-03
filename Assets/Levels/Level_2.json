@@ -52,11 +52,6 @@
                 },
                 {
                     "enemyType": "SimpleEnemy",
-                    "side": 0,
-                    "posInSide": 0.5
-                },
-                {
-                    "enemyType": "SimpleEnemy",
                     "side": 3,
                     "posInSide": 0.4
                 }
