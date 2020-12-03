@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpHealth : MonoBehaviour
+public class IPowerUp : MonoBehaviour
 {
     // Start is called before the first frame update
 

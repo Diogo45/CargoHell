@@ -130,6 +130,7 @@ public class LevelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         #region Singleton, é isso
 
         if (instance == null)
@@ -305,7 +306,9 @@ public class LevelController : MonoBehaviour
     {
         yield return new WaitForSeconds(Random.Range(25f, 30f));
         Vector2 pos = new Vector2(Random.Range(0.1f, 0.9f), Random.Range(0.1f, 0.9f));
-        Instantiate(powerUpPrefabs[0], Camera.main.ViewportToWorldPoint(new Vector3(pos.x, pos.y, 0) + Vector3.forward * 30), Quaternion.identity);
+        int probability = Random.Range(0, 2);
+        Instantiate(powerUpPrefabs[probability], Camera.main.ViewportToWorldPoint(new Vector3(pos.x, pos.y, 0) + Vector3.forward * 30), Quaternion.identity);
+
         yield return SpawnPowerUp();
 
     }

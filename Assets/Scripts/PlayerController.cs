@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     public float AngularSpeed;
 
-
+    public bool PlayerInvulnerable = false;
 
     void Start()
     {
@@ -45,16 +45,26 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+
         if (collision.gameObject.tag == "PowerUpHealth")
         {
-            if(currentHealth < maxCurrentHealth)
+            if (currentHealth < maxCurrentHealth)
             {
                 currentHealth++;
                 Destroy(collision.gameObject);
             }
-            
+
         }
 
+        if (collision.gameObject.tag == "PowerUpInv")
+        {
+            StartCoroutine(Invulnerability(5f));
+            Destroy(collision.gameObject);
+        }
+
+        if (PlayerInvulnerable)
+            return;
 
         if (collision.gameObject.tag == "Projectile")
         {
@@ -80,18 +90,38 @@ public class PlayerController : MonoBehaviour
 
         if (collision.tag == "Enemy" || collision.tag == "Projectile")
         {
-            StartCoroutine(DamageColor());
+            StartCoroutine(StrobeColor(Color.white));
         }
     }
 
 
-    IEnumerator DamageColor()
+    IEnumerator Invulnerability(float duration)
+    {
+        PlayerInvulnerable = true;
+        Color c = Color.cyan;
+        c.a = 0.4f;
+        material.color = c;
+
+        yield return new WaitForSeconds(duration * 0.8f);
+        StartCoroutine(StrobeColor(Color.cyan));
+        yield return new WaitForSeconds(duration * 0.2f);
+
+        PlayerInvulnerable = false;
+        c = Color.white;
+        c.a = 0;
+        material.color = c;
+
+    }
+
+    IEnumerator StrobeColor(Color c)
     {
         for (int i = 0; i < 5; i++)
         {
-            SetColor(Color.white);
+            c.a = 1f;
+            SetColor(c);
             yield return new WaitForSeconds(0.1f);
-            SetColor(new Color(1, 1, 1, 0));
+            c.a = 0f;
+            SetColor(c);
             yield return new WaitForSeconds(0.1f);
         }
     }
