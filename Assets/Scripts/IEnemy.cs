@@ -2,15 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum EnemyType
+{
+    SIMPLE, SNIPER, SPINNER, STORMTROOPER
+}
+
 public class IEnemy : MonoBehaviour
 {
     public float health;
+    public EnemyType type;
+
     public GameObject projectile;
     public GameObject explosion;
     public AudioClip explosionSound;
     public Vector3 direction;
     private bool enteredScene = false;
     public float speed;
+
+
+    public delegate void OnDestroy(GameObject obj);
+    public static event OnDestroy OnDestroyEvent;
 
     public void Update()
     {
@@ -19,7 +31,7 @@ public class IEnemy : MonoBehaviour
 
         if (enteredScene)
         {
-           
+
             if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
             {
                 OutOfBounds();
@@ -32,6 +44,13 @@ public class IEnemy : MonoBehaviour
         {
             enteredScene = true;
         }
+
+        if (health <= 0)
+        {
+            OnDestroyEvent(gameObject);
+        }
+
+        
 
     }
 

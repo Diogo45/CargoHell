@@ -81,9 +81,9 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _NebulaBright: -0.18
+    - _NebulaBright: -0.25
     - _NebulaHarmonics: 2
-    - _NebulaHue: 0.75
+    - _NebulaHue: 0.65
     - _NebulaIntensity: -0.05
     - _NebulaSat: 0.67
     - _OcclusionStrength: 1

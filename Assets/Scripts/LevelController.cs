@@ -52,10 +52,12 @@ public class LevelController : MonoBehaviour
                 {
                     new EnemyConfig
                     {
-                        enemyType = "EnemySniper", side = 1, posInSide = 0.7f },
+                        enemyType = "EnemySniper", side = 1, posInSide = 0.7f 
+                    },
                     new EnemyConfig
                     {
-                        enemyType = "EnemySniper", side = 3, posInSide = 0.4f }
+                        enemyType = "EnemySniper", side = 3, posInSide = 0.4f 
+                    }
 
                 }
             });
@@ -83,7 +85,7 @@ public class LevelController : MonoBehaviour
 
     }
 
-    public TextAsset sceneFile;
+    public int sceneFile;
     public bool IsFile = false;
 
     public SceneArgs sceneArgs;
@@ -114,6 +116,9 @@ public class LevelController : MonoBehaviour
     public IntObjectDictionary spawned;
     // Max number of enemies of each type that can present on screen at one time
     public IntObjectDictionary maxScreenEnemies;
+
+    public List<GameObject> enemyAlive;
+
     //PowerUp List
     public List<GameObject> powerUpPrefabs;
 
@@ -142,42 +147,42 @@ public class LevelController : MonoBehaviour
             Destroy(gameObject);
         }
         #endregion
+
         sceneArgs = new SceneArgs();
-        System.IO.File.WriteAllText(string.Format("{0}\\Levels\\BaseLevel.json", Application.dataPath), JsonUtility.ToJson(sceneArgs));
+        System.IO.File.WriteAllText(string.Format("{0}\\Levels\\BaseLevel.json", Application.streamingAssetsPath), JsonUtility.ToJson(sceneArgs));
 
         //Debug.Log(JsonUtility.ToJson(sceneArgs));
 
-        if (sceneFile)
+
+        IsFile = true;
+        //Debug.Log(@"Levels\" + sceneFile.name);
+        var jsonText = System.IO.File.ReadAllText(Application.streamingAssetsPath + @"\Levels\Level_" + sceneFile + ".json");
+        sceneArgs = JsonUtility.FromJson<SceneArgs>(jsonText);
+        if (sceneArgs.config.Count != sceneArgs.SpawnFrames.Length)
         {
-            IsFile = true;
-            //Debug.Log(@"Levels\" + sceneFile.name);
-            var jsonText = System.IO.File.ReadAllText(Application.dataPath + @"\Levels\" + sceneFile.name + ".json");
-            sceneArgs = JsonUtility.FromJson<SceneArgs>(jsonText);
-            if (sceneArgs.config.Count != sceneArgs.SpawnFrames.Length)
-            {
-                Debug.LogError("ENEMY POS LENGTH DIFFERENT FROM SCENE FRAMES LENGTH");
-            }
-
-            enemySpawnCount = new IntObjectDictionary();
-
-            for (int i = 0; i < sceneArgs.config.Count; i++)
-            {
-                for (int j = 0; j < sceneArgs.config[i].enemyPositions.Count; j++)
-                {
-                    
-                    var enemy = sceneArgs.config[i].enemyPositions[j].enemyType;
-                    if (enemy == "Spinner") continue;
-                    if (!enemySpawnCount.ContainsKey(enemy))
-                    {
-                        enemySpawnCount.Add(enemy, 0);
-                    }
-                    enemySpawnCount[enemy]++;
-                }
-            }
-
+            Debug.LogError("ENEMY POS LENGTH DIFFERENT FROM SCENE FRAMES LENGTH");
         }
 
-   
+        enemySpawnCount = new IntObjectDictionary();
+
+        for (int i = 0; i < sceneArgs.config.Count; i++)
+        {
+            for (int j = 0; j < sceneArgs.config[i].enemyPositions.Count; j++)
+            {
+
+                var enemy = sceneArgs.config[i].enemyPositions[j].enemyType;
+                if (enemy == "Spinner") continue;
+                if (!enemySpawnCount.ContainsKey(enemy))
+                {
+                    enemySpawnCount.Add(enemy, 0);
+                }
+                enemySpawnCount[enemy]++;
+            }
+        }
+
+
+        
+
         spawned = new IntObjectDictionary();
 
         foreach (var enemyType in enemyTypes.Keys)
@@ -194,6 +199,7 @@ public class LevelController : MonoBehaviour
         //    StartCoroutine((SpawnEnemyRand("SimpleEnemy", Random.Range(2f, 4f))));
         //}
 
+        enemyAlive = new List<GameObject>();
 
         nebulaMat.SetFloat("_NebulaHue", sceneArgs.ShaderVariables.nebulaHue);
         StartCoroutine(SpawnPowerUp());
@@ -231,7 +237,7 @@ public class LevelController : MonoBehaviour
         }
 
         var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
-      
+
 
         var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
         comp.direction = direction;
@@ -279,6 +285,7 @@ public class LevelController : MonoBehaviour
         //bloquinhos de spawn
 
         var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
+        enemyAlive.Add(newEnemy);
 
         if (enemyType == "Spinner")
         {
@@ -288,6 +295,15 @@ public class LevelController : MonoBehaviour
         else
         {
             var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
+            switch (enemyType)
+            {
+                case "SimpleEnemy":
+                    comp.type = EnemyType.SIMPLE;
+                    break;
+                case "EnemySniper":
+                    comp.type = EnemyType.SNIPER;
+                    break;
+            }
             comp.direction = direction;
             //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
 
@@ -350,7 +366,7 @@ public class LevelController : MonoBehaviour
         }
 
 
-        frame+=Time.deltaTime;
+        frame += Time.deltaTime;
 
 
         if (Player != null && Player.GetComponent<PlayerController>().currentHealth <= 0)
@@ -471,5 +487,33 @@ public class LevelController : MonoBehaviour
         }
 
         return (spawnPos, direction);
+    }
+
+    private void OnEnable()
+    {
+        IEnemy.OnDestroyEvent += IEnemy_OnDestroyEvent;
+    }
+
+    private void IEnemy_OnDestroyEvent(GameObject obj)
+    {
+        //Debug.Log("MORREU " + obj.name + obj.GetComponent<IEnemy>().type);
+        //TODO: UI OUCH OOF aqle get component
+        var enemy = obj.GetComponent<IEnemy>();
+        var newExplosion = Instantiate(enemy.explosion, obj.transform.position, Quaternion.identity);
+        newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
+
+        switch (enemy.type)
+        {
+            case EnemyType.SIMPLE:
+                LevelController.instance.spawned["SimpleEnemy"]--;
+                break;
+            case EnemyType.SNIPER:
+                LevelController.instance.spawned["EnemySniper"]--;
+                break;
+        }
+
+
+        Destroy(obj);
+        enemyAlive.Remove(obj);
     }
 }

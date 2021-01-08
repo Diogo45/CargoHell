@@ -2637,8 +2637,8 @@ PrefabInstance:
     - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
         type: 3}
       propertyPath: sceneFile
-      value: 
-      objectReference: {fileID: 4900000, guid: a6749f730aece50478d4f37a16d21d35, type: 3}
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
         type: 3}
       propertyPath: powerUpPrefabs.Array.data[1]

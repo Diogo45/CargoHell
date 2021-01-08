@@ -214,12 +214,12 @@ public class PlayerController : MonoBehaviour
         //if (rotateCounterClockWise)
         //    transform.Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            var newProj = Instantiate(Projectile, transform.position + (transform.up * 1.5f), Quaternion.identity);
-            newProj.transform.up = transform.up;
-            newProj.tag = "ProjectileReflected";
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    var newProj = Instantiate(Projectile, transform.position + (transform.up * 1.5f), Quaternion.identity);
+        //    newProj.transform.up = transform.up;
+        //    newProj.tag = "ProjectileReflected";
+        //}
 
         #endregion
 

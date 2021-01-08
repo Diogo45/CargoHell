@@ -79,15 +79,15 @@ public class SimpleEnemy : IEnemy
         //}
 
 
-        if (health <= 0)
-        {
-            var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
-            newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
-            //LevelController.instance.enemySpawnCount["SimpleEnemy"]--;
-            LevelController.instance.spawned["SimpleEnemy"]--;
-            //Destroy(transform.parent.gameObject);
-            Destroy(gameObject);
+        //if (health <= 0)
+        //{
+        //    var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+        //    newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
+        //    //LevelController.instance.enemySpawnCount["SimpleEnemy"]--;
+        //    LevelController.instance.spawned["SimpleEnemy"]--;
+        //    //Destroy(transform.parent.gameObject);
+        //    Destroy(gameObject);
 
-        }
+        //}
     }
 }
