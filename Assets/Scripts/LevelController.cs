@@ -132,6 +132,8 @@ public class LevelController : MonoBehaviour
     private bool finishedSpawn = false;
 
     public Material nebulaMat;
+    private bool startedCoroutine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -164,12 +166,10 @@ public class LevelController : MonoBehaviour
         }
 
         enemySpawnCount = new IntObjectDictionary();
-
         for (int i = 0; i < sceneArgs.config.Count; i++)
         {
             for (int j = 0; j < sceneArgs.config[i].enemyPositions.Count; j++)
             {
-
                 var enemy = sceneArgs.config[i].enemyPositions[j].enemyType;
                 if (enemy == "Spinner") continue;
                 if (!enemySpawnCount.ContainsKey(enemy))
@@ -179,7 +179,6 @@ public class LevelController : MonoBehaviour
                 enemySpawnCount[enemy]++;
             }
         }
-
 
         
 
@@ -203,6 +202,7 @@ public class LevelController : MonoBehaviour
 
         nebulaMat.SetFloat("_NebulaHue", sceneArgs.ShaderVariables.nebulaHue);
         StartCoroutine(SpawnPowerUp());
+        StartCoroutine(CheckEndGame());
     }
 
 
@@ -285,7 +285,14 @@ public class LevelController : MonoBehaviour
         //bloquinhos de spawn
 
         var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
-        enemyAlive.Add(newEnemy);
+        //if(enemyType == "Spinner")
+        //{
+
+        //}
+        //else
+        //{
+
+        //}
 
         if (enemyType == "Spinner")
         {
@@ -294,6 +301,8 @@ public class LevelController : MonoBehaviour
         }
         else
         {
+            enemyAlive.Add(newEnemy);
+
             var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
             switch (enemyType)
             {
@@ -305,7 +314,6 @@ public class LevelController : MonoBehaviour
                     break;
             }
             comp.direction = direction;
-            //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
 
             enemySpawnCount[enemyType]--;
             spawned[enemyType]++;
@@ -313,7 +321,6 @@ public class LevelController : MonoBehaviour
         }
 
 
-        //yield return new WaitForSeconds(delay);
         yield return null;
 
     }
@@ -334,21 +341,12 @@ public class LevelController : MonoBehaviour
 
         if (IsFile)
         {
-            if (sceneArgs.SpawnFrames[spawnFrame] <= frame && !finishedSpawn)
+            
+            if (enemyAlive.Count <= 0 && !startedCoroutine)
             {
-                for (int i = 0; i < sceneArgs.config[spawnFrame].enemyPositions.Count; i++)
-                {
-                    StartCoroutine(SpawnEnemyFile(i, Random.Range(2f, 4f)));
-                }
-                if (spawnFrame < sceneArgs.config.Count - 1)
-                {
-                    spawnFrame++;
-                }
-                else
-                {
-                    finishedSpawn = true;
-                }
-
+                startedCoroutine = true;
+                StartCoroutine(Spawn(2));
+                
             }
 
 
@@ -375,36 +373,7 @@ public class LevelController : MonoBehaviour
         }
 
         //TODO: Make the win animation generic for every enemy type
-        bool isThereEnemiesLeft = false;
-
-
-        foreach (var item in enemySpawnCount.Values)
-        {
-            if (item > 0)
-            {
-                isThereEnemiesLeft = true;
-                break;
-            }
-
-        }
-
-
-        if (!isThereEnemiesLeft)
-        {
-            foreach (var item in spawned.Values)
-            {
-                if (item > 0)
-                {
-                    isThereEnemiesLeft = true;
-                    break;
-                }
-            }
-
-            if (!hasWon && !hasLost && !isThereEnemiesLeft)
-            {
-                StartCoroutine(WinAnim());
-            }
-        }
+       
 
 
         //foreach (var enemyType in enemyTypes.Keys)
@@ -423,6 +392,84 @@ public class LevelController : MonoBehaviour
 
 
 
+    }
+
+    IEnumerator Spawn(float delay)
+    {
+
+        
+        yield return new WaitForSeconds(delay);
+
+        if (/*sceneArgs.SpawnFrames[spawnFrame] <= frame &&*/ !finishedSpawn)
+        {
+            for (int i = 0; i < sceneArgs.config[spawnFrame].enemyPositions.Count; i++)
+            {
+                StartCoroutine(SpawnEnemyFile(i, Random.Range(2f, 4f)));
+            }
+            if (spawnFrame < sceneArgs.config.Count - 1)
+            {
+                spawnFrame++;
+            }
+            else
+            {
+                //Para travar o spawn na ultima wave senao da bosta
+                finishedSpawn = true;
+            }
+
+        }
+
+        startedCoroutine = false;
+
+        yield break;
+    }
+
+    IEnumerator CheckEndGame()
+    {
+        yield return new WaitForSeconds(1);
+        
+        bool isThereEnemiesLeft = false;
+
+        foreach (var item in enemySpawnCount.Values)
+        {
+            if (item > 0)
+            {
+                isThereEnemiesLeft = true;
+                break;
+            }
+
+        }
+
+
+        if (!isThereEnemiesLeft)
+        {
+
+            foreach (var item in enemyAlive)
+            {
+                if (item)
+                {
+                    isThereEnemiesLeft = true;
+                    break;
+                }
+            }
+
+            foreach (var item in spawned.Values)
+            {
+                if (item > 0)
+                {
+                    isThereEnemiesLeft = true;
+                    break;
+                }
+            }
+
+
+            if (!hasWon && !hasLost && !isThereEnemiesLeft)
+            {
+                StartCoroutine(WinAnim());
+                yield break;
+            }
+        }
+
+        yield return CheckEndGame();
     }
 
 
@@ -502,13 +549,15 @@ public class LevelController : MonoBehaviour
         var newExplosion = Instantiate(enemy.explosion, obj.transform.position, Quaternion.identity);
         newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
 
+        //TEM Q RESOLVER ESSES NOMESSS
+        //USAR INTS PRA BATER COM O ENUM
         switch (enemy.type)
         {
             case EnemyType.SIMPLE:
-                LevelController.instance.spawned["SimpleEnemy"]--;
+                instance.spawned["SimpleEnemy"]--;
                 break;
             case EnemyType.SNIPER:
-                LevelController.instance.spawned["EnemySniper"]--;
+                instance.spawned["EnemySniper"]--;
                 break;
         }
 
