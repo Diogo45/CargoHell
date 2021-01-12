@@ -8,9 +8,23 @@ public class SpinnerController : IObject
 
     public float rotationSpeed;
     private float repeat = 1;
+    private bool hasCollided;
     void Start()
     {
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "ProjectileReflected" || collision.gameObject.tag == "Projectile")
+        {
+            if (!hasCollided)
+            {
+                health--;
+                Destroy(collision.gameObject);
+                hasCollided = true;
+            }
+        }
     }
 
     // Update is called once per frame
