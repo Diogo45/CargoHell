@@ -20,7 +20,7 @@ public class IObject : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         var pos = Camera.main.WorldToViewportPoint(transform.position);
 

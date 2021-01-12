@@ -16,6 +16,7 @@ public class SpinnerController : IObject
     // Update is called once per frame
     void Update()
     {
+        base.Update();
 
         transform.position += (direction * speed) * Time.deltaTime;
 
