@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Nebulas
-  m_Shader: {fileID: 4800000, guid: 4b1b676ac56be8942b112b26704b84e0, type: 3}
+  m_Name: Player
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -21,10 +21,6 @@ Material:
     m_TexEnvs:
     - _BumpMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _CoarseNoiseTex:
-        m_Texture: {fileID: 2800000, guid: 4069f89628128974faecd4b2ed243060, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -43,20 +39,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _FineNoiseTex:
-        m_Texture: {fileID: 2800000, guid: 1ba2889bb09ea7e42924e6caccfaedd3, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NebulaRampTex:
-        m_Texture: {fileID: 2800000, guid: d2d9b79c2a52b7840a040e0f43e34892, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -68,42 +56,22 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - PixelSnap: 0
-    - _BGBright: -0.03
-    - _BGIntensity: 3.43
-    - _BGSat: 0.43
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _NebulaBright: -0.25
-    - _NebulaHarmonics: 2
-    - _NebulaHue: 0.5
-    - _NebulaIntensity: -0.05
-    - _NebulaSat: 0.67
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PixelCountU: 2048
-    - _PixelCountV: 2048
-    - _SlideIntensity: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _StarBright: 0.004
-    - _StarDensity: 1.16
-    - _StarGridSide: 3.96
-    - _StarHarmonics: 7.07
-    - _StarSat: 0.35
-    - _TimeScale: 50
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0, g: 0.5844655, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _NebulaHarmonics: {r: 1, g: 1, b: 0, a: 0}
-    - _NoiseSlice: {r: 1.49, g: 1.89, b: 1, a: 1}

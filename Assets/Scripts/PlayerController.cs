@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-
+#if UNITY_ANDROID
+    public VariableJoystick variableJoystick;
+#endif
     public GameObject Projectile;
 
     private int maxPossibleHealth = 7;
@@ -131,7 +133,9 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        #region Input
+#region Input
+
+#if UNITY_STANDALONE
 
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -177,9 +181,19 @@ public class PlayerController : MonoBehaviour
             moveBackward = false;
         }
 
-        #endregion
+#endif
 
-        #region Apply Input
+#if UNITY_ANDROID
+
+        
+
+
+#endif
+
+
+#endregion
+
+#region Apply Input
 
 
         Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
@@ -221,16 +235,16 @@ public class PlayerController : MonoBehaviour
         //    newProj.tag = "ProjectileReflected";
         //}
 
-        #endregion
+#endregion
 
-        #region Limit to screen space
+#region Limit to screen space
 
         var pos = Camera.main.WorldToViewportPoint(transform.position);
         pos.x = Mathf.Clamp01(pos.x);
         pos.y = Mathf.Clamp01(pos.y);
         transform.position = Camera.main.ViewportToWorldPoint(pos);
 
-        #endregion
+#endregion
         hasCollided = false;
 
 
