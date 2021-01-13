@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 [System.Serializable] public class GameObjectDictionary : SerializableDictionary<string, GameObject> { }
 [System.Serializable] public class IntObjectDictionary : SerializableDictionary<string, int> { }
@@ -153,15 +155,36 @@ public class LevelController : MonoBehaviour
 
 
         sceneArgs = new SceneArgs();
+#if UNITY_EDITOR
         System.IO.File.WriteAllText(string.Format("{0}\\Levels\\BaseLevel.json", Application.streamingAssetsPath), JsonUtility.ToJson(sceneArgs));
-
+#endif
         //Debug.Log(JsonUtility.ToJson(sceneArgs));
 
 
         IsFile = true;
         //Debug.Log(@"Levels\" + sceneFile.name);
-        var jsonText = System.IO.File.ReadAllText(Application.streamingAssetsPath + @"\Levels\Level_" + sceneFile + ".json");
-        sceneArgs = JsonUtility.FromJson<SceneArgs>(jsonText);
+        try
+        {
+#if UNITY_ANDROID
+            WWW reader = new WWW(Application.streamingAssetsPath + @"\Levels\Level_" + sceneFile + ".json");
+            while (!reader.isDone)
+            {
+            }
+            sceneArgs = JsonUtility.FromJson<SceneArgs>(reader.text);
+#endif 
+
+
+#if UNITY_STANDALONE
+            var jsonText = System.IO.File.ReadAllText(Application.streamingAssetsPath + @"\Levels\Level_" + sceneFile + ".json");
+            sceneArgs = JsonUtility.FromJson<SceneArgs>(jsonText);
+#endif
+        }
+        catch (Exception e)
+        {
+            var errorObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+            errorObj.transform.position = Player.transform.position;
+        }
+        
         if (sceneArgs.config.Count != sceneArgs.SpawnFrames.Length)
         {
             Debug.LogError("ENEMY POS LENGTH DIFFERENT FROM SCENE FRAMES LENGTH");

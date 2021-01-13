@@ -24,12 +24,15 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public AxisOptions AxisOptions { get { return AxisOptions; } set { axisOptions = value; } }
     public bool SnapX { get { return snapX; } set { snapX = value; } }
     public bool SnapY { get { return snapY; } set { snapY = value; } }
+    public bool Reset { get { return reset; } set { reset = value; } }
 
     [SerializeField] private float handleRange = 1;
     [SerializeField] private float deadZone = 0;
     [SerializeField] private AxisOptions axisOptions = AxisOptions.Both;
     [SerializeField] private bool snapX = false;
     [SerializeField] private bool snapY = false;
+
+    [SerializeField] private bool reset = false;
 
     [SerializeField] protected RectTransform background = null;
     [SerializeField] private RectTransform handle = null;
@@ -131,8 +134,12 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     public virtual void OnPointerUp(PointerEventData eventData)
     {
-        input = Vector2.zero;
-        handle.anchoredPosition = Vector2.zero;
+        if (reset)
+        {
+            input = Vector2.zero;
+            handle.anchoredPosition = Vector2.zero;
+        }
+        
     }
 
     protected Vector2 ScreenPointToAnchoredPosition(Vector2 screenPosition)

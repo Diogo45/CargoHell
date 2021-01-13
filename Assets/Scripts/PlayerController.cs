@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         material = gameObject.GetComponent<SpriteRenderer>().material;
+        
     }
 
 
