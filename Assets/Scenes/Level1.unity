@@ -724,6 +724,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1996386810}
+    - target: {fileID: 1848730184159352637, guid: c3955e22cd4dbb94789fbde347b76bbc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1848730185298506576, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1266,6 +1271,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1293470222618948506, guid: 9274e22cd7a8e3844b81c44af2e41ed5,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Leve0_1
+      objectReference: {fileID: 0}
     - target: {fileID: 8556390536345482040, guid: 9274e22cd7a8e3844b81c44af2e41ed5,
         type: 3}
       propertyPath: m_Name

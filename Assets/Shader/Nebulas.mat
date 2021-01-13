@@ -83,7 +83,7 @@ Material:
     - _Mode: 0
     - _NebulaBright: -0.25
     - _NebulaHarmonics: 2
-    - _NebulaHue: 0.65
+    - _NebulaHue: 0.5
     - _NebulaIntensity: -0.05
     - _NebulaSat: 0.67
     - _OcclusionStrength: 1
