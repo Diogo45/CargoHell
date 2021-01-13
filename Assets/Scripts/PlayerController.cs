@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
 #if UNITY_ANDROID
-    public VariableJoystick variableJoystick;
+    public FixedJoystick moveJoystick;
+    public FixedJoystick lookJoystick;
 #endif
     public GameObject Projectile;
 
@@ -23,8 +24,8 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed;
 
-    private bool moveForward = false;
-    private bool moveBackward = false;
+    private float moveForward = 0f;
+    private float moveBackward = 0f;
 
     private bool rotateClockWise = false;
     private bool rotateCounterClockWise = false;
@@ -133,7 +134,7 @@ public class PlayerController : MonoBehaviour
     {
 
 
-#region Input
+        #region Input
 
 #if UNITY_STANDALONE
 
@@ -162,42 +163,60 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            moveForward = true;
+            moveForward = 1f;
 
         }
         else if (Input.GetKeyUp(KeyCode.W))
         {
-            moveForward = false;
+            moveForward = 0f;
         }
 
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            moveBackward = true;
+            moveBackward = 1f;
 
         }
         else if (Input.GetKeyUp(KeyCode.S))
         {
-            moveBackward = false;
+            moveBackward = 0f;
         }
 
 #endif
 
 #if UNITY_ANDROID
 
-        
+        if(moveJoystick.Vertical > 0f)
+        {
+            moveBackward = 0f;
+            moveForward = moveJoystick.Vertical;
+        }
+        else
+        {
+            moveForward = 0f;
+            moveBackward = -moveJoystick.Vertical;
+        }
+
+#endif
+
+#endregion
+
+        #region Apply Input
+
+
+
+#if UNITY_ANDROID
+
+        Vector2 direction = Vector3.up * lookJoystick.Vertical + Vector3.right * lookJoystick.Horizontal;
 
 
 #endif
 
-
-#endregion
-
-#region Apply Input
-
+#if UNITY_STANDALONE
 
         Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
+#endif
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         angle -= 90f;
@@ -206,12 +225,12 @@ public class PlayerController : MonoBehaviour
 
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, AngularSpeed * Time.deltaTime);
 
-        if (moveForward)
+        if (moveForward > 0f)
         {
             transform.position += transform.up * moveSpeed * Time.deltaTime;
 
         }
-        if (moveBackward)
+        if (moveBackward > 0f)
         {
             transform.position -= transform.up * moveSpeed * Time.deltaTime;
 

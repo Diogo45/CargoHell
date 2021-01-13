@@ -150,6 +150,8 @@ public class LevelController : MonoBehaviour
         }
         #endregion
 
+
+
         sceneArgs = new SceneArgs();
         System.IO.File.WriteAllText(string.Format("{0}\\Levels\\BaseLevel.json", Application.streamingAssetsPath), JsonUtility.ToJson(sceneArgs));
 
