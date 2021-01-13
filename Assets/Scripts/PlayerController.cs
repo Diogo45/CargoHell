@@ -228,12 +228,12 @@ public class PlayerController : MonoBehaviour
 
         if (moveForward > 0f)
         {
-            transform.position += transform.up * moveSpeed * Time.deltaTime;
+            transform.position += transform.up * moveSpeed * moveForward * Time.deltaTime;
 
         }
         if (moveBackward > 0f)
         {
-            transform.position -= transform.up * moveSpeed * Time.deltaTime;
+            transform.position -= transform.up * moveSpeed * moveBackward * Time.deltaTime;
 
         }
 
