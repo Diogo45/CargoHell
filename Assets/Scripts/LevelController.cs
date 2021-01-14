@@ -20,7 +20,7 @@ public class LevelController : MonoBehaviour
 
             public int side;
             public float posInSide;
-
+            public float delay;
         }
 
         [System.Serializable]
@@ -181,14 +181,15 @@ public class LevelController : MonoBehaviour
         }
         catch (Exception e)
         {
+            Debug.LogError(e);
             var errorObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
             errorObj.transform.position = Player.transform.position;
         }
         
-        if (sceneArgs.config.Count != sceneArgs.SpawnFrames.Length)
-        {
-            Debug.LogError("ENEMY POS LENGTH DIFFERENT FROM SCENE FRAMES LENGTH");
-        }
+        //if (sceneArgs.config.Count != sceneArgs.SpawnFrames.Length)
+        //{
+        //    Debug.LogError("ENEMY POS LENGTH DIFFERENT FROM SCENE FRAMES LENGTH");
+        //}
 
         enemySpawnCount = new IntObjectDictionary();
         for (int i = 0; i < sceneArgs.config.Count; i++)
@@ -277,6 +278,7 @@ public class LevelController : MonoBehaviour
 
     IEnumerator SpawnEnemyFile(int i, float delay)
     {
+
         string enemyType = sceneArgs.config[spawnFrame].enemyPositions[i].enemyType;
         //if (spawned[enemyType] >= maxScreenEnemies[enemyType])
         //{
@@ -305,19 +307,11 @@ public class LevelController : MonoBehaviour
                 direction = Vector2.right;
                 break;
         }
-        //spawn Fixo
-        //se sobrevi
-        //bloquinhos de spawn
+
+        yield return new WaitForSeconds(delay);
+
 
         var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
-        //if(enemyType == "Spinner")
-        //{
-
-        //}
-        //else
-        //{
-
-        //}
 
         if (enemyType == "Spinner")
         {
@@ -429,7 +423,7 @@ public class LevelController : MonoBehaviour
         {
             for (int i = 0; i < sceneArgs.config[spawnFrame].enemyPositions.Count; i++)
             {
-                StartCoroutine(SpawnEnemyFile(i, Random.Range(2f, 4f)));
+                StartCoroutine(SpawnEnemyFile(i, sceneArgs.config[spawnFrame].enemyPositions[i].delay));
             }
             if (spawnFrame < sceneArgs.config.Count - 1)
             {

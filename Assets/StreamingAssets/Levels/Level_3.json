@@ -11,20 +11,18 @@
                     "enemyType": "EnemySniper",
                     "side": 1,
                     "posInSide": 0.2
-                }
-            ]
-        },
-        {
-            "enemyPositions": [
-                {
-                    "enemyType": "SimpleEnemy",
-                    "side": 3,
-                    "posInSide": 0.4
                 },
                 {
                     "enemyType": "SimpleEnemy",
                     "side": 3,
-                    "posInSide": 0.6
+                    "posInSide": 0.4,
+                    "delay": 2
+                },
+                {
+                    "enemyType": "SimpleEnemy",
+                    "side": 3,
+                    "posInSide": 0.6,
+                    "delay": 2
                 }
             ]
         },
@@ -59,23 +57,18 @@
                     "enemyType": "SimpleEnemy",
                     "side": 3,
                     "posInSide": 0.4
-                }
-            ]
-        }
-
-        ,
-
-        {
-            "enemyPositions": [
+                },
                 {
                     "enemyType": "SimpleEnemy",
                     "side": 2,
-                    "posInSide": 0.7
+                    "posInSide": 0.7,
+                    "delay": 8
                 },
                 {
                     "enemyType": "SimpleEnemy",
                     "side": 1,
-                    "posInSide": 0.3
+                    "posInSide": 0.3,
+                    "delay": 8
                 }
             ]
         }

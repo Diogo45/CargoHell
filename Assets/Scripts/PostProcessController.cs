@@ -9,14 +9,14 @@ public class PostProcessController : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public PostProcessVolume volume;
+    public Volume volume;
     public ParticleSystem particleSystem;
     public AudioSource audioSource;
 
-    private ChromaticAberration chromatic = null;
+    private UnityEngine.Rendering.Universal.ChromaticAberration chromatic;
     private float chromaticIntensity;
 
-    private Bloom bloom = null;
+    private UnityEngine.Rendering.Universal.Bloom bloom;
     private float bloomIntensity;
 
     private float[] multiChannelSamples;
@@ -25,10 +25,11 @@ public class PostProcessController : MonoBehaviour
 
     void Start()
     {
-        volume.profile.TryGetSettings(out chromatic);
-        chromaticIntensity = chromatic.intensity;
-        volume.profile.TryGetSettings(out bloom);
-        bloomIntensity = bloom.intensity;
+        
+        volume.profile.TryGet(out chromatic);
+        chromaticIntensity = chromatic.intensity.value;
+        volume.profile.TryGet(out bloom);
+        bloomIntensity = bloom.intensity.value;
 
 
         multiChannelSamples = new float[1024];
@@ -59,10 +60,10 @@ public class PostProcessController : MonoBehaviour
         mean /= 1024;
 
         chromatic.intensity.value = chromaticIntensity + mean * 200;
-        chromatic.enabled.value = true;
+        chromatic.active = true;
 
         bloom.intensity.value = bloomIntensity + mean * 200;
-        bloom.enabled.value = true;
+        bloom.active = true;
 
 
         sampleIndex++;

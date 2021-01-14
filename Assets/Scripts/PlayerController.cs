@@ -27,9 +27,6 @@ public class PlayerController : MonoBehaviour
     private float moveForward = 0f;
     private float moveBackward = 0f;
 
-    private bool rotateClockWise = false;
-    private bool rotateCounterClockWise = false;
-
     private Material material;
     public int MaxPossibleHealth { get => maxPossibleHealth; set => maxPossibleHealth = value; }
 
