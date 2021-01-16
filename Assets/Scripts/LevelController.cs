@@ -391,23 +391,6 @@ public class LevelController : MonoBehaviour
             StartCoroutine(DeathAnim());
         }
 
-        //TODO: Make the win animation generic for every enemy type
-       
-
-
-        //foreach (var enemyType in enemyTypes.Keys)
-        //{
-        //    if (enemySpawnCount[enemyType] != 0)
-        //    {
-        //        return;
-        //    }
-
-        //    if (spawned[enemyType] > 0)
-        //    {
-        //        return;
-        //    }
-        //}
-
 
 
 
