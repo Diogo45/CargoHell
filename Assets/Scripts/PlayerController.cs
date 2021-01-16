@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        movType = (MOVEMENT) PlayerPrefs.GetInt("InputType", 0);
+
         material = gameObject.GetComponent<SpriteRenderer>().material;
         if(movType == MOVEMENT.TWO_JOYSTICK)
         {
@@ -49,6 +51,7 @@ public class PlayerController : MonoBehaviour
         else if(movType == MOVEMENT.ONE_JOYSTICK)
         {
             lookJoystick.gameObject.SetActive(false);
+            moveJoystick.Reset = false;
         }
         else
         {
@@ -265,9 +268,13 @@ public class PlayerController : MonoBehaviour
 
 #if UNITY_ANDROID
 
-        if (movType == MOVEMENT.TWO_JOYSTICK || movType == MOVEMENT.ONE_JOYSTICK)
+        if (movType == MOVEMENT.TWO_JOYSTICK)
         {
             transform.position += (Vector3.up * moveJoystick.Vertical + Vector3.right * moveJoystick.Horizontal) * moveSpeed * Time.deltaTime;
+        }
+        else if(movType == MOVEMENT.ONE_JOYSTICK)
+        {
+            transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
         }
         else
         {

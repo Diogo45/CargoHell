@@ -9,8 +9,8 @@ public class PlayButtonController : MonoBehaviour
 {
     public AudioMixer globalMixer;
 
-    public List<GameObject> nonOptionsMenu;
-    public List<GameObject> OptionsMenu;
+    public GameObject nonOptionsMenu;
+    public GameObject OptionsMenu;
 
     public void SetLevel(float sliderValue)
     {
@@ -21,29 +21,23 @@ public class PlayButtonController : MonoBehaviour
 
     public void ShowOptions()
     {
-        foreach (var item in nonOptionsMenu)
-        {
-            item.SetActive(false);
-        }
 
-        foreach (var item in OptionsMenu)
-        {
-            item.SetActive(true);
-        }
+        nonOptionsMenu.SetActive(false);
+        OptionsMenu.SetActive(true);
+      
     }
 
     public void HideOptions()
     {
-        foreach (var item in nonOptionsMenu)
-        {
-            item.SetActive(true);
-        }
-
-        foreach (var item in OptionsMenu)
-        {
-            item.SetActive(false);
-        }
+        nonOptionsMenu.SetActive(true);
+        OptionsMenu.SetActive(false);
     }
+
+    public void SetJoystickType(int type)
+    {
+        PlayerPrefs.SetInt("InputType", type);
+    }
+
 
     public void ToMenu()
     {
