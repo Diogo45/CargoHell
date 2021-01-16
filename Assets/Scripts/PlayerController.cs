@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public FixedJoystick moveJoystick;
     public FixedJoystick lookJoystick;
 
-    public MOVEMENT movType;
+    private MOVEMENT movType = MOVEMENT.TWO_JOYSTICK;
 
 #endif
     public GameObject Projectile;
