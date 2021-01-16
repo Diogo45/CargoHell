@@ -311,6 +311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14364b4811068cd4b971c14e0783e7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  globalMixer: {fileID: 0}
+  nonOptionsMenu: []
+  OptionsMenu: []
 --- !u!1 &1293470222618948508
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,7 +435,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1293470222618948503}
-        m_MethodName: Leve3_4
+        m_MethodName: Leve0_1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -465,6 +468,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14364b4811068cd4b971c14e0783e7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  globalMixer: {fileID: 0}
+  nonOptionsMenu: []
+  OptionsMenu: []
 --- !u!1 &1293470222685667244
 GameObject:
   m_ObjectHideFlags: 0
