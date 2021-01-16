@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
 #if UNITY_ANDROID
     public FixedJoystick moveJoystick;
     public FixedJoystick lookJoystick;
+
+    public MOVEMENT movType;
+
 #endif
     public GameObject Projectile;
 
@@ -38,11 +41,22 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         material = gameObject.GetComponent<SpriteRenderer>().material;
+        if(movType == MOVEMENT.TWO_JOYSTICK)
+        {
+            lookJoystick.gameObject.SetActive(true);
+            moveJoystick.gameObject.SetActive(true);
+        }
+        else if(movType == MOVEMENT.ONE_JOYSTICK)
+        {
+            lookJoystick.gameObject.SetActive(false);
+        }
+        else
+        {
+            lookJoystick.gameObject.SetActive(false);
+            moveJoystick.gameObject.SetActive(false);
+        }
         
     }
-
-
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -197,7 +211,7 @@ public class PlayerController : MonoBehaviour
 
 #endif
 
-#endregion
+        #endregion
 
         #region Apply Input
 
@@ -205,7 +219,33 @@ public class PlayerController : MonoBehaviour
 
 #if UNITY_ANDROID
 
-        Vector2 direction = Vector3.up * lookJoystick.Vertical + Vector3.right * lookJoystick.Horizontal;
+        //if(movType == MOVEMENT.TWO_JOYSTICK)
+        //{
+
+        //}
+        //else if (movType == MOVEMENT.ONE_JOYSTICK)
+        //{
+
+        //}
+        //else
+        //{
+
+        //}
+        Vector2 direction = Vector2.zero;
+
+        if (movType == MOVEMENT.TWO_JOYSTICK)
+        {
+            direction = Vector3.up * lookJoystick.Vertical + Vector3.right * lookJoystick.Horizontal;
+        }
+        else if (movType == MOVEMENT.ONE_JOYSTICK)
+        {
+            direction = Vector3.up * moveJoystick.Vertical + Vector3.right * moveJoystick.Horizontal;
+        }
+        else
+        {
+
+        }
+        
 
 
 #endif
@@ -223,6 +263,22 @@ public class PlayerController : MonoBehaviour
 
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, AngularSpeed * Time.deltaTime);
 
+#if UNITY_ANDROID
+
+        if (movType == MOVEMENT.TWO_JOYSTICK || movType == MOVEMENT.ONE_JOYSTICK)
+        {
+            transform.position += (Vector3.up * moveJoystick.Vertical + Vector3.right * moveJoystick.Horizontal) * moveSpeed * Time.deltaTime;
+        }
+        else
+        {
+
+        }
+        
+
+
+#else
+
+
         if (moveForward > 0f)
         {
             transform.position += transform.up * moveSpeed * moveForward * Time.deltaTime;
@@ -235,7 +291,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
+#endif
 
 
 
@@ -280,4 +336,8 @@ public class PlayerController : MonoBehaviour
 
 
 
+}
+public enum MOVEMENT
+{
+    TWO_JOYSTICK, ONE_JOYSTICK, PUSH
 }
