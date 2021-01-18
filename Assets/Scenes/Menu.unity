@@ -1868,7 +1868,7 @@ RectTransform:
   m_Children:
   - {fileID: 8266604487365771567}
   m_Father: {fileID: 8266604488197145831}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2575,7 +2575,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600592292}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -21, z: -45}
+  m_LocalPosition: {x: 0, y: -21, z: 0}
   m_LocalScale: {x: 54.483654, y: 43.586926, z: 54.483654}
   m_Children: []
   m_Father: {fileID: 8266604487365771567}
@@ -2619,7 +2619,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: dc621264ca2ee91449e35da268a947e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2769,7 +2769,7 @@ RectTransform:
   - {fileID: 2106709296}
   - {fileID: 1467019153}
   m_Father: {fileID: 8266604488197145831}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3305,7 +3305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3343,7 +3343,7 @@ GameObject:
   - component: {fileID: 8914031678516289731}
   m_Layer: 5
   m_Name: Canvas_Prefab
-  m_TagString: Untagged
+  m_TagString: canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3419,9 +3419,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 1426723010}
   - {fileID: 8266604488970926018}
   - {fileID: 1677062694}
-  - {fileID: 1426723010}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3476,7 +3476,7 @@ Transform:
   m_LocalScale: {x: 47.7, y: 47.7, z: 47.7}
   m_Children: []
   m_Father: {fileID: 8266604488197145831}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8266604488970926079
 GameObject:
@@ -3508,31 +3508,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuController
       objectReference: {fileID: 0}
-    - target: {fileID: 8911567794002422758, guid: 7eadf6ca5023a3a49bf68288c8515855,
-        type: 3}
-      propertyPath: nonOptionsMenu.Array.data[0]
-      value: 
-      objectReference: {fileID: 1600592292}
-    - target: {fileID: 8911567794002422758, guid: 7eadf6ca5023a3a49bf68288c8515855,
-        type: 3}
-      propertyPath: nonOptionsMenu.Array.data[1]
-      value: 
-      objectReference: {fileID: 647703907}
-    - target: {fileID: 8911567794002422758, guid: 7eadf6ca5023a3a49bf68288c8515855,
-        type: 3}
-      propertyPath: nonOptionsMenu.Array.data[2]
-      value: 
-      objectReference: {fileID: 1587995744}
-    - target: {fileID: 8911567794002422758, guid: 7eadf6ca5023a3a49bf68288c8515855,
-        type: 3}
-      propertyPath: OptionsMenu.Array.data[0]
-      value: 
-      objectReference: {fileID: 274844826}
-    - target: {fileID: 8911567794002422758, guid: 7eadf6ca5023a3a49bf68288c8515855,
-        type: 3}
-      propertyPath: OptionsMenu.Array.data[1]
-      value: 
-      objectReference: {fileID: 2106709295}
     - target: {fileID: 8911567794002422758, guid: 7eadf6ca5023a3a49bf68288c8515855,
         type: 3}
       propertyPath: nonOptionsMenu

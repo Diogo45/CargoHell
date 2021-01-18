@@ -7,10 +7,27 @@ using UnityEngine.Audio;
 
 public class PlayButtonController : MonoBehaviour
 {
+
+
+    public GameObject DebugUIPrefab;
+    private GameObject DebugUI;
+
+
+
     public AudioMixer globalMixer;
 
     public GameObject nonOptionsMenu;
     public GameObject OptionsMenu;
+
+    public void Awake()
+    {
+        DebugUI = Instantiate(DebugUIPrefab, GameObject.FindGameObjectWithTag("canvas").transform);
+    }
+
+    public void ToggleDebugUI()
+    {
+        DebugUI.SetActive(!DebugUI.activeSelf);
+    }
 
     public void SetLevel(float sliderValue)
     {
