@@ -40,10 +40,14 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        movType = (MOVEMENT) PlayerPrefs.GetInt("InputType", 0);
 
         material = gameObject.GetComponent<SpriteRenderer>().material;
-        if(movType == MOVEMENT.TWO_JOYSTICK)
+
+#if UNITY_ANDROID
+
+        movType = (MOVEMENT)PlayerPrefs.GetInt("InputType", 0);
+
+        if (movType == MOVEMENT.TWO_JOYSTICK)
         {
             lookJoystick.gameObject.SetActive(true);
             moveJoystick.gameObject.SetActive(true);
@@ -58,7 +62,7 @@ public class PlayerController : MonoBehaviour
             lookJoystick.gameObject.SetActive(false);
             moveJoystick.gameObject.SetActive(false);
         }
-        
+#endif        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -149,32 +153,9 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        #region Input
+#region Input
 
 #if UNITY_STANDALONE
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            rotateClockWise = true;
-
-        }
-        else if (Input.GetKeyUp(KeyCode.A))
-        {
-            rotateClockWise = false;
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            rotateCounterClockWise = true;
-
-        }
-        else if (Input.GetKeyUp(KeyCode.D))
-        {
-            rotateCounterClockWise = false;
-        }
-
-
 
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -214,9 +195,9 @@ public class PlayerController : MonoBehaviour
 
 #endif
 
-        #endregion
+#endregion
 
-        #region Apply Input
+#region Apply Input
 
 
 
