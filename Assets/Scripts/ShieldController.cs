@@ -13,6 +13,7 @@ public class ShieldController : MonoBehaviour
     private Vector2 debugNormal;
     private Vector2 debugPoint;
 
+    //controls if HPTP, the boolean variable
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,7 @@ public class ShieldController : MonoBehaviour
             //var normalVector = hit.normal;
             //var normalVector = hit.normal;
 
-            var normalVector = hit - (Vector2)(player.transform.position + player.transform.up / 3.5f); 
+            var normalVector = hit - (Vector2)(LevelController.instance.Player.transform.position + player.transform.up / 3.5f); 
             debugNormal = normalVector;
             //debugPoint = hit.point;
             debugPoint = hit;
@@ -51,8 +52,11 @@ public class ShieldController : MonoBehaviour
             else
             {
                 collision.tag = "ProjectileReflected";
+                collision.GetComponent<ProjectileController>().HPTP = true;
             }
-            
+
+            collision.GetComponent<ProjectileController>().mult += LevelController.instance.MultIncrease;
+
 
             //Vector2 hitCenter = (Vector2)transform.position - hit.oint;
             //Vector2.Angle(hitCenter, transform.up);

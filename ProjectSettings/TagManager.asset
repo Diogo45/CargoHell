@@ -11,6 +11,8 @@ TagManager:
   - Object
   - PowerUpHealth
   - PowerUpInv
+  - Spinner
+  - ProjectileSpinner
   layers:
   - Default
   - TransparentFX

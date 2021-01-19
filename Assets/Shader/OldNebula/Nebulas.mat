@@ -97,7 +97,7 @@ Material:
     - _StarBright: 0.004
     - _StarDensity: 1.16
     - _StarGridSide: 3.96
-    - _StarHarmonics: 1
+    - _StarHarmonics: 10
     - _StarSat: 0.35
     - _TimeScale: 50
     - _UVSec: 0

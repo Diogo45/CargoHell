@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebugUIPrefab: {fileID: 4195629731060512505, guid: 184c3b0375048d44d97e9d9c722230eb,
     type: 3}
+  Score: {fileID: 0}
   globalMixer: {fileID: 24100000, guid: c8b4f9cb673c9784cbcd173876c4be6b, type: 2}
   nonOptionsMenu: {fileID: 0}
   OptionsMenu: {fileID: 0}

@@ -12,7 +12,8 @@ public class PlayButtonController : MonoBehaviour
     public GameObject DebugUIPrefab;
     private GameObject DebugUI;
 
-
+    public GameObject Score;
+    private TMPro.TMP_Text scoreText;
 
     public AudioMixer globalMixer;
 
@@ -22,6 +23,13 @@ public class PlayButtonController : MonoBehaviour
     public void Awake()
     {
         DebugUI = Instantiate(DebugUIPrefab, GameObject.FindGameObjectWithTag("canvas").transform);
+        globalMixer.SetFloat("GlobalVolume", PlayerPrefs.GetFloat("GlobalVolume"));
+        
+    }
+    private void Update()
+    {
+        scoreText = Score.GetComponent<TMPro.TMP_Text>();
+        scoreText.text = LevelController.instance.Score.ToString();
     }
 
     public void ToggleDebugUI()
@@ -34,6 +42,7 @@ public class PlayButtonController : MonoBehaviour
         //Decibels are NOT LINEARRR AAA
         //TODO: Store Volume and other preferences on PlayerPrefs!!!
         globalMixer.SetFloat("GlobalVolume", Mathf.Log10(sliderValue) * 20f);
+        PlayerPrefs.SetFloat("GlobalVolume", Mathf.Log10(sliderValue) * 20f);
     }
 
     public void ShowOptions()

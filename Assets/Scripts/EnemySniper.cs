@@ -8,9 +8,6 @@ public class EnemySniper : IEnemy
 
     private float projectileTimer;
     public float timerThreshold;
-    private bool hasCollided;
-
-
 
     private GameObject aimAt;
 
@@ -19,23 +16,11 @@ public class EnemySniper : IEnemy
         //directionLocal = transform.InverseTransformDirection(direction);
         //transform.up = -direction;
         aimAt = LevelController.instance.Player;
+        baseScore = 200;
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "ProjectileReflected")
-        {
-            if (!hasCollided)
-            {
-                health--;
-                Destroy(collision.gameObject);
-                hasCollided = true;
-            }
-
-        }
-    }
-
+   
 
     // Update is called once per frame
     void Update()

@@ -11,8 +11,6 @@ public class SimpleEnemy : IEnemy
 
     private float projectileTimer;
     public float timerThreshold;
-    private bool hasCollided;
-
 
 
     
@@ -21,23 +19,9 @@ public class SimpleEnemy : IEnemy
     {
         //directionLocal = transform.InverseTransformDirection(direction);
         transform.up = -direction;
-        
+        baseScore = 100;
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "ProjectileReflected")
-        {
-            if (!hasCollided)
-            {
-                health--;
-                Destroy(collision.gameObject);
-                hasCollided = true;
-            }
-
-        }
-    }
 
 
     // Update is called once per frame

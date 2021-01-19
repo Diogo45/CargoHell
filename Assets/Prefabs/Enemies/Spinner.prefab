@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6070858495172539506}
   m_Layer: 0
   m_Name: Spinner
-  m_TagString: Object
+  m_TagString: Spinner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

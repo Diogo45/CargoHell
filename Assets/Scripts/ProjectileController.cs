@@ -8,6 +8,11 @@ public class ProjectileController : MonoBehaviour
 
     public float projectileSpeed = 0.01f;
 
+    public float mult = 0f;
+
+    public bool HPTP = false;
+
+
     void Start()
     {
         

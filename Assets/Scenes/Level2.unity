@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -133,6 +133,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: NearStars
       objectReference: {fileID: 0}
+    - target: {fileID: 2737796053912040817, guid: 09ce9d4bb8c90ce4997ae716516e237d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2737796053912040819, guid: 09ce9d4bb8c90ce4997ae716516e237d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 2737796053912040820, guid: 09ce9d4bb8c90ce4997ae716516e237d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -456,6 +466,12 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &359965588 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 359965588, guid: c3955e22cd4dbb94789fbde347b76bbc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1590126452}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,6 +687,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuController
       objectReference: {fileID: 0}
+    - target: {fileID: 8911567794002422758, guid: 7eadf6ca5023a3a49bf68288c8515855,
+        type: 3}
+      propertyPath: Score
+      value: 
+      objectReference: {fileID: 359965588}
     - target: {fileID: 8911567794002422759, guid: 7eadf6ca5023a3a49bf68288c8515855,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1077,16 +1098,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1199613503174647402, guid: c3955e22cd4dbb94789fbde347b76bbc,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 93.78729
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199613503332623489, guid: c3955e22cd4dbb94789fbde347b76bbc,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -74.99997
-      objectReference: {fileID: 0}
     - target: {fileID: 1199613503332623490, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
       propertyPath: player
@@ -1207,16 +1218,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PostProcessedCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1848730185298506588, guid: c3955e22cd4dbb94789fbde347b76bbc,
-        type: 3}
-      propertyPath: m_TagString
-      value: canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 1848730185298506589, guid: c3955e22cd4dbb94789fbde347b76bbc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
 --- !u!1 &1996386810 stripped
@@ -1292,6 +1293,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: FarStars
       objectReference: {fileID: 0}
+    - target: {fileID: 7424263686623541933, guid: cbfa8d8bc23809545a364da6f8df4bc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7424263686623541935, guid: cbfa8d8bc23809545a364da6f8df4bc3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbfa8d8bc23809545a364da6f8df4bc3, type: 3}
 --- !u!1001 &3932858333532934006
@@ -1549,6 +1560,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428070431825372689, guid: 21708909023f6684f87141124de926a0,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428070431825372689, guid: 21708909023f6684f87141124de926a0,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428070431825372689, guid: 21708909023f6684f87141124de926a0,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7428070431825372691, guid: 21708909023f6684f87141124de926a0,
         type: 3}

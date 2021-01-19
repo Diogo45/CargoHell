@@ -19,10 +19,30 @@ public class IEnemy : MonoBehaviour
     public Vector3 direction;
     private bool enteredScene = false;
     public float speed;
+    private bool hasCollided;
 
+    public int baseScore = 1;
 
-    public delegate void OnDestroy(GameObject obj);
+    public delegate void OnDestroy(GameObject obj, ProjectileController projectile);
     public static event OnDestroy OnDestroyEvent;
+
+    private ProjectileController lastProjectile;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "ProjectileReflected")
+        {
+            if (!hasCollided)
+            {
+                health--;
+                //Destroy(collision.gameObject);
+                hasCollided = true;
+                lastProjectile = collision.GetComponent<ProjectileController>();
+            }
+
+        }
+    }
+
 
     public void Update()
     {
@@ -47,7 +67,7 @@ public class IEnemy : MonoBehaviour
 
         if (health <= 0)
         {
-            OnDestroyEvent(gameObject);
+            OnDestroyEvent(gameObject, lastProjectile);
         }
 
         

@@ -34,7 +34,7 @@ public class LevelController : MonoBehaviour
             public int G;
             public int B;
 
-            public float2 offset;
+            //public float2 offset;
 
         }
 
@@ -147,6 +147,10 @@ public class LevelController : MonoBehaviour
     public Material nebulaMat;
     private bool startedCoroutine;
 
+
+    public int Score = 0;
+    public float MultIncrease = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -236,135 +240,15 @@ public class LevelController : MonoBehaviour
         //}
 
         enemyAlive = new List<GameObject>();
-
-        nebulaMat.SetColor("_Color", new Color(sceneArgs.ShaderVariables.R, sceneArgs.ShaderVariables.G, sceneArgs.ShaderVariables.B));
+        nebulaMat.SetColor("_Color", new Color(sceneArgs.ShaderVariables.R/255f, sceneArgs.ShaderVariables.G/255f, sceneArgs.ShaderVariables.B/255f));
         StartCoroutine(SpawnPowerUp());
         StartCoroutine(CheckEndGame());
-    }
 
-
-    IEnumerator SpawnEnemyRand(string enemyType, float delay)
-    {
-        if (!IsFile && spawned[enemyType] >= maxScreenEnemies[enemyType])
-        {
-            yield break;
-        }
-        int side = Random.Range(0, 4);
-        float inSide = Random.Range(0.1f, 0.9f);
-        Vector3 spawnPos = Vector3.zero;
-        Vector2 direction = Vector2.zero;
-        switch (side)
-        {
-            case 0:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 1, 0));
-                direction = Vector2.down;
-                break;
-            case 1:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(1, inSide, 0));
-                direction = Vector2.left;
-                break;
-            case 2:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 0, 0));
-                direction = Vector2.up;
-                break;
-            case 3:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(0, inSide, 0));
-                direction = Vector2.right;
-                break;
-        }
-
-        var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
-
-
-        var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
-        comp.direction = direction;
-        //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
-
-        enemySpawnCount[enemyType]--;
-        spawned[enemyType]++;
-
-        yield return null;
+        
 
     }
 
-    IEnumerator SpawnEnemyFile(int i, float delay)
-    {
 
-        string enemyType = sceneArgs.config[spawnFrame].enemyPositions[i].enemyType;
-        //if (spawned[enemyType] >= maxScreenEnemies[enemyType])
-        //{
-        //    yield break;
-        //}
-        int side = sceneArgs.config[spawnFrame].enemyPositions[i].side;
-        float inSide = sceneArgs.config[spawnFrame].enemyPositions[i].posInSide;
-        Vector3 spawnPos = Vector3.zero;
-        Vector2 direction = Vector2.zero;
-        switch (side)
-        {
-            case 0:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 1, 0));
-                direction = Vector2.down;
-                break;
-            case 1:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(1, inSide, 0));
-                direction = Vector2.left;
-                break;
-            case 2:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 0, 0));
-                direction = Vector2.up;
-                break;
-            case 3:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(0, inSide, 0));
-                direction = Vector2.right;
-                break;
-        }
-
-        yield return new WaitForSeconds(delay);
-
-
-        var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
-
-        if (enemyType == "Spinner")
-        {
-            var comp = (IObject)newEnemy.GetComponentInChildren(typeof(IObject));
-            comp.direction = direction;
-        }
-        else
-        {
-            enemyAlive.Add(newEnemy);
-
-            var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
-            switch (enemyType)
-            {
-                case "SimpleEnemy":
-                    comp.type = EnemyType.SIMPLE;
-                    break;
-                case "EnemySniper":
-                    comp.type = EnemyType.SNIPER;
-                    break;
-            }
-            comp.direction = direction;
-
-            enemySpawnCount[enemyType]--;
-            spawned[enemyType]++;
-
-        }
-
-
-        yield return null;
-
-    }
-
-    IEnumerator SpawnPowerUp()
-    {
-        yield return new WaitForSeconds(Random.Range(25f, 30f));
-        Vector2 pos = new Vector2(Random.Range(0.1f, 0.9f), Random.Range(0.1f, 0.9f));
-        int probability = Random.Range(0, 2);
-        Instantiate(powerUpPrefabs[probability], Camera.main.ViewportToWorldPoint(new Vector3(pos.x, pos.y, 0) + Vector3.forward * 30), Quaternion.identity);
-
-        yield return SpawnPowerUp();
-
-    }
     // Update is called once per frame
     void Update()
     {
@@ -518,7 +402,128 @@ public class LevelController : MonoBehaviour
         yield break;
     }
 
+    IEnumerator SpawnEnemyRand(string enemyType, float delay)
+    {
+        if (!IsFile && spawned[enemyType] >= maxScreenEnemies[enemyType])
+        {
+            yield break;
+        }
+        int side = Random.Range(0, 4);
+        float inSide = Random.Range(0.1f, 0.9f);
+        Vector3 spawnPos = Vector3.zero;
+        Vector2 direction = Vector2.zero;
+        switch (side)
+        {
+            case 0:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 1, 0));
+                direction = Vector2.down;
+                break;
+            case 1:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(1, inSide, 0));
+                direction = Vector2.left;
+                break;
+            case 2:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 0, 0));
+                direction = Vector2.up;
+                break;
+            case 3:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(0, inSide, 0));
+                direction = Vector2.right;
+                break;
+        }
 
+        var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
+
+
+        var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
+        comp.direction = direction;
+        //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
+
+        enemySpawnCount[enemyType]--;
+        spawned[enemyType]++;
+
+        yield return null;
+
+    }
+
+    IEnumerator SpawnEnemyFile(int i, float delay)
+    {
+
+        string enemyType = sceneArgs.config[spawnFrame].enemyPositions[i].enemyType;
+        //if (spawned[enemyType] >= maxScreenEnemies[enemyType])
+        //{
+        //    yield break;
+        //}
+        int side = sceneArgs.config[spawnFrame].enemyPositions[i].side;
+        float inSide = sceneArgs.config[spawnFrame].enemyPositions[i].posInSide;
+        Vector3 spawnPos = Vector3.zero;
+        Vector2 direction = Vector2.zero;
+        switch (side)
+        {
+            case 0:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 1, 0));
+                direction = Vector2.down;
+                break;
+            case 1:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(1, inSide, 0));
+                direction = Vector2.left;
+                break;
+            case 2:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 0, 0));
+                direction = Vector2.up;
+                break;
+            case 3:
+                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(0, inSide, 0));
+                direction = Vector2.right;
+                break;
+        }
+
+        yield return new WaitForSeconds(delay);
+
+
+        var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
+
+        if (enemyType == "Spinner")
+        {
+            var comp = (IObject)newEnemy.GetComponentInChildren(typeof(IObject));
+            comp.direction = direction;
+        }
+        else
+        {
+            enemyAlive.Add(newEnemy);
+
+            var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
+            switch (enemyType)
+            {
+                case "SimpleEnemy":
+                    comp.type = EnemyType.SIMPLE;
+                    break;
+                case "EnemySniper":
+                    comp.type = EnemyType.SNIPER;
+                    break;
+            }
+            comp.direction = direction;
+
+            enemySpawnCount[enemyType]--;
+            spawned[enemyType]++;
+
+        }
+
+
+        yield return null;
+
+    }
+
+    IEnumerator SpawnPowerUp()
+    {
+        yield return new WaitForSeconds(Random.Range(25f, 30f));
+        Vector2 pos = new Vector2(Random.Range(0.1f, 0.9f), Random.Range(0.1f, 0.9f));
+        int probability = Random.Range(0, 2);
+        Instantiate(powerUpPrefabs[probability], Camera.main.ViewportToWorldPoint(new Vector3(pos.x, pos.y, 0) + Vector3.forward * 30), Quaternion.identity);
+
+        yield return SpawnPowerUp();
+
+    }
 
     public (Vector2, Vector2) RequestRandomPos()
     {
@@ -554,7 +559,7 @@ public class LevelController : MonoBehaviour
         IEnemy.OnDestroyEvent += IEnemy_OnDestroyEvent;
     }
 
-    private void IEnemy_OnDestroyEvent(GameObject obj)
+    private void IEnemy_OnDestroyEvent(GameObject obj, ProjectileController projectile)
     {
         //Debug.Log("MORREU " + obj.name + obj.GetComponent<IEnemy>().type);
         //TODO: UI OUCH OOF aqle get component
@@ -574,6 +579,14 @@ public class LevelController : MonoBehaviour
                 break;
         }
 
+
+        if (projectile && projectile.HPTP)
+        {
+            Score += Mathf.FloorToInt(enemy.baseScore * projectile.mult);
+            Debug.Log(String.Format("{0} {1} {2}", enemy.baseScore, projectile.mult, Mathf.FloorToInt(enemy.baseScore * projectile.mult)));
+        }
+
+        if(projectile) Destroy(projectile.gameObject);
 
         Destroy(obj);
         enemyAlive.Remove(obj);
