@@ -48,7 +48,9 @@
     ],
     "LevelMusic": 2,
     "ShaderVariables": {
-        "nebulaHue": 0.65
+        "R": 36,
+        "G": 112,
+        "B": 255
     }
     
 }

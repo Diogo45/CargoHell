@@ -93,7 +93,10 @@ Material:
     - Color_C2954638: {r: 0.41964787, g: 0.2696244, b: 0.7830189, a: 0}
     - Vector2_221FCA23: {r: 0.05, g: 0.05, b: 0, a: 0}
     - Vector2_7B18A43: {r: 1, g: 1, b: 0, a: 0}
+    - Vector4_486B6718: {r: 0.55, g: 1.82, b: 0.27, a: 2.27}
+    - Vector4_7D623955: {r: 10, g: 10, b: 50, a: 50}
+    - Vector4_E33811B5: {r: 1, g: 1, b: 0, a: 16.28}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.7490196, g: 0, b: 0.7490196, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

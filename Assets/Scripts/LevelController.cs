@@ -8,6 +8,10 @@ using Random = UnityEngine.Random;
 [System.Serializable] public class GameObjectDictionary : SerializableDictionary<string, GameObject> { }
 [System.Serializable] public class IntObjectDictionary : SerializableDictionary<string, int> { }
 
+[System.Serializable] public struct float2 { public float x; public float y; }
+[System.Serializable] public struct float3 { public float x; public float y; public float z; }
+[System.Serializable] public struct float4 { public float x; public float y; public float z; public float w; }
+
 public class LevelController : MonoBehaviour
 {
 
@@ -26,7 +30,12 @@ public class LevelController : MonoBehaviour
         [System.Serializable]
         public struct ShaderVar
         {
-            public float nebulaHue;
+            public int R;
+            public int G;
+            public int B;
+
+            public float2 offset;
+
         }
 
         [System.Serializable]
@@ -54,11 +63,11 @@ public class LevelController : MonoBehaviour
                 {
                     new EnemyConfig
                     {
-                        enemyType = "EnemySniper", side = 1, posInSide = 0.7f 
+                        enemyType = "EnemySniper", side = 1, posInSide = 0.7f
                     },
                     new EnemyConfig
                     {
-                        enemyType = "EnemySniper", side = 3, posInSide = 0.4f 
+                        enemyType = "EnemySniper", side = 3, posInSide = 0.4f
                     }
 
                 }
@@ -82,7 +91,9 @@ public class LevelController : MonoBehaviour
 
         public ShaderVar ShaderVariables = new ShaderVar
         {
-            nebulaHue = 0.65f
+            R = 0,
+            G = 0,
+            B = 200
         };
 
     }
@@ -185,7 +196,7 @@ public class LevelController : MonoBehaviour
             var errorObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
             errorObj.transform.position = Player.transform.position;
         }
-        
+
         //if (sceneArgs.config.Count != sceneArgs.SpawnFrames.Length)
         //{
         //    Debug.LogError("ENEMY POS LENGTH DIFFERENT FROM SCENE FRAMES LENGTH");
@@ -206,7 +217,7 @@ public class LevelController : MonoBehaviour
             }
         }
 
-        
+
 
         spawned = new IntObjectDictionary();
 
@@ -226,7 +237,7 @@ public class LevelController : MonoBehaviour
 
         enemyAlive = new List<GameObject>();
 
-        nebulaMat.SetFloat("_NebulaHue", sceneArgs.ShaderVariables.nebulaHue);
+        nebulaMat.SetColor("_Color", new Color(sceneArgs.ShaderVariables.R, sceneArgs.ShaderVariables.G, sceneArgs.ShaderVariables.B));
         StartCoroutine(SpawnPowerUp());
         StartCoroutine(CheckEndGame());
     }
@@ -360,12 +371,12 @@ public class LevelController : MonoBehaviour
 
         if (IsFile)
         {
-            
+
             if (enemyAlive.Count <= 0 && !startedCoroutine)
             {
                 startedCoroutine = true;
                 StartCoroutine(Spawn(2));
-                
+
             }
 
 
@@ -399,7 +410,7 @@ public class LevelController : MonoBehaviour
     IEnumerator Spawn(float delay)
     {
 
-        
+
         yield return new WaitForSeconds(delay);
 
         if (/*sceneArgs.SpawnFrames[spawnFrame] <= frame &&*/ !finishedSpawn)
@@ -428,7 +439,7 @@ public class LevelController : MonoBehaviour
     IEnumerator CheckEndGame()
     {
         yield return new WaitForSeconds(1);
-        
+
         bool isThereEnemiesLeft = false;
 
         foreach (var item in enemySpawnCount.Values)
