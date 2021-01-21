@@ -258,6 +258,8 @@ public class LevelController : MonoBehaviour
 
             if (enemyAlive.Count <= 0 && !startedCoroutine)
             {
+                Debug.Log("No enemies alive - spawning new wave");
+                Debug.Log(enemyAlive.Count);
                 startedCoroutine = true;
                 StartCoroutine(Spawn(2));
 
@@ -315,7 +317,7 @@ public class LevelController : MonoBehaviour
 
         }
 
-        startedCoroutine = false;
+        
 
         yield break;
     }
@@ -509,6 +511,8 @@ public class LevelController : MonoBehaviour
             spawned[enemyType]++;
 
         }
+
+        startedCoroutine = false;
 
 
         yield return null;
