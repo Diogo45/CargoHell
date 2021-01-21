@@ -192,6 +192,10 @@ public class LevelController : MonoBehaviour
 #if UNITY_STANDALONE
             var jsonText = System.IO.File.ReadAllText(Application.streamingAssetsPath + @"\Levels\Level_" + sceneFile + ".json");
             sceneArgs = JsonUtility.FromJson<SceneArgs>(jsonText);
+            var Joystick1 = GameObject.Find("LookJoystick");
+            var Joystick2 = GameObject.Find("MoveJoystick");
+            Joystick1.SetActive(false);
+            Joystick2.SetActive(false);
 #endif
         }
         catch (Exception e)
