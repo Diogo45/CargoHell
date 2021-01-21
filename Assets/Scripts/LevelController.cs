@@ -240,11 +240,11 @@ public class LevelController : MonoBehaviour
         //}
 
         enemyAlive = new List<GameObject>();
-        nebulaMat.SetColor("_Color", new Color(sceneArgs.ShaderVariables.R/255f, sceneArgs.ShaderVariables.G/255f, sceneArgs.ShaderVariables.B/255f));
+        nebulaMat.SetColor("_Color", new Color(sceneArgs.ShaderVariables.R / 255f, sceneArgs.ShaderVariables.G / 255f, sceneArgs.ShaderVariables.B / 255f));
         StartCoroutine(SpawnPowerUp());
         StartCoroutine(CheckEndGame());
 
-        
+
 
     }
 
@@ -361,6 +361,7 @@ public class LevelController : MonoBehaviour
 
             if (!hasWon && !hasLost && !isThereEnemiesLeft)
             {
+                Score += instance.Player.GetComponent<PlayerController>().currentHealth * 100;
                 StartCoroutine(WinAnim());
                 yield break;
             }
@@ -582,11 +583,12 @@ public class LevelController : MonoBehaviour
 
         if (projectile && projectile.HPTP)
         {
-            Score += Mathf.FloorToInt(enemy.baseScore * projectile.mult);
-            Debug.Log(String.Format("{0} {1} {2}", enemy.baseScore, projectile.mult, Mathf.FloorToInt(enemy.baseScore * projectile.mult)));
+            Score += Mathf.FloorToInt(enemy.baseScore * projectile.mult + Mathf.RoundToInt(projectile.angleReflected/10) * 10);
+            
+            //Debug.Log(String.Format("{0} {1} {2}", enemy.baseScore, projectile.mult, Mathf.FloorToInt(enemy.baseScore * projectile.mult)));
         }
 
-        if(projectile) Destroy(projectile.gameObject);
+        if (projectile) Destroy(projectile.gameObject);
 
         Destroy(obj);
         enemyAlive.Remove(obj);

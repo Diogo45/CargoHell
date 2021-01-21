@@ -13,7 +13,7 @@ public class ProjectileController : MonoBehaviour
     public bool HPTP = false;
 
     private float distanceTraveled = 0f;
-    private float angleReflected = 180f;
+    public float angleReflected = 180f;
 
     void Start()
     {

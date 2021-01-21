@@ -53,6 +53,8 @@ public class ShieldController : MonoBehaviour
             {
                 collision.tag = "ProjectileReflected";
                 collision.GetComponent<ProjectileController>().HPTP = true;
+                collision.GetComponent<ProjectileController>().angleReflected = Vector2.Angle(player.transform.up, collision.transform.up);
+                Debug.Log(collision.GetComponent<ProjectileController>().angleReflected);
             }
 
             collision.GetComponent<ProjectileController>().mult += LevelController.instance.MultIncrease;
