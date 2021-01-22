@@ -17,7 +17,9 @@ public class ProjectileController : MonoBehaviour
 
     void Start()
     {
-        
+        var projectileSFX = GetComponent<AudioSource>();
+        //projectileSFX.volume = PlayerPrefs.GetFloat("GlobalVolume");
+        projectileSFX.pitch = Random.Range(0.9f, 1.5f);
     }
 
     // Update is called once per frame

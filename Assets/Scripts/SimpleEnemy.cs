@@ -40,6 +40,7 @@ public class SimpleEnemy : IEnemy
             projectileTimer = 0f;
             var newProj = Instantiate(projectile, transform.position + (direction * 0.5f), Quaternion.identity);
             newProj.transform.up = direction;
+
         }
 
 

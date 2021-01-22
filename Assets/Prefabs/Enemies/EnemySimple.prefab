@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2191363534319776053}
   - component: {fileID: 6563944719420554858}
   m_Layer: 0
-  m_Name: Enemy01_Green_Frame_1_png_processed
+  m_Name: EnemySimple
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,13 +97,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  type: 0
   projectile: {fileID: 8474159051582411123, guid: 115a57c9ee4936b45b03adbcced4b6b7,
     type: 3}
   explosion: {fileID: 4423235050795805989, guid: ff8e04a385048b8439b91f1ec62c0765,
     type: 3}
+  enemySFX: {fileID: 0}
   explosionSound: {fileID: 8300000, guid: f0975ed3e55f1cc4d9cbc6cde1737200, type: 3}
   direction: {x: 0, y: -1, z: 0}
   speed: 2
+  baseScore: 1
   timerThreshold: 2
 --- !u!61 &2191363534319776053
 BoxCollider2D:
