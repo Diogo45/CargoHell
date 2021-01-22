@@ -28,8 +28,12 @@ public class PlayButtonController : MonoBehaviour
     }
     private void Update()
     {
-        scoreText = Score.GetComponent<TMPro.TMP_Text>();
-        scoreText.text = LevelController.instance.Score.ToString();
+        if (Score)
+        {
+            scoreText = Score.GetComponent<TMPro.TMP_Text>();
+            scoreText.text = LevelController.instance.Score.ToString();
+        }
+        
     }
 
     public void ToggleDebugUI()
