@@ -127,6 +127,11 @@ MonoBehaviour:
   - {fileID: 1108002224396697418, guid: 24a8ecad9fe7aa14782837c9cfef0c1e, type: 3}
   - {fileID: 368294850616983019, guid: 97852930d6369bf4588636f6aded1026, type: 3}
   nebulaMat: {fileID: 2100000, guid: 316d34a4611668f4890d3b1f564259c1, type: 2}
+  Score: 0
+  MultIncrease: 1
+  MasterMixer: {fileID: 24300002, guid: c8b4f9cb673c9784cbcd173876c4be6b, type: 2}
+  SFXMixer: {fileID: 1104852525917040062, guid: c8b4f9cb673c9784cbcd173876c4be6b,
+    type: 2}
 --- !u!222 &6572762989820363121
 CanvasRenderer:
   m_ObjectHideFlags: 0

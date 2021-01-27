@@ -17,6 +17,7 @@ public class SimpleEnemy : IEnemy
 
     void Start()
     {
+        base.Start();
         //directionLocal = transform.InverseTransformDirection(direction);
         transform.up = -direction;
         baseScore = 100;
@@ -38,9 +39,10 @@ public class SimpleEnemy : IEnemy
         if (projectileTimer > timerThreshold + Random.Range(-timerThreshold, timerThreshold)/2f)
         {
             projectileTimer = 0f;
+            shotAudioSource.PlayOneShot(shotSound);
             var newProj = Instantiate(projectile, transform.position + (direction * 0.5f), Quaternion.identity);
+            newProj.GetComponent<ProjectileController>().origin = gameObject;
             newProj.transform.up = direction;
-
         }
 
 

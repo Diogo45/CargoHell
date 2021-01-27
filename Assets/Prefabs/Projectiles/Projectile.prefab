@@ -145,10 +145,11 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8474159051582411123}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f52fec120bca1074fb72faf5ad12aee2, type: 3}
+  OutputAudioMixerGroup: {fileID: 1104852525917040062, guid: c8b4f9cb673c9784cbcd173876c4be6b,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: e539d1d16061f1145aee1cca8d779920, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

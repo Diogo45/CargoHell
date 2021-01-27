@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
@@ -150,6 +151,10 @@ public class LevelController : MonoBehaviour
 
     public int Score = 0;
     public float MultIncrease = 1;
+
+
+    public AudioMixerGroup MasterMixer;
+    public AudioMixerGroup SFXMixer;
 
     // Start is called before the first frame update
     void Start()
@@ -590,6 +595,11 @@ public class LevelController : MonoBehaviour
         {
             Score += Mathf.FloorToInt(enemy.baseScore * projectile.mult + Mathf.RoundToInt(projectile.angleReflected/10) * 10);
             
+            if(obj == projectile)
+            {
+                Score += 50;
+            }
+
             //Debug.Log(String.Format("{0} {1} {2}", enemy.baseScore, projectile.mult, Mathf.FloorToInt(enemy.baseScore * projectile.mult)));
         }
 

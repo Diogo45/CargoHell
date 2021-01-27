@@ -97,13 +97,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  type: 0
   projectile: {fileID: 1812838881627001947, guid: 3ec071dc12eb61c44b727e3d6c00977c,
     type: 3}
   explosion: {fileID: 4423235050795805989, guid: ff8e04a385048b8439b91f1ec62c0765,
     type: 3}
   explosionSound: {fileID: 0}
+  shotSound: {fileID: 8300000, guid: e539d1d16061f1145aee1cca8d779920, type: 3}
   direction: {x: 0, y: 1, z: 0}
   speed: 2
+  baseScore: 1
   timerThreshold: 2
 --- !u!61 &7459140994242859666
 BoxCollider2D:

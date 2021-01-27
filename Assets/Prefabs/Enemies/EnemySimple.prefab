@@ -102,8 +102,8 @@ MonoBehaviour:
     type: 3}
   explosion: {fileID: 4423235050795805989, guid: ff8e04a385048b8439b91f1ec62c0765,
     type: 3}
-  enemySFX: {fileID: 0}
   explosionSound: {fileID: 8300000, guid: f0975ed3e55f1cc4d9cbc6cde1737200, type: 3}
+  shotSound: {fileID: 8300000, guid: f52fec120bca1074fb72faf5ad12aee2, type: 3}
   direction: {x: 0, y: -1, z: 0}
   speed: 2
   baseScore: 1

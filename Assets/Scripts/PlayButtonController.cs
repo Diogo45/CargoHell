@@ -20,11 +20,19 @@ public class PlayButtonController : MonoBehaviour
     public GameObject nonOptionsMenu;
     public GameObject OptionsMenu;
 
+    public GameObject GlobalVolume;
+    public GameObject SFXVolume;
+
     public void Awake()
     {
         DebugUI = Instantiate(DebugUIPrefab, GameObject.FindGameObjectWithTag("canvas").transform);
-        globalMixer.SetFloat("GlobalVolume", PlayerPrefs.GetFloat("GlobalVolume"));
-        
+        globalMixer.SetFloat("GlobalVolume", Mathf.Log10(PlayerPrefs.GetFloat("GlobalVolume")) * 20f);
+        globalMixer.SetFloat("SFXVolume", Mathf.Log10(PlayerPrefs.GetFloat("SFXVolume")) * 20f);
+        if(GlobalVolume)
+            GlobalVolume.GetComponent<Slider>().value = PlayerPrefs.GetFloat("GlobalVolume");
+        if(SFXVolume)
+            SFXVolume.GetComponent<Slider>().value = PlayerPrefs.GetFloat("SFXVolume");
+
     }
     private void Update()
     {
@@ -46,7 +54,16 @@ public class PlayButtonController : MonoBehaviour
         //Decibels are NOT LINEARRR AAA
         //TODO: Store Volume and other preferences on PlayerPrefs!!!
         globalMixer.SetFloat("GlobalVolume", Mathf.Log10(sliderValue) * 20f);
-        PlayerPrefs.SetFloat("GlobalVolume", Mathf.Log10(sliderValue) * 20f);
+        PlayerPrefs.SetFloat("GlobalVolume", sliderValue);
+
+    }
+
+    public void SetSFXLevel(float sliderValue)
+    {
+        //Decibels are NOT LINEARRR AAA
+        //TODO: Store Volume and other preferences on PlayerPrefs!!!
+        globalMixer.SetFloat("SFXVolume", Mathf.Log10(sliderValue) * 20f);
+        PlayerPrefs.SetFloat("SFXVolume", sliderValue);
     }
 
     public void ShowOptions()

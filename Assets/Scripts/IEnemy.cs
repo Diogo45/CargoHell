@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Audio;
 
 public enum EnemyType
 {
@@ -16,6 +16,8 @@ public class IEnemy : MonoBehaviour
     public GameObject projectile;
     public GameObject explosion;
     public AudioClip explosionSound;
+    public AudioClip shotSound;
+
     public Vector3 direction;
     private bool enteredScene = false;
     public float speed;
@@ -27,6 +29,8 @@ public class IEnemy : MonoBehaviour
     public static event OnDestroy OnDestroyEvent;
 
     private ProjectileController lastProjectile;
+
+    protected AudioSource shotAudioSource;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -41,6 +45,12 @@ public class IEnemy : MonoBehaviour
             }
 
         }
+    }
+
+    public void Start()
+    {
+        shotAudioSource = gameObject.AddComponent<AudioSource>();
+        shotAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
     }
 
 

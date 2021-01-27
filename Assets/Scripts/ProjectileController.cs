@@ -15,11 +15,11 @@ public class ProjectileController : MonoBehaviour
     private float distanceTraveled = 0f;
     public float angleReflected = 180f;
 
+    public GameObject origin;
+
     void Start()
     {
-        var projectileSFX = GetComponent<AudioSource>();
-        //projectileSFX.volume = PlayerPrefs.GetFloat("GlobalVolume");
-        projectileSFX.pitch = Random.Range(0.9f, 1.5f);
+        
     }
 
     // Update is called once per frame
