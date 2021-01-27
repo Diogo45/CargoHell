@@ -116,3 +116,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionTime: 60
+  explosionSound: {fileID: 8300000, guid: 5f0c2b852c98a26489f86b464cdadf47, type: 3}
