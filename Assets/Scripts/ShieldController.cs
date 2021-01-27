@@ -13,12 +13,17 @@ public class ShieldController : MonoBehaviour
     private Vector2 debugNormal;
     private Vector2 debugPoint;
 
+    public AudioClip shieldReflectSound;
+    private AudioSource shieldReflectAudioSource;
+
     //controls if HPTP, the boolean variable
 
     // Start is called before the first frame update
     void Start()
     {
         //gameObject.GetComponent<EdgeCollider2D>().
+        shieldReflectAudioSource = gameObject.AddComponent<AudioSource>();
+        //shieldReflectAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
     }
 
 
@@ -44,6 +49,8 @@ public class ShieldController : MonoBehaviour
             //debugPoint = hit.point;
             debugPoint = hit;
             collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
+
+            shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
 
             if(player.tag == "Spinner")
             {
