@@ -281,6 +281,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8556390536574809865, guid: 9274e22cd7a8e3844b81c44af2e41ed5,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d911c13a24559af44b6e4c2c26da41ff, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9274e22cd7a8e3844b81c44af2e41ed5, type: 3}
 --- !u!1 &9498086 stripped
@@ -1558,6 +1563,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3013758371218138223, guid: 21708909023f6684f87141124de926a0,
+        type: 3}
+      propertyPath: shieldReflectSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f2a83e166cceb164b90067baedb623df, type: 3}
     - target: {fileID: 7428070431825372689, guid: 21708909023f6684f87141124de926a0,
         type: 3}
       propertyPath: m_SortingOrder

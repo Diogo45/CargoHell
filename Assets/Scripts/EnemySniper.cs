@@ -52,7 +52,7 @@ public class EnemySniper : IEnemy
         if (projectileTimer > timerThreshold + Random.Range(-timerThreshold, timerThreshold) / 2f)
         {
             projectileTimer = 0f;
-            shotAudioSource.PlayOneShot(shotSound);
+            //shotAudioSource.PlayOneShot(shotSound);
             var newProj = Instantiate(projectile, transform.position + (transform.up * 0.5f), Quaternion.identity);
             newProj.GetComponent<ProjectileController>().origin = gameObject;
             newProj.transform.up = transform.up;
