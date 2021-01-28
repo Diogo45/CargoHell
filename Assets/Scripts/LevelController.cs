@@ -323,7 +323,7 @@ public class LevelController : MonoBehaviour
 
         }
 
-        
+
 
         yield break;
     }
@@ -372,6 +372,10 @@ public class LevelController : MonoBehaviour
                 Score += instance.Player.GetComponent<PlayerController>().currentHealth * 100;
                 StartCoroutine(WinAnim());
                 yield break;
+            }
+            else if (hasWon)
+            {
+                var nebula = nebulaMat.GetVector("_Tilling");
             }
         }
 
@@ -593,9 +597,9 @@ public class LevelController : MonoBehaviour
 
         if (projectile && projectile.HPTP)
         {
-            Score += Mathf.FloorToInt(enemy.baseScore * projectile.mult + Mathf.RoundToInt(projectile.angleReflected/10) * 10);
-            
-            if(obj == projectile)
+            Score += Mathf.FloorToInt(enemy.baseScore * projectile.mult + Mathf.RoundToInt(projectile.angleReflected / 10) * 10);
+
+            if (obj == projectile)
             {
                 Score += 50;
             }
