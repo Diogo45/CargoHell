@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
 
     public bool PlayerInvulnerable = false;
 
+    public bool Movement = true;
+
     void Start()
     {
 
@@ -152,6 +154,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
+        if (!Movement)
+            return;
 
 #region Input
 
