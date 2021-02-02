@@ -319,6 +319,7 @@ public class LevelController : MonoBehaviour
             if(animationState == AnimStates.PlayerCentering)
             {
                 Player.GetComponent<PlayerController>().Movement = false;
+                Shield.SetActive(false);
                 var pos = Player.transform.position;
                 var FinalPos = Vector3.zero;
 
@@ -350,10 +351,10 @@ public class LevelController : MonoBehaviour
                 nebulaMat.SetVector("_ScrollSpeed", Vector4.Lerp(nebulaScrollSpeed, nebulaFinalScrollSpeed, scrollSpeedCurve.Evaluate(frame)));
 
                 
-                if(frame > 0.05f)
+                if(frame > 0.06f)
                 {
-                    animationState = AnimStates.NebulaTilling | AnimStates.NebulaSpeed | AnimStates.PlayerStretch;
-                    Shield.SetActive(false);
+                    animationState = animationState | AnimStates.PlayerStretch;
+                    
 
                 }
 
@@ -375,7 +376,7 @@ public class LevelController : MonoBehaviour
 
                 Player.transform.localScale = Vector3.Lerp(Player.transform.localScale, new Vector3(0.5f, 7f, 1f), frame);
 
-                Player.transform.position = Vector3.Lerp(Player.transform.position, new Vector3(15f, 0, 0), scrollSpeedCurve.Evaluate((frame - 0.05f) * 25f));
+                Player.transform.position = Vector3.Lerp(Player.transform.position, new Vector3(15f, 0, 0), scrollSpeedCurve.Evaluate((frame - 0.06f) * 25f));
 
             }
 
@@ -622,12 +623,14 @@ public class LevelController : MonoBehaviour
     IEnumerator SpawnPowerUp()
     {
         yield return new WaitForSeconds(Random.Range(25f, 30f));
-        Vector2 pos = new Vector2(Random.Range(0.1f, 0.9f), Random.Range(0.1f, 0.9f));
-        int probability = Random.Range(0, 2);
-        Instantiate(powerUpPrefabs[probability], Camera.main.ViewportToWorldPoint(new Vector3(pos.x, pos.y, 0) + Vector3.forward * 30), Quaternion.identity);
+        if (!hasWon)
+        {
+            Vector2 pos = new Vector2(Random.Range(0.1f, 0.9f), Random.Range(0.1f, 0.9f));
+            int probability = Random.Range(0, 2);
+            Instantiate(powerUpPrefabs[probability], Camera.main.ViewportToWorldPoint(new Vector3(pos.x, pos.y, 0) + Vector3.forward * 30), Quaternion.identity);
 
-        yield return SpawnPowerUp();
-
+            yield return SpawnPowerUp();
+        }
     }
 
     public (Vector2, Vector2) RequestRandomPos()
