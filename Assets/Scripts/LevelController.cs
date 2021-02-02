@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 [Flags]
 public enum AnimStates
 {
-    PlayerCentering = 1, PlayerStretch = 2, PlayerGoToInfinityAndBeyond = 4, NebulaTilling = 8, NebulaSpeed = 16 
+    PlayerCentering = 1, PlayerStretch = 2, PlayerGoToInfinityAndBeyond = 4, NebulaTilling = 8, NebulaSpeed = 16
 }
 
 
@@ -157,6 +157,8 @@ public class LevelController : MonoBehaviour
     public GameObject nearStars;
     public GameObject farStars;
 
+    public GameObject finalScoreCounter;
+    private int scoreCount;
 
     private bool startedCoroutine;
 
@@ -305,7 +307,7 @@ public class LevelController : MonoBehaviour
         }
 
 
-        
+
 
 
         if (Player != null && Player.GetComponent<PlayerController>().currentHealth <= 0)
@@ -316,7 +318,7 @@ public class LevelController : MonoBehaviour
         if (hasWon)
         {
 
-            if(animationState == AnimStates.PlayerCentering)
+            if (animationState == AnimStates.PlayerCentering)
             {
                 Player.GetComponent<PlayerController>().Movement = false;
                 Shield.SetActive(false);
@@ -326,7 +328,7 @@ public class LevelController : MonoBehaviour
                 Player.transform.position = Vector3.Lerp(pos, FinalPos, frame);
                 Player.transform.up = (FinalPos - pos).normalized;
 
-                if(Vector3.Distance(Player.transform.position, FinalPos) < 0.1f)
+                if (Vector3.Distance(Player.transform.position, FinalPos) < 0.1f)
                 {
                     animationState = AnimStates.NebulaTilling | AnimStates.NebulaSpeed;
                     Player.transform.rotation = Quaternion.Euler(0, 0, -90);
@@ -337,40 +339,21 @@ public class LevelController : MonoBehaviour
 
 
             }
-            else if(animationState == (AnimStates.NebulaTilling | AnimStates.NebulaSpeed))
+            else if (animationState == (AnimStates.NebulaTilling | AnimStates.NebulaSpeed))
             {
-              
 
-                var nebula = nebulaMat.GetVector("_Tilling");
-                var nebulaScrollSpeed = nebulaMat.GetVector("_ScrollSpeed");
+                AnimateNebula();
 
-                var nebulaFinal = new Vector4(nebula.x, 500f, nebula.z, nebula.w);
-                var nebulaFinalScrollSpeed = new Vector4(30f, 0f, nebulaScrollSpeed.z, nebulaScrollSpeed.w);
-
-                nebulaMat.SetVector("_Tilling", Vector4.Lerp(nebula, nebulaFinal, tillingCurve.Evaluate(frame)));
-                nebulaMat.SetVector("_ScrollSpeed", Vector4.Lerp(nebulaScrollSpeed, nebulaFinalScrollSpeed, scrollSpeedCurve.Evaluate(frame)));
-
-                
-                if(frame > 0.06f)
+                if (frame > 0.06f)
                 {
                     animationState = animationState | AnimStates.PlayerStretch;
-                    
 
                 }
 
-
-
             }
-            else if(animationState == (AnimStates.NebulaTilling | AnimStates.NebulaSpeed | AnimStates.PlayerStretch))
+            else if (animationState == (AnimStates.NebulaTilling | AnimStates.NebulaSpeed | AnimStates.PlayerStretch))
             {
-                var nebula = nebulaMat.GetVector("_Tilling");
-                var nebulaScrollSpeed = nebulaMat.GetVector("_ScrollSpeed");
-
-                var nebulaFinal = new Vector4(nebula.x, 500f, nebula.z, nebula.w);
-                var nebulaFinalScrollSpeed = new Vector4(30f, 0f, nebulaScrollSpeed.z, nebulaScrollSpeed.w);
-
-                nebulaMat.SetVector("_Tilling", Vector4.Lerp(nebula, nebulaFinal, tillingCurve.Evaluate(frame)));
-                nebulaMat.SetVector("_ScrollSpeed", Vector4.Lerp(nebulaScrollSpeed, nebulaFinalScrollSpeed, scrollSpeedCurve.Evaluate(frame)));
+                AnimateNebula();
 
                 Player.GetComponent<SpriteRenderer>().material.SetColor("_Color", nebulaMat.GetColor("_Color") * 3f);
 
@@ -378,6 +361,21 @@ public class LevelController : MonoBehaviour
 
                 Player.transform.position = Vector3.Lerp(Player.transform.position, new Vector3(15f, 0, 0), scrollSpeedCurve.Evaluate((frame - 0.06f) * 25f));
 
+                if (Camera.main.WorldToViewportPoint(Player.transform.position).x > 1.2f)
+                {
+                    animationState = AnimStates.PlayerGoToInfinityAndBeyond;
+                    WinCanvas.SetActive(true);
+                    scoreCount = 0;
+                    StartCoroutine(countScore());
+
+
+                }
+
+
+            }
+            else if (animationState == AnimStates.PlayerGoToInfinityAndBeyond)
+            {
+                AnimateNebula();
             }
 
             frame += Time.deltaTime / 50f;
@@ -386,6 +384,36 @@ public class LevelController : MonoBehaviour
         }
 
 
+    }
+
+
+    private void AnimateNebula()
+    {
+        var nebula = nebulaMat.GetVector("_Tilling");
+        var nebulaScrollSpeed = nebulaMat.GetVector("_ScrollSpeed");
+
+        var nebulaFinal = new Vector4(nebula.x, 500f, nebula.z, nebula.w);
+        var nebulaFinalScrollSpeed = new Vector4(30f, 0f, nebulaScrollSpeed.z, nebulaScrollSpeed.w);
+
+        nebulaMat.SetVector("_Tilling", Vector4.Lerp(nebula, nebulaFinal, tillingCurve.Evaluate(frame)));
+        nebulaMat.SetVector("_ScrollSpeed", Vector4.Lerp(nebulaScrollSpeed, nebulaFinalScrollSpeed, scrollSpeedCurve.Evaluate(frame)));
+
+    }
+
+    IEnumerator countScore()
+    {
+
+        yield return new WaitForSeconds(0.01f);
+
+        if (scoreCount < Score)
+        {
+            scoreCount += 2;
+        }
+
+        finalScoreCounter.GetComponent<TMPro.TMP_Text>().text = "SCORE \n" + scoreCount;
+
+        yield return countScore();
+        yield break;
     }
 
     IEnumerator Spawn(float delay)
