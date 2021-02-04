@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 [Flags]
 public enum AnimStates
 {
-    PlayerCentering = 1, PlayerStretch = 2, PlayerGoToInfinityAndBeyond = 4, NebulaTilling = 8, NebulaSpeed = 16
+    None = 0, PlayerCentering = 1, PlayerStretch = 2, PlayerGoToInfinityAndBeyond = 4, NebulaTilling = 8, NebulaSpeed = 16
 }
 
 
@@ -65,35 +65,35 @@ public class LevelController : MonoBehaviour
 
         public SceneArgs()
         {
-            config.Add(new EnemyConfigList
-            {
-                enemyPositions = new List<EnemyConfig>
-                {
-                    new EnemyConfig
-                    {
-                        enemyType = "EnemySniper", side = 1, posInSide = 0.7f
-                    },
-                    new EnemyConfig
-                    {
-                        enemyType = "EnemySniper", side = 3, posInSide = 0.4f
-                    }
+            //config.Add(new EnemyConfigList
+            //{
+            //    enemyPositions = new List<EnemyConfig>
+            //    {
+            //        new EnemyConfig
+            //        {
+            //            enemyType = "EnemySniper", side = 1, posInSide = 0.7f
+            //        },
+            //        new EnemyConfig
+            //        {
+            //            enemyType = "EnemySniper", side = 3, posInSide = 0.4f
+            //        }
 
-                }
-            });
+            //    }
+            //});
 
-            config.Add(new EnemyConfigList
-            {
-                enemyPositions = new List<EnemyConfig>
-                {
-                    new EnemyConfig
-                    {
-                        enemyType = "SimpleEnemy", side = 1, posInSide = 0.7f },
-                    new EnemyConfig
-                    {
-                        enemyType = "SimpleEnemy", side = 3, posInSide = 0.4f }
+            //config.Add(new EnemyConfigList
+            //{
+            //    enemyPositions = new List<EnemyConfig>
+            //    {
+            //        new EnemyConfig
+            //        {
+            //            enemyType = "SimpleEnemy", side = 1, posInSide = 0.7f },
+            //        new EnemyConfig
+            //        {
+            //            enemyType = "SimpleEnemy", side = 3, posInSide = 0.4f }
 
-                }
-            });
+            //    }
+            //});
 
         }
 
@@ -122,6 +122,7 @@ public class LevelController : MonoBehaviour
 
     public DoubleAudioSource doubleAudio;
     public AudioSource LevelAudioSource;
+    public AudioSource AuxAudioSource;
     public AudioClip GameOverAudioClip;
 
     #region CanvasRefs
@@ -164,6 +165,7 @@ public class LevelController : MonoBehaviour
 
 
     public int Score = 0;
+    public AudioClip scoreCountAudio;
     public float MultIncrease = 1;
 
 
@@ -172,6 +174,8 @@ public class LevelController : MonoBehaviour
 
     public AnimationCurve tillingCurve;
     public AnimationCurve scrollSpeedCurve;
+
+
 
     public AnimStates animationState = AnimStates.PlayerCentering;
 
@@ -363,11 +367,13 @@ public class LevelController : MonoBehaviour
 
                 if (Camera.main.WorldToViewportPoint(Player.transform.position).x > 1.2f)
                 {
-                    animationState = AnimStates.PlayerGoToInfinityAndBeyond;
+                    animationState = AnimStates.None;
                     WinCanvas.SetActive(true);
                     scoreCount = 0;
                     StartCoroutine(countScore());
-
+                    AuxAudioSource.clip = scoreCountAudio;
+                    AuxAudioSource.loop = true;
+                    AuxAudioSource.Play();
 
                 }
 
@@ -375,6 +381,7 @@ public class LevelController : MonoBehaviour
             }
             else if (animationState == AnimStates.PlayerGoToInfinityAndBeyond)
             {
+                AuxAudioSource.Stop();
                 AnimateNebula();
             }
 
@@ -402,12 +409,18 @@ public class LevelController : MonoBehaviour
 
     IEnumerator countScore()
     {
+        AnimateNebula();
 
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.005f);
 
         if (scoreCount < Score)
         {
             scoreCount += 2;
+        }
+        else
+        {
+            animationState = AnimStates.PlayerGoToInfinityAndBeyond;
+            yield break;
         }
 
         finalScoreCounter.GetComponent<TMPro.TMP_Text>().text = "SCORE \n" + scoreCount;

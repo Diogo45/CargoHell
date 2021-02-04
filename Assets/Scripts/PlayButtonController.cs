@@ -23,7 +23,7 @@ public class PlayButtonController : MonoBehaviour
     public GameObject GlobalVolume;
     public GameObject SFXVolume;
 
-    public void Awake()
+    public void Start()
     {
         DebugUI = Instantiate(DebugUIPrefab, GameObject.FindGameObjectWithTag("canvas").transform);
         globalMixer.SetFloat("GlobalVolume", Mathf.Log10(PlayerPrefs.GetFloat("GlobalVolume")) * 20f);

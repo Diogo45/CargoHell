@@ -1,0 +1,20 @@
+{
+    "config": [
+        {
+            "enemyPositions": [
+                {
+                    "enemyType": "Boss",
+                    "side": 1,
+                    "posInSide": 0.5
+                }
+            ]
+        }
+    ],
+    "LevelMusic": 1,
+    "ShaderVariables": {
+        "R": 255,
+        "G": 3,
+        "B": 0
+    }
+    
+}

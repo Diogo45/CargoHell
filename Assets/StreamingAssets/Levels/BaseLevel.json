@@ -1,1 +1,1 @@
-{"config":[{"enemyPositions":[{"enemyType":"EnemySniper","side":1,"posInSide":0.699999988079071,"delay":0.0},{"enemyType":"EnemySniper","side":3,"posInSide":0.4000000059604645,"delay":0.0}]},{"enemyPositions":[{"enemyType":"SimpleEnemy","side":1,"posInSide":0.699999988079071,"delay":0.0},{"enemyType":"SimpleEnemy","side":3,"posInSide":0.4000000059604645,"delay":0.0}]}],"SpawnFrames":[0,600],"LevelMusic":2,"ShaderVariables":{"R":0,"G":0,"B":200}}
+{"config":[],"SpawnFrames":[0,600],"LevelMusic":2,"ShaderVariables":{"R":0,"G":0,"B":200}}

@@ -30,6 +30,7 @@ public class ShieldController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
+        shieldReflectAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
 
 
         if (collision.gameObject.tag == "Projectile"  || collision.gameObject.tag == "ProjectileReflected" || collision.gameObject.tag == "ProjectileSpinner")
