@@ -27,6 +27,10 @@ public class IEnemy : MonoBehaviour
     public delegate void OnDestroy(GameObject obj, ProjectileController projectile);
     public static event OnDestroy OnDestroyEvent;
 
+    public delegate void OnDamaged(GameObject obj, ProjectileController projectile);
+    public static event OnDamaged OnDamagedEvent;
+
+
     private ProjectileController lastProjectile;
 
     protected AudioSource shotAudioSource;
@@ -38,7 +42,6 @@ public class IEnemy : MonoBehaviour
             if (!hasCollided)
             {
                 health--;
-                //Destroy(collision.gameObject);
                 hasCollided = true;
                 lastProjectile = collision.GetComponent<ProjectileController>();
             }
@@ -76,12 +79,16 @@ public class IEnemy : MonoBehaviour
 
         if (health <= 0)
         {
-            
-
             OnDestroyEvent(gameObject, lastProjectile);
         }
+        else if (hasCollided)
+        {
+            hasCollided = false;
+            OnDamagedEvent(gameObject, lastProjectile);
+        }
+ 
 
-        
+       
 
     }
 

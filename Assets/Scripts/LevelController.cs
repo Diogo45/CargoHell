@@ -706,6 +706,13 @@ public class LevelController : MonoBehaviour
     private void OnEnable()
     {
         IEnemy.OnDestroyEvent += IEnemy_OnDestroyEvent;
+        IEnemy.OnDamagedEvent += IEnemy_OnDamagedEvent;
+    }
+
+    //Strobe material for multi health enemies
+    private void IEnemy_OnDamagedEvent(GameObject obj, ProjectileController projectile)
+    {
+        if (projectile) Destroy(projectile.gameObject);
     }
 
     private void IEnemy_OnDestroyEvent(GameObject obj, ProjectileController projectile)

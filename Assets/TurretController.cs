@@ -25,7 +25,7 @@ public class TurretController : MonoBehaviour
     {
         if (aimAt)
         {
-            Vector2 dir = aimAt.transform.position - transform.position;
+            Vector2 dir = (aimAt.transform.position )  - transform.position;
 
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
@@ -41,16 +41,25 @@ public class TurretController : MonoBehaviour
         {
             projectileTimer = 0f;
 
-            for (int i = 0; i < shots; i++)
-            {
-                //shotAudioSource.PlayOneShot(shotSound);
-                var newProj = Instantiate(projectilePrefab, transform.position + (transform.up * 0.5f), Quaternion.identity);
-                newProj.GetComponent<ProjectileController>().origin = gameObject;
-                newProj.transform.up = transform.up;
-
-            }
+            StartCoroutine(TripleShot());
         }
 
         projectileTimer += Time.deltaTime;
     }
+
+    IEnumerator TripleShot()
+    {
+        for (int i = 0; i < shots; i++)
+        {
+            //shotAudioSource.PlayOneShot(shotSound);
+            yield return new WaitForSeconds(0.1f);
+            var newProj = Instantiate(projectilePrefab, transform.position + (transform.up * 0.5f), Quaternion.identity);
+            newProj.GetComponent<ProjectileController>().origin = gameObject;
+            newProj.transform.up = transform.up;
+
+        }
+
+        yield break;
+    }
+
 }
