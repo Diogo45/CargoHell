@@ -824,12 +824,12 @@ PrefabInstance:
     - target: {fileID: 1199613503174647402, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 93.78715
+      value: 93.787186
       objectReference: {fileID: 0}
     - target: {fileID: 1199613503332623489, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -74.999954
+      value: -74.99997
       objectReference: {fileID: 0}
     - target: {fileID: 1199613503332623490, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
@@ -1428,6 +1428,16 @@ PrefabInstance:
       propertyPath: lookJoystick
       value: 
       objectReference: {fileID: 1770311000}
+    - target: {fileID: 7428070431825372691, guid: 21708909023f6684f87141124de926a0,
+        type: 3}
+      propertyPath: maxCurrentHealth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428070431825372691, guid: 21708909023f6684f87141124de926a0,
+        type: 3}
+      propertyPath: currentHealth
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7428070431825372694, guid: 21708909023f6684f87141124de926a0,
         type: 3}
       propertyPath: m_LocalPosition.x

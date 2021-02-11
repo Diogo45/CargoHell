@@ -14,6 +14,8 @@ public class TurretController : MonoBehaviour
     private GameObject aimAt;
     private float projectileTimer;
 
+    public bool isShooting = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,7 @@ public class TurretController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isShooting = false;
         if (aimAt)
         {
             Vector2 dir = (aimAt.transform.position )  - transform.position;
@@ -40,7 +43,7 @@ public class TurretController : MonoBehaviour
         if (projectileTimer > timeInterval + Random.Range(-timeInterval, timeInterval) / 2f)
         {
             projectileTimer = 0f;
-
+            isShooting = true;
             StartCoroutine(TripleShot());
         }
 
@@ -58,7 +61,7 @@ public class TurretController : MonoBehaviour
             newProj.transform.up = transform.up;
 
         }
-
+        
         yield break;
     }
 

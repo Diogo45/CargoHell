@@ -102,13 +102,13 @@ public class PlayerController : MonoBehaviour
 
         if (collision.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<IEnemy>().health = 0;
+            collision.gameObject.GetComponent<IEnemy>().health--;
             currentHealth--;
         }
 
         if (collision.tag == "Object")
         {
-            collision.gameObject.GetComponent<IObject>().health = 0;
+            collision.gameObject.GetComponent<IObject>().health--;
             currentHealth--;
         }
 

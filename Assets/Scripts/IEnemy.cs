@@ -24,6 +24,8 @@ public class IEnemy : MonoBehaviour
 
     public int baseScore = 1;
 
+    public bool Move;
+
     public delegate void OnDestroy(GameObject obj, ProjectileController projectile);
     public static event OnDestroy OnDestroyEvent;
 
@@ -53,6 +55,7 @@ public class IEnemy : MonoBehaviour
     {
         shotAudioSource = gameObject.AddComponent<AudioSource>();
         shotAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
+        Move = true;
     }
 
 
