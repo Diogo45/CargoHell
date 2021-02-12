@@ -21,6 +21,7 @@ public class IEnemy : MonoBehaviour
     private bool enteredScene = false;
     public float speed;
     private bool hasCollided;
+    public bool isOutOfBounds;
 
     public int baseScore = 1;
 
@@ -66,10 +67,11 @@ public class IEnemy : MonoBehaviour
 
         if (enteredScene)
         {
-
+            isOutOfBounds = false;
             if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
             {
                 OutOfBounds();
+                isOutOfBounds = true;
             }
 
 

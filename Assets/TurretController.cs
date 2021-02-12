@@ -9,6 +9,7 @@ public class TurretController : MonoBehaviour
     public AudioClip projectileSound;
 
     public int shots;
+    private int shootedShots;
     public float timeInterval;
 
     private GameObject aimAt;
@@ -16,10 +17,18 @@ public class TurretController : MonoBehaviour
 
     public bool isShooting = false;
 
+    [HideInInspector]
+    public bool shouldShoot;
+
+    private bool fire = true;
+
     // Start is called before the first frame update
     void Start()
     {
         aimAt = LevelController.instance.Player;
+        shouldShoot = false;
+
+        shootedShots = 0;
     }
 
     // Update is called once per frame
@@ -28,7 +37,7 @@ public class TurretController : MonoBehaviour
         isShooting = false;
         if (aimAt)
         {
-            Vector2 dir = (aimAt.transform.position )  - transform.position;
+            Vector2 dir = (aimAt.transform.position) - transform.position;
 
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
@@ -40,11 +49,28 @@ public class TurretController : MonoBehaviour
 
         }
 
-        if (projectileTimer > timeInterval + Random.Range(-timeInterval, timeInterval) / 2f)
+        if (projectileTimer > timeInterval + Random.Range(-timeInterval, timeInterval) / 2f && shouldShoot)
         {
-            projectileTimer = 0f;
-            isShooting = true;
-            StartCoroutine(TripleShot());
+            
+
+            if (fire && shouldShoot)
+            {
+                fire = false;
+                var newProj = Instantiate(projectilePrefab, transform.position + (transform.up * 0.5f), Quaternion.identity);
+                newProj.GetComponent<ProjectileController>().origin = gameObject;
+                newProj.transform.up = transform.up;
+                shootedShots++;
+
+                StartCoroutine(wait());
+            }
+            if(shootedShots >= shots)
+            {
+                isShooting = true;
+                shootedShots = 0;
+                projectileTimer = 0f;
+            }
+
+            //StartCoroutine(TripleShot());
         }
 
         projectileTimer += Time.deltaTime;
@@ -54,6 +80,8 @@ public class TurretController : MonoBehaviour
     {
         for (int i = 0; i < shots; i++)
         {
+            if (!shouldShoot)
+                yield break;
             //shotAudioSource.PlayOneShot(shotSound);
             yield return new WaitForSeconds(0.1f);
             var newProj = Instantiate(projectilePrefab, transform.position + (transform.up * 0.5f), Quaternion.identity);
@@ -61,8 +89,15 @@ public class TurretController : MonoBehaviour
             newProj.transform.up = transform.up;
 
         }
-        
+        shouldShoot = false;
+
         yield break;
+    }
+
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(0.1f);
+        fire = true;
     }
 
 }

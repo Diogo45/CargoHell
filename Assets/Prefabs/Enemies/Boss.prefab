@@ -49,15 +49,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: -0.8289878
-      outSlope: -0.8289878
+      inSlope: -0.31437638
+      outSlope: -0.31437638
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.29999998
-      value: -0.24869633
+      time: 0.30241087
+      value: -0.09507084
       inSlope: 0.00628273
       outSlope: 0.00628273
       tangentMode: 0
@@ -65,8 +65,8 @@ MonoBehaviour:
       inWeight: 0.26883963
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.99754524
-      value: 0.4978351
+      time: 0.99962044
+      value: 1.0040302
       inSlope: 0.043138977
       outSlope: 0.043138977
       tangentMode: 0
@@ -103,9 +103,11 @@ MonoBehaviour:
   enemyPrefab: {fileID: 4354932906295119671, guid: 586d42554b2c78943a35f377740ee966,
     type: 3}
   enemy: {fileID: 0}
+  enemyStartPos: {x: 0, y: 0, z: 0}
   Spawn: 0
   Anim: 0
-  animSpeed: 1
+  animSpeed: 0.15
+  Invert: 0
 --- !u!1 &8606885674925933412
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,14 +219,16 @@ MonoBehaviour:
   shotSound: {fileID: 0}
   direction: {x: 0, y: 0, z: 0}
   speed: 0
+  isOutOfBounds: 0
   baseScore: 5000
   Move: 0
   startRotation: {x: 0, y: 0, z: 90}
   turretLeft: {fileID: 3182771585871806198}
   turretRight: {fileID: 8606885676022696990}
-  gambiarra: 0
+  height: 0
   side: 0
   timer: 0
+  spawner: {fileID: 3893252404577584763}
 --- !u!61 &8655011891102842074
 BoxCollider2D:
   m_ObjectHideFlags: 0

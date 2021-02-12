@@ -20,9 +20,12 @@ public class EnemySpawner : MonoBehaviour
     public float animSpeed;
 
     public float Invert;
+    public float InvertEnemy;
+    private float InvertY;
     void Start()
     {
-        Invert = 1f;
+        Invert = -1f;
+        InvertY = 1f;
     }
 
     // Update is called once per frame
@@ -35,15 +38,29 @@ public class EnemySpawner : MonoBehaviour
             Spawn = false;
             Anim = true;
             time = 0f;
+            InvertY *= -1f;
+            InvertEnemy = Invert;
         }
 
-        if (Anim)
+        if (enemy)
         {
-            enemy.GetComponent<IEnemy>().Move = false;
-            var x = Mathf.Clamp(X.Evaluate(time) * Invert + enemyStartPos.x, 0.2f, 0.8f);
-            var y = Mathf.Clamp(Y.Evaluate(time) + enemyStartPos.y, 0.2f, 0.8f);
-            enemy.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(x, y, 0f) + Vector3.forward * 10f);
-            time += Time.deltaTime * animSpeed;
+            var ie = enemy.GetComponent<IEnemy>();
+            
+            if (Anim)
+            {
+                if (ie.isOutOfBounds)
+                {
+                    Anim = false;
+                    ie.Move = true;
+                    return;
+                }
+                ie.Move = false;
+                var x = (X.Evaluate(time) * InvertEnemy + enemyStartPos.x);
+                var y = Mathf.Clamp(Y.Evaluate(time) * InvertY + enemyStartPos.y, 0.05f, 0.95f);
+                enemy.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(x, y, 0f) + Vector3.forward * 10f);
+                time += Time.deltaTime * animSpeed;
+            }
         }
+        
     }
 }
