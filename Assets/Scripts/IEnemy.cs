@@ -25,7 +25,9 @@ public class IEnemy : MonoBehaviour
 
     public int baseScore = 1;
 
-    public bool Move;
+    public bool ShouldMove;
+    public bool ShouldShoot = true;
+
 
     public delegate void OnDestroy(GameObject obj, ProjectileController projectile);
     public static event OnDestroy OnDestroyEvent;
@@ -38,7 +40,7 @@ public class IEnemy : MonoBehaviour
 
     protected AudioSource shotAudioSource;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "ProjectileReflected")
         {
@@ -56,7 +58,9 @@ public class IEnemy : MonoBehaviour
     {
         shotAudioSource = gameObject.AddComponent<AudioSource>();
         shotAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
-        Move = true;
+        ShouldMove = true;
+        ShouldShoot = true;
+
     }
 
 

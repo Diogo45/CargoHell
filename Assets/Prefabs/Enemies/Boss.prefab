@@ -108,6 +108,7 @@ MonoBehaviour:
   Anim: 0
   animSpeed: 0.15
   Invert: 0
+  InvertEnemy: 0
 --- !u!1 &8606885674925933412
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +167,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1bf9372970641a540b54ac45b490a3c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -226,6 +227,7 @@ MonoBehaviour:
   turretLeft: {fileID: 3182771585871806198}
   turretRight: {fileID: 8606885676022696990}
   height: 0
+  TP: 0
   side: 0
   timer: 0
   spawner: {fileID: 3893252404577584763}

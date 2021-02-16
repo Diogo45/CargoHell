@@ -5,6 +5,11 @@ using UnityEngine;
 public class BossController : IEnemy
 {
 
+    public enum AnimStates
+    {
+        None = 0, Smalling, Teleport, Bigenning
+    }
+
     public Vector3 startRotation;
 
     private Vector3 startPos;
@@ -20,17 +25,25 @@ public class BossController : IEnemy
     public int timer;
 
     public EnemySpawner spawner;
+    private Material material;
+    private bool finishedAnimation;
+    private float animationTime = 3f;
+
+    private bool ShouldTP = true;
+    private AnimStates animStates = AnimStates.None;
 
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
+        material = gameObject.GetComponent<SpriteRenderer>().material;
         transform.rotation = Quaternion.Euler(startRotation);
         transform.position += transform.up * 2;
         startPos = transform.position;
         side = 1f;
         StartCoroutine(spawnSniper());
         TP = false;
+        finishedAnimation = true;
     }
 
     // Update is called once per frame
@@ -41,43 +54,79 @@ public class BossController : IEnemy
         if (turretLeft.isShooting)
             timer++;
 
-        if (timer >= 2)
+
+
+        if (ShouldTP && timer >= 5)
         {
+
             turretLeft.shouldShoot = turretRight.shouldShoot = false;
+            ShouldMove = false;
+            ShouldShoot = false;
 
-            side = -side;
-            transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, -transform.rotation.z, transform.rotation.w);
-            if (side == 1f)
-            {
-                transform.position = Camera.main.ViewportToWorldPoint(new Vector3(1f, 0.5f, 0)) + Vector3.forward * 10f;
-                spawner.Invert = -1f;
-            }
-            else if (side == -1f)
-            {
-                transform.position = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0.5f, 0)) + Vector3.forward * 10f;
-                spawner.Invert = 1f;
-            }
-            startPos = transform.position + transform.up * 2;
+            if(animStates == AnimStates.None)
+                animStates = AnimStates.Smalling;
 
-            if (height)
+            if (transform.localScale.x <= 0.1f && !TP)
             {
-                currGoal = startPos + new Vector3(Random.Range(-2f, -1f) * side, Random.Range(1.5f, 2f), 0f);
-                height = false;
-            }
-            else
-            {
-                currGoal = startPos + new Vector3(Random.Range(-2f, -1f) * side, Random.Range(-2f, -1.5f), 0f);
-                height = true;
+                animStates = AnimStates.Teleport;
+
             }
 
+            if (animStates == AnimStates.Smalling)
+                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime * animationTime);
 
-    
-            TP = true;
-            timer = 0;
+            if (animStates == AnimStates.Teleport)
+            {
 
+                side = -side;
+                transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, -transform.rotation.z, transform.rotation.w);
+                if (side == 1f)
+                {
+                    transform.position = Camera.main.ViewportToWorldPoint(new Vector3(1f, 0.5f, 0)) + Vector3.forward * 10f;
+                    spawner.Invert = -1f;
+                }
+                else if (side == -1f)
+                {
+                    transform.position = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0.5f, 0)) + Vector3.forward * 10f;
+                    spawner.Invert = 1f;
+                }
+                startPos = transform.position + transform.up * 2;
+
+                if (height)
+                {
+                    currGoal = startPos + new Vector3(Random.Range(-2f, -1f) * side, Random.Range(1.5f, 2f), 0f);
+                    height = false;
+                }
+                else
+                {
+                    currGoal = startPos + new Vector3(Random.Range(-2f, -1f) * side, Random.Range(-2f, -1.5f), 0f);
+                    height = true;
+                }
+
+                TP = true;
+                animStates = AnimStates.Bigenning;
+
+
+            }
+
+            if(animStates == AnimStates.Bigenning)
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, Time.deltaTime * animationTime);
+
+                if (transform.localScale.x >= 0.9f)
+                {
+                    animStates = AnimStates.None;
+                    StartCoroutine(ResetTeleport());
+                    TP = false;
+                    timer = 0;
+                }
+            }
+
+
+           
         }
 
-        if (Vector3.Distance(transform.position, currGoal) < 0.1f /*&& (turretLeft.isShooting || turretRight.isShooting)*/)
+        if (ShouldShoot && Vector3.Distance(transform.position, currGoal) < 0.1f  /*&& (turretLeft.isShooting || turretRight.isShooting)*/)
         {
 
             if (height)
@@ -94,13 +143,32 @@ public class BossController : IEnemy
             turretLeft.shouldShoot = turretRight.shouldShoot = true;
         }
 
-        //if (!TP)
+        if (ShouldMove)
             transform.position = Vector3.Lerp(transform.position, currGoal, Time.deltaTime);
 
         //transform.position = startPos + new Vector3(Random.Range(-1f, 0f), Random.Range(-1, 1f), 0f);
 
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+
+        if (collision.tag == "Player" || collision.tag == "ProjectileReflected")
+        {
+            StartCoroutine(StrobeColor(Color.white));
+        }
+
+    }
+
+
+    IEnumerator ResetTeleport()
+    {
+        yield return new WaitForSeconds(0.5f);
+        ShouldMove = true;
+        ShouldShoot = true;
+        yield break;
+    }
 
     IEnumerator spawnSniper()
     {
@@ -108,6 +176,7 @@ public class BossController : IEnemy
 
         if (!spawner.enemy)
         {
+            yield return new WaitForSeconds(5f);
             spawner.Spawn = true;
         }
 
@@ -116,22 +185,22 @@ public class BossController : IEnemy
     }
 
 
-    IEnumerator turnOnTurret()
+    IEnumerator StrobeColor(Color c)
     {
-        //yield return new WaitForSeconds(0.5f);
-
-        turretLeft.shouldShoot = turretRight.shouldShoot = true;
-
-        yield break;
+        for (int i = 0; i < 1; i++)
+        {
+            c.a = 0.8f;
+            SetColor(c);
+            yield return new WaitForSeconds(0.1f);
+            c.a = 0f;
+            SetColor(c);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
-
-    IEnumerator turnOnMove()
+    private void SetColor(Color color)
     {
-       yield return new WaitForSeconds(10f);
-
-       TP = false;
-
-        yield break;
+        material.SetColor("_Color", color);
     }
+
 }

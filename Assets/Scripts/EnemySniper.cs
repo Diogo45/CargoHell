@@ -44,7 +44,7 @@ public class EnemySniper : IEnemy
         }
 
 
-        if(Move)
+        if(ShouldMove)
             transform.position += (direction * speed) * Time.deltaTime;
 
         projectileTimer += Time.deltaTime;
