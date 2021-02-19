@@ -6,7 +6,7 @@ public class TurretController : MonoBehaviour
 {
 
     public GameObject projectilePrefab;
-    public AudioClip projectileSound;
+    private AudioSource audioSource;
 
     public int shots;
     private int shootedShots;
@@ -27,7 +27,7 @@ public class TurretController : MonoBehaviour
     {
         aimAt = LevelController.instance.Player;
         shouldShoot = false;
-
+        audioSource = GetComponent<AudioSource>();
         shootedShots = 0;
     }
 
@@ -53,8 +53,12 @@ public class TurretController : MonoBehaviour
         {
             
 
+
             if (fire && shouldShoot)
             {
+                if (!audioSource.isPlaying)
+                    audioSource.Play();
+
                 fire = false;
                 var newProj = Instantiate(projectilePrefab, transform.position + (transform.up * 0.5f), Quaternion.identity);
                 newProj.GetComponent<ProjectileController>().origin = gameObject;
@@ -65,6 +69,7 @@ public class TurretController : MonoBehaviour
             }
             if(shootedShots >= shots)
             {
+                audioSource.Stop();
                 isShooting = true;
                 shootedShots = 0;
                 projectileTimer = 0f;

@@ -23,6 +23,12 @@ public enum AnimStates
 public class LevelController : MonoBehaviour
 {
 
+    public delegate void OnSpawnEnemy(IEnemy controller);
+    public static event OnSpawnEnemy onSpawnEnemy;
+
+    public delegate void OnEndLevel(bool win);
+    public static event OnEndLevel onEndLevel;
+
     public class SceneArgs
     {
         [System.Serializable]
@@ -195,7 +201,7 @@ public class LevelController : MonoBehaviour
         }
         #endregion
 
-
+        
 
         sceneArgs = new SceneArgs();
 #if UNITY_EDITOR
@@ -224,6 +230,7 @@ public class LevelController : MonoBehaviour
             var Joystick2 = GameObject.Find("MoveJoystick");
             Joystick1.SetActive(false);
             Joystick2.SetActive(false);
+            
 #endif
         }
         catch (Exception e)
@@ -253,7 +260,7 @@ public class LevelController : MonoBehaviour
             }
         }
 
-
+        
 
         spawned = new IntObjectDictionary();
 
@@ -317,6 +324,8 @@ public class LevelController : MonoBehaviour
         if (Player != null && Player.GetComponent<PlayerController>().currentHealth <= 0)
         {
             StartCoroutine(DeathAnim());
+            onEndLevel(false);
+
         }
 
         if (hasWon)
@@ -501,6 +510,7 @@ public class LevelController : MonoBehaviour
             if (!hasWon && !hasLost && !isThereEnemiesLeft)
             {
                 Score += instance.Player.GetComponent<PlayerController>().currentHealth * 100;
+                onEndLevel(true);
                 hasWon = true;
                 //StartCoroutine(WinAnim());
                 yield break;
@@ -636,8 +646,12 @@ public class LevelController : MonoBehaviour
         else
         {
             enemyAlive.Add(newEnemy);
-
+            
             var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
+
+            //Spawn event
+            onSpawnEnemy(comp);
+
             switch (enemyType)
             {
                 case "SimpleEnemy":
@@ -645,6 +659,9 @@ public class LevelController : MonoBehaviour
                     break;
                 case "EnemySniper":
                     comp.type = EnemyType.SNIPER;
+                    break;
+                case "Boss":
+                    comp.type = EnemyType.BOSS;
                     break;
             }
             comp.direction = direction;
@@ -732,6 +749,9 @@ public class LevelController : MonoBehaviour
                 break;
             case EnemyType.SNIPER:
                 instance.spawned["EnemySniper"]--;
+                break;
+            case EnemyType.BOSS:
+                instance.spawned["Boss"]--;
                 break;
         }
 

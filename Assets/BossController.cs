@@ -54,7 +54,7 @@ public class BossController : IEnemy
         if (turretLeft.isShooting)
             timer++;
 
-
+        
 
         if (ShouldTP && timer >= 5)
         {
