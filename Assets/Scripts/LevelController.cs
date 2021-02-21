@@ -201,7 +201,7 @@ public class LevelController : MonoBehaviour
         }
         #endregion
 
-        
+
 
         sceneArgs = new SceneArgs();
 #if UNITY_EDITOR
@@ -230,7 +230,7 @@ public class LevelController : MonoBehaviour
             var Joystick2 = GameObject.Find("MoveJoystick");
             Joystick1.SetActive(false);
             Joystick2.SetActive(false);
-            
+
 #endif
         }
         catch (Exception e)
@@ -260,7 +260,7 @@ public class LevelController : MonoBehaviour
             }
         }
 
-        
+
 
         spawned = new IntObjectDictionary();
 
@@ -321,7 +321,7 @@ public class LevelController : MonoBehaviour
 
 
 
-        if (Player != null && Player.GetComponent<PlayerController>().currentHealth <= 0)
+        if (Player != null && Player.GetComponent<DamageAnimation>().currentHealth <= 0)
         {
             StartCoroutine(DeathAnim());
             onEndLevel?.Invoke(false);
@@ -333,7 +333,7 @@ public class LevelController : MonoBehaviour
 
             if (animationState == AnimStates.PlayerCentering)
             {
-                Player.GetComponent<PlayerController>().Movement = false;
+                Player.GetComponent<DamageAnimation>().Movement = false;
                 Shield.SetActive(false);
                 var pos = Player.transform.position;
                 var FinalPos = Vector3.zero;
@@ -379,7 +379,18 @@ public class LevelController : MonoBehaviour
                     animationState = AnimStates.None;
                     WinCanvas.SetActive(true);
                     scoreCount = 0;
+                    var score = Score.ToString().ToCharArray();
+
+                    intCount = new int[score.Length];
+                    finishedCount = new bool[score.Length];
                     StartCoroutine(countScore());
+
+
+
+                    for (int i = 0; i < score.Length; i++)
+                    {
+                        StartCoroutine(CountUp(i));
+                    }
                     AuxAudioSource.clip = scoreCountAudio;
                     AuxAudioSource.loop = true;
                     AuxAudioSource.Play();
@@ -416,27 +427,60 @@ public class LevelController : MonoBehaviour
 
     }
 
+    private int[] intCount;
+    private bool[] finishedCount;
     IEnumerator countScore()
     {
         AnimateNebula();
 
         yield return new WaitForSeconds(0.005f);
 
-        if (scoreCount < Score)
-        {
-            scoreCount += 2;
-        }
-        else
+        var score = Score.ToString().ToCharArray();
+
+        string strCount = "";
+
+        if(!Array.Exists(finishedCount, x => x == false))
         {
             animationState = AnimStates.PlayerGoToInfinityAndBeyond;
             yield break;
         }
 
-        finalScoreCounter.GetComponent<TMPro.TMP_Text>().text = "SCORE \n" + scoreCount;
+        for (int i = 0; i < score.Length; i++)
+        {
+            strCount += intCount[i].ToString();
+        }
+
+        finalScoreCounter.GetComponent<TMPro.TMP_Text>().text = "SCORE \n" + strCount;
 
         yield return countScore();
         yield break;
     }
+
+    IEnumerator CountUp(int index)
+    {
+        var score = Score.ToString().ToCharArray();
+        var counter = intCount[index];
+        if (counter.ToString().ToCharArray()[0] == score[index] && ((index - 1 >= 0 && finishedCount[index - 1]) || index == 0))
+        {
+            finishedCount[index] = true;
+            yield break;
+        }
+
+        if (counter >= 9)
+        {
+            counter = 0;
+
+        }
+        else
+        {
+            counter += 1;
+        }
+        intCount[index] = counter;
+        yield return new WaitForSeconds(0.05f * (score.Length - (index + 1)));
+        yield return CountUp(index);
+        yield break;
+    }
+
 
     IEnumerator Spawn(float delay)
     {
@@ -509,7 +553,7 @@ public class LevelController : MonoBehaviour
 
             if (!hasWon && !hasLost && !isThereEnemiesLeft)
             {
-                Score += instance.Player.GetComponent<PlayerController>().currentHealth * 100;
+                Score += instance.Player.GetComponent<DamageAnimation>().currentHealth * 100;
                 onEndLevel?.Invoke(true);
                 hasWon = true;
                 //StartCoroutine(WinAnim());
@@ -646,7 +690,7 @@ public class LevelController : MonoBehaviour
         else
         {
             enemyAlive.Add(newEnemy);
-            
+
             var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
 
             //Spawn event

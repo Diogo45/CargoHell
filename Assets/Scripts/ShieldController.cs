@@ -7,7 +7,7 @@ public class ShieldController : MonoBehaviour
 
 
     public GameObject player;
-    private PlayerController ship;
+    private DamageAnimation ship;
 
 
     private Vector2 debugNormal;
@@ -87,9 +87,9 @@ public class ShieldController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position, transform.up);
-        Debug.DrawRay(player.transform.position + player.transform.up/3.5f, debugNormal, Color.red);
-        Debug.DrawLine(player.transform.position, (Vector2)player.transform.position + debugPoint, Color.blue);
+        //Debug.DrawRay(transform.position, transform.up);
+        //Debug.DrawRay(player.transform.position + player.transform.up/3.5f, debugNormal, Color.red);
+        Debug.DrawLine(player.transform.position, (Vector2)player.transform.position + debugNormal, Color.blue);
 
         //Vector2 hitCenter = (Vector2)transform.position - hit.point;
         //Debug.DrawLine(hit.point, hit.point + hitCenter);

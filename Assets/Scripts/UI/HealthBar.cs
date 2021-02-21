@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour
 {
     //[Header("Player")]
     public GameObject player; //the player object that holds the player script
-    private PlayerController playerController; //the player object that holds the player script
+    private DamageAnimation playerController; //the player object that holds the player script
     //[Header("Stats")]
     private int maxHealth; //total amount of hearts
     private int health; //current number of hearts
@@ -18,7 +18,7 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         healthUI = gameObject.GetComponent<Image>();
-        playerController = player.GetComponent<PlayerController>();
+        playerController = player.GetComponent<DamageAnimation>();
     }
 
     
