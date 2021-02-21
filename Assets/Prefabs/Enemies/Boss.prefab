@@ -102,14 +102,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   enemyPrefab: {fileID: 4354932906295119671, guid: 586d42554b2c78943a35f377740ee966,
     type: 3}
-  enemy: {fileID: 0}
   enemyStartPos: {x: 0, y: 0, z: 0}
   Spawn: 0
-  Anim: 0
   animSpeed: 0.15
   spawnDelay: 0
-  Invert: 0
-  InvertEnemy: 0
+  invert: 0
+  invertEnemy: 0
 --- !u!82 &1478213484152150340
 AudioSource:
   m_ObjectHideFlags: 0
@@ -567,12 +565,12 @@ PrefabInstance:
     - target: {fileID: 3432872926427156597, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
       propertyPath: shots
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3432872926427156597, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
       propertyPath: timeInterval
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3432872926427156599, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
@@ -670,12 +668,12 @@ PrefabInstance:
     - target: {fileID: 3432872926427156597, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
       propertyPath: shots
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3432872926427156597, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
       propertyPath: timeInterval
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3432872926427156599, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}

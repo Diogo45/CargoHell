@@ -83,12 +83,12 @@ public class BossController : IEnemy
                 if (side == 1f)
                 {
                     transform.position = Camera.main.ViewportToWorldPoint(new Vector3(1f, 0.5f, 0)) + Vector3.forward * 10f;
-                    spawner.Invert = -1f;
+                    spawner.invert = -1f;
                 }
                 else if (side == -1f)
                 {
                     transform.position = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0.5f, 0)) + Vector3.forward * 10f;
-                    spawner.Invert = 1f;
+                    spawner.invert = 1f;
                 }
                 startPos = transform.position + transform.up * 2;
 
@@ -126,17 +126,17 @@ public class BossController : IEnemy
            
         }
 
-        if (ShouldShoot && Vector3.Distance(transform.position, currGoal) < 0.1f  /*&& (turretLeft.isShooting || turretRight.isShooting)*/)
+        if (ShouldShoot && Vector3.Distance(transform.position, currGoal) < 0.2f  /*&& (turretLeft.isShooting || turretRight.isShooting)*/)
         {
 
             if (height)
             {
-                currGoal = startPos + new Vector3(Random.Range(-2f, -1f) * side, Random.Range(1.5f, 2f), 0f);
+                currGoal = startPos + new Vector3(Random.Range(-2f, -1f) * side, Random.Range(1.5f, 3f), 0f);
                 height = false;
             }
             else
             {
-                currGoal = startPos + new Vector3(Random.Range(-2f, -1f) * side, Random.Range(-2f, -1.5f), 0f);
+                currGoal = startPos + new Vector3(Random.Range(-2f, -1f) * side, Random.Range(-3f, -1.5f), 0f);
                 height = true;
             }
 
@@ -172,13 +172,16 @@ public class BossController : IEnemy
 
     IEnumerator spawnSniper()
     {
-        yield return new WaitForSeconds(2f);
 
-        if (!spawner.enemy)
+        yield return new WaitForSeconds(0.5f);
+
+        if (spawner.enemy.Count < 2)
         {
-            yield return new WaitForSeconds(5f);
+            //yield return new WaitForSeconds(2f);
             spawner.Spawn = true;
         }
+
+        
 
         yield return spawnSniper();
         yield break;

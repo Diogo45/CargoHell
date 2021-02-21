@@ -6,81 +6,122 @@ public class EnemySpawner : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    private class Control
+    {
+        public bool Anim;
+        public float InvertEnemy;
+        public float InvertY;
+        public float Time;
+        public Vector3 EnemyStartPos;
+    }
+
     public AnimationCurve X;
     public AnimationCurve Y;
 
     public GameObject enemyPrefab;
-    public GameObject enemy;
+    public List<GameObject> enemy { get; private set; }
     public Vector3 enemyStartPos;
 
     public bool Spawn = false;
-    public bool Anim = false;
+    private Dictionary<GameObject, Control> CTRL;
 
     private float time = 0f;
     public float animSpeed;
     public float spawnDelay;
 
-    public float Invert;
-    public float InvertEnemy;
-    private float InvertY;
+    public float invert;
+    public float invertEnemy;
+    private float invertY;
     private bool delayed;
+
+    private bool deathDelay;
 
     void Start()
     {
-        Invert = -1f;
-        InvertY = 1f;
+        enemy = new List<GameObject>();
+        CTRL = new Dictionary<GameObject, Control>();
+        invert = -1f;
+        invertY = 1f;
         delayed = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Spawn)
+        if (Spawn && !deathDelay)
         {
-            //if (!delayed)
-            //{
-            enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-            enemyStartPos = Camera.main.WorldToViewportPoint(enemy.transform.position);
+
+            var newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            newEnemy.GetComponent<IEnemy>().type = EnemyType.SNIPER;
             Spawn = false;
-            Anim = true;
             time = 0f;
-            InvertY *= -1f;
-            InvertEnemy = Invert;
-            //delayed = true;
-            //}
+            invertY *= -1f;
+            invertEnemy = invert;
 
+            enemyStartPos = Camera.main.WorldToViewportPoint(newEnemy.transform.position);
+
+            CTRL.Add(newEnemy, new Control { Anim = true, InvertY = invertY, InvertEnemy = invertEnemy, EnemyStartPos = enemyStartPos, Time = 0f});
+            enemy.Add(newEnemy);
+           
         }
 
-        if (enemy)
+        if (enemy.Count > 0)
         {
-            var ie = enemy.GetComponent<IEnemy>();
-
-            if (Anim)
+            foreach (var item in enemy)
             {
-                if (ie.isOutOfBounds)
+                var ie = item.GetComponent<IEnemy>();
+
+                if (CTRL[item].Anim)
                 {
-                    Anim = false;
-                    ie.ShouldMove = true;
-                    return;
+                    if (ie.isOutOfBounds)
+                    {
+                        CTRL[item].Anim = false;
+                        ie.ShouldMove = true;
+                        return;
+                    }
+                    ie.ShouldMove = false;
+                    var x = (X.Evaluate(CTRL[item].Time) *  CTRL[item].InvertEnemy + CTRL[item].EnemyStartPos.x);
+                    var y = Mathf.Clamp(Y.Evaluate(CTRL[item].Time) * CTRL[item].InvertY + CTRL[item].EnemyStartPos.y, 0.05f, 0.95f);
+                    item.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(x, y, 0f) + Vector3.forward * 10f);
+                    CTRL[item].Time += Time.deltaTime * animSpeed;
                 }
-                ie.ShouldMove = false;
-                var x = (X.Evaluate(time) * InvertEnemy + enemyStartPos.x);
-                var y = Mathf.Clamp(Y.Evaluate(time) * InvertY + enemyStartPos.y, 0.05f, 0.95f);
-                enemy.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(x, y, 0f) + Vector3.forward * 10f);
-                time += Time.deltaTime * animSpeed;
             }
+
+            
         }
-        //else 
-        //{
-        //    StartCoroutine(Delay());
-        //}
+
 
     }
 
-    IEnumerator Delay()
+    private void OnEnable()
     {
-        yield return new WaitForSeconds(spawnDelay);
-        delayed = false;
+        IEnemy.OnDestroyEvent += IEnemy_OnDestroyEvent;
+    }
+
+    private void OnDisable()
+    {
+        IEnemy.OnDestroyEvent -= IEnemy_OnDestroyEvent;
+    }
+    
+    IEnumerator ResetDelay()
+    {
+        yield return new WaitForSeconds(10f);
+        deathDelay = false;
         yield break;
     }
+
+    private void IEnemy_OnDestroyEvent(GameObject obj, ProjectileController projectile)
+    {
+        //Debug.Log(obj.GetComponent<IEnemy>().type);
+        if (obj.GetComponent<IEnemy>().type == EnemyType.SNIPER && enemy.Contains(obj))
+        {
+            enemy.Remove(obj);
+            CTRL.Remove(obj);
+            deathDelay = true;
+            StartCoroutine(ResetDelay());
+        }
+            
+    }
+
+
 }

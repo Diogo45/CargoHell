@@ -324,7 +324,7 @@ public class LevelController : MonoBehaviour
         if (Player != null && Player.GetComponent<PlayerController>().currentHealth <= 0)
         {
             StartCoroutine(DeathAnim());
-            onEndLevel(false);
+            onEndLevel?.Invoke(false);
 
         }
 
@@ -510,7 +510,7 @@ public class LevelController : MonoBehaviour
             if (!hasWon && !hasLost && !isThereEnemiesLeft)
             {
                 Score += instance.Player.GetComponent<PlayerController>().currentHealth * 100;
-                onEndLevel(true);
+                onEndLevel?.Invoke(true);
                 hasWon = true;
                 //StartCoroutine(WinAnim());
                 yield break;
@@ -650,7 +650,7 @@ public class LevelController : MonoBehaviour
             var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
 
             //Spawn event
-            onSpawnEnemy(comp);
+            onSpawnEnemy?.Invoke(comp);
 
             switch (enemyType)
             {
