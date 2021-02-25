@@ -321,7 +321,7 @@ public class LevelController : MonoBehaviour
 
 
 
-        if (Player != null && Player.GetComponent<DamageAnimation>().currentHealth <= 0)
+        if (Player != null && Player.GetComponent<PlayerController>().currentHealth <= 0)
         {
             StartCoroutine(DeathAnim());
             onEndLevel?.Invoke(false);
@@ -333,7 +333,7 @@ public class LevelController : MonoBehaviour
 
             if (animationState == AnimStates.PlayerCentering)
             {
-                Player.GetComponent<DamageAnimation>().Movement = false;
+                Player.GetComponent<PlayerController>().Movement = false;
                 Shield.SetActive(false);
                 var pos = Player.transform.position;
                 var FinalPos = Vector3.zero;
@@ -476,7 +476,7 @@ public class LevelController : MonoBehaviour
             counter += 1;
         }
         intCount[index] = counter;
-        yield return new WaitForSeconds(0.05f * (score.Length - (index + 1)));
+        yield return new WaitForSeconds(0.1f * (score.Length - (index + 1)));
         yield return CountUp(index);
         yield break;
     }
@@ -553,7 +553,7 @@ public class LevelController : MonoBehaviour
 
             if (!hasWon && !hasLost && !isThereEnemiesLeft)
             {
-                Score += instance.Player.GetComponent<DamageAnimation>().currentHealth * 100;
+                Score += instance.Player.GetComponent<PlayerController>().currentHealth * 100;
                 onEndLevel?.Invoke(true);
                 hasWon = true;
                 //StartCoroutine(WinAnim());

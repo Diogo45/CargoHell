@@ -32,8 +32,8 @@ public class EnemySpawner : MonoBehaviour
     public float invert;
     public float invertEnemy;
     private float invertY;
-    private bool delayed;
 
+    //[SerializeField]
     private bool deathDelay;
 
     void Start()
@@ -42,7 +42,6 @@ public class EnemySpawner : MonoBehaviour
         CTRL = new Dictionary<GameObject, Control>();
         invert = -1f;
         invertY = 1f;
-        delayed = true;
     }
 
     // Update is called once per frame
@@ -53,6 +52,7 @@ public class EnemySpawner : MonoBehaviour
 
             var newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
             newEnemy.GetComponent<IEnemy>().type = EnemyType.SNIPER;
+            newEnemy.GetComponent<IEnemy>().speed = 3.5f;
             Spawn = false;
             time = 0f;
             invertY *= -1f;
@@ -118,7 +118,11 @@ public class EnemySpawner : MonoBehaviour
             enemy.Remove(obj);
             CTRL.Remove(obj);
             deathDelay = true;
-            StartCoroutine(ResetDelay());
+            if(enemy.Count == 0)
+            {
+                StartCoroutine(ResetDelay());
+
+            }
         }
             
     }

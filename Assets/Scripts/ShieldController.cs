@@ -7,7 +7,7 @@ public class ShieldController : MonoBehaviour
 
 
     public GameObject player;
-    private DamageAnimation ship;
+    private PlayerController ship;
 
 
     private Vector2 debugNormal;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageAnimation : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
 #if UNITY_ANDROID
@@ -83,7 +83,7 @@ public class DamageAnimation : MonoBehaviour
 
         if (collision.gameObject.tag == "PowerUpInv")
         {
-            StartCoroutine(DamageAnimationPlayer(5f));
+            StartCoroutine(DamageAnimationPlayer(10f));
             
             Destroy(collision.gameObject);
         }
@@ -102,7 +102,7 @@ public class DamageAnimation : MonoBehaviour
             if (!hasCollided)
             {
                 currentHealth--;
-                StartCoroutine(Invunerable());
+                StartCoroutine(Invunerable(1f));
                 Destroy(collision.gameObject);
                 hasCollided = true;
             }
@@ -112,12 +112,11 @@ public class DamageAnimation : MonoBehaviour
         {
             if (PlayerInvulnerable)
             {
-                Destroy(collision.gameObject);
                 return;
 
             }
             collision.gameObject.GetComponent<IEnemy>().health--;
-            StartCoroutine(Invunerable());
+            StartCoroutine(Invunerable(1f));
             currentHealth--;
         }
 
@@ -125,11 +124,11 @@ public class DamageAnimation : MonoBehaviour
         {
             if (PlayerInvulnerable)
             {
-                Destroy(collision.gameObject);
+                //Destroy(collision.gameObject);
                 return;
             }
             collision.gameObject.GetComponent<IObject>().health--;
-            StartCoroutine(Invunerable());
+            StartCoroutine(Invunerable(1f));
             currentHealth--;
         }
 
@@ -139,17 +138,17 @@ public class DamageAnimation : MonoBehaviour
         }
     }
 
-    IEnumerator Invunerable()
+    IEnumerator Invunerable(float time)
     {
         PlayerInvulnerable = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(time);
         PlayerInvulnerable = false;
         yield break;
     }
 
     private IEnumerator DamageAnimationPlayer(float duration)
     {
-        //PlayerInvulnerable = true;
+        PlayerInvulnerable = true;
         Color c = Color.cyan;
         c.a = 0.4f;
         material.color = c;
@@ -158,7 +157,7 @@ public class DamageAnimation : MonoBehaviour
         StartCoroutine(StrobeColor(Color.cyan));
         yield return new WaitForSeconds(duration * 0.2f);
 
-        //PlayerInvulnerable = false;
+        PlayerInvulnerable = false;
         c = Color.white;
         c.a = 0;
         material.color = c;

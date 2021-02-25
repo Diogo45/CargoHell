@@ -11,6 +11,7 @@ public enum EnemyType
 public class IEnemy : MonoBehaviour
 {
     public float health;
+    public float initialHealth { get; private set; }
     public EnemyType type;
 
     public GameObject projectile;
@@ -60,7 +61,7 @@ public class IEnemy : MonoBehaviour
         shotAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
         ShouldMove = true;
         ShouldShoot = true;
-
+        initialHealth = health;
     }
 
 
@@ -101,7 +102,7 @@ public class IEnemy : MonoBehaviour
 
     }
 
-    public void OutOfBounds()
+    public virtual void OutOfBounds()
     {
         var dirPos = LevelController.instance.RequestRandomPos();
         gameObject.transform.position = dirPos.Item1;

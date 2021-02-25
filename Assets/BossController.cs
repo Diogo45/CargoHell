@@ -32,6 +32,12 @@ public class BossController : IEnemy
     private bool ShouldTP = true;
     private AnimStates animStates = AnimStates.None;
 
+    public bool SecondPhase { get; private set; } = false;
+
+    public int TPThreashold { get; private set; } = 5;
+    public Vector3 TPOffset { get; private set; } = Vector3.zero;
+    public int SideChange { get; private set; } = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,16 +60,20 @@ public class BossController : IEnemy
         if (turretLeft.isShooting)
             timer++;
 
-        
+        if (health < initialHealth / 2f)
+        {
+            SecondPhase = true;
+            TPThreashold = 1;
+        }
 
-        if (ShouldTP && timer >= 5)
+        if (ShouldTP && timer >= TPThreashold)
         {
 
             turretLeft.shouldShoot = turretRight.shouldShoot = false;
             ShouldMove = false;
             ShouldShoot = false;
 
-            if(animStates == AnimStates.None)
+            if (animStates == AnimStates.None)
                 animStates = AnimStates.Smalling;
 
             if (transform.localScale.x <= 0.1f && !TP)
@@ -78,16 +88,34 @@ public class BossController : IEnemy
             if (animStates == AnimStates.Teleport)
             {
 
-                side = -side;
-                transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, -transform.rotation.z, transform.rotation.w);
+                if (SecondPhase)
+                {
+
+                    TPOffset = new Vector3(Random.Range(0.05f, 0.2f), Random.Range(-0.3f, 0.3f), 0f);
+
+                    SideChange++;
+                    if (SideChange >= Random.Range(0,3))
+                    {
+                        side = -side;
+                        transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, -transform.rotation.z, transform.rotation.w);
+                        SideChange = 0;
+                    }
+                }
+                else
+                {
+                    side = -side;
+                    transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, -transform.rotation.z, transform.rotation.w);
+                    TPOffset = Vector3.zero;
+                }
+                
                 if (side == 1f)
                 {
-                    transform.position = Camera.main.ViewportToWorldPoint(new Vector3(1f, 0.5f, 0)) + Vector3.forward * 10f;
+                    transform.position = Camera.main.ViewportToWorldPoint(new Vector3(1f, 0.5f, 0) + TPOffset) + Vector3.forward * 10f;
                     spawner.invert = -1f;
                 }
                 else if (side == -1f)
                 {
-                    transform.position = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0.5f, 0)) + Vector3.forward * 10f;
+                    transform.position = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0.5f, 0) + TPOffset) + Vector3.forward * 10f;
                     spawner.invert = 1f;
                 }
                 startPos = transform.position + transform.up * 2;
@@ -109,7 +137,7 @@ public class BossController : IEnemy
 
             }
 
-            if(animStates == AnimStates.Bigenning)
+            if (animStates == AnimStates.Bigenning)
             {
                 transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, Time.deltaTime * animationTime);
 
@@ -123,22 +151,37 @@ public class BossController : IEnemy
             }
 
 
-           
+
         }
 
-        if (ShouldShoot && Vector3.Distance(transform.position, currGoal) < 0.2f  /*&& (turretLeft.isShooting || turretRight.isShooting)*/)
-        {
+        //Vector3 rand;
+        ////if (SPHeight)
+        ////{
+        ////   rand = new Vector3(Random.Range(-1f, 0f) * side, Random.Range(0f, 1f), 0f);
+        ////    SPHeight = false;
+        ////}
+        ////else
+        ////{
+        ////    rand = new Vector3(Random.Range(-1f, 0f) * side, Random.Range(-1f, 0f), 0f);
+        ////    SPHeight = true;
+        ////}
 
+
+
+        if (ShouldShoot && Vector3.Distance(transform.position, currGoal) < 0.8f  /*&& (turretLeft.isShooting || turretRight.isShooting)*/)
+        {
+            //Maybe in the direction of player when theres no snipers
             if (height)
             {
-                currGoal = startPos + new Vector3(Random.Range(-2f, -1f) * side, Random.Range(1.5f, 3f), 0f);
+                currGoal = startPos + new Vector3(Random.Range(-10f, -1f) * side, Random.Range(1.5f, 3f), 0f);
                 height = false;
             }
             else
             {
-                currGoal = startPos + new Vector3(Random.Range(-2f, -1f) * side, Random.Range(-3f, -1.5f), 0f);
+                currGoal = startPos + new Vector3(Random.Range(-10f, -1f) * side, Random.Range(-3f, -1.5f), 0f);
                 height = true;
             }
+
 
             turretLeft.shouldShoot = turretRight.shouldShoot = true;
         }
@@ -146,7 +189,21 @@ public class BossController : IEnemy
         if (ShouldMove)
             transform.position = Vector3.Lerp(transform.position, currGoal, Time.deltaTime);
 
-        //transform.position = startPos + new Vector3(Random.Range(-1f, 0f), Random.Range(-1, 1f), 0f);
+
+
+
+        //rand = new Vector3(/*Random.Range(0f, 0.8f) * SPSide*/ 0f, Random.Range(0f, 0.8f) * SPHeight, 0f);
+        //SPSide *= -1f;
+        //SPHeight *= -1f;
+
+        ////if (SecondPhase)
+        //if(Vector3.Distance(transform.position, transform.position + rand) <= 1f)
+        //{
+        //    transform.position = transform.position + rand;
+        //}
+
+
+
 
     }
 
@@ -181,7 +238,8 @@ public class BossController : IEnemy
             spawner.Spawn = true;
         }
 
-        
+
+
 
         yield return spawnSniper();
         yield break;
@@ -206,4 +264,13 @@ public class BossController : IEnemy
         material.SetColor("_Color", color);
     }
 
+
+    public override void OutOfBounds()
+    {
+        var pos = Camera.main.WorldToViewportPoint(transform.position);
+        pos.x = Mathf.Clamp01(pos.x);
+        pos.y = Mathf.Clamp01(pos.y);
+        transform.position = Camera.main.ViewportToWorldPoint(pos);
+
+    }
 }
