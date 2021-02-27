@@ -91,9 +91,9 @@
     ],
     "LevelMusic": 1,
     "ShaderVariables": {
-        "R": 255,
-        "G": 3,
-        "B": 0
+        "R": 75,
+        "G": 230,
+        "B": 75
     }
     
 }
