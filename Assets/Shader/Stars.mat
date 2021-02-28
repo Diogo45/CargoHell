@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Stars
-  m_Shader: {fileID: -6465566751694194690, guid: 20cb667f27c7a8343a889c65b5fa0b99,
+  m_Shader: {fileID: -6465566751694194690, guid: 445738c4ad3bfc24a8e1871ffbfcc957,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -49,6 +49,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_CC0F8198: 1
+    - Vector1_1CAEA6C5: 0
+    - Vector1_74A2D180: 5
+    - Vector1_75286EE8: 1
+    - Vector1_76AA1A3: 1
+    - Vector1_7F0FCA5A: 0.06
+    - Vector1_9D400633: 1
+    - Vector1_C797910B: 50
+    - Vector1_E29B158B: 0.1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -72,7 +81,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_C2954638: {r: 1, g: 0.08018869, b: 0.08018869, a: 0}
+    - Vector2_22135A1D: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_221FCA23: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_482528A5: {r: 0.5, g: 0.3, b: 0, a: 0}
     - Vector2_7B18A43: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

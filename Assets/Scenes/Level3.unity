@@ -1010,6 +1010,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NearStars
       objectReference: {fileID: 0}
+    - target: {fileID: 2737796053912040817, guid: 09ce9d4bb8c90ce4997ae716516e237d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2737796053912040820, guid: 09ce9d4bb8c90ce4997ae716516e237d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1317,6 +1322,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FarStars
+      objectReference: {fileID: 0}
+    - target: {fileID: 7424263686623541933, guid: cbfa8d8bc23809545a364da6f8df4bc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbfa8d8bc23809545a364da6f8df4bc3, type: 3}
