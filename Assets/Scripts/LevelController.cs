@@ -201,7 +201,7 @@ public class LevelController : MonoBehaviour
         }
         #endregion
 
-
+        Application.targetFrameRate = 60;
 
         sceneArgs = new SceneArgs();
 #if UNITY_EDITOR
@@ -707,6 +707,9 @@ public class LevelController : MonoBehaviour
                 case "Boss":
                     comp.type = EnemyType.BOSS;
                     break;
+                case "EnemyBomber":
+                    comp.type = EnemyType.BOMBER;
+                    break;
             }
             comp.direction = direction;
 
@@ -764,6 +767,9 @@ public class LevelController : MonoBehaviour
         return (spawnPos, direction);
     }
 
+
+   
+
     private void OnEnable()
     {
         IEnemy.OnDestroyEvent += IEnemy_OnDestroyEvent;
@@ -796,6 +802,9 @@ public class LevelController : MonoBehaviour
                 break;
             case EnemyType.BOSS:
                 instance.spawned["Boss"]--;
+                break;
+            case EnemyType.BOMBER:
+                instance.spawned["EnemyBomber"]--;
                 break;
         }
 

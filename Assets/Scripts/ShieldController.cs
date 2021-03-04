@@ -33,39 +33,51 @@ public class ShieldController : MonoBehaviour
         shieldReflectAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
 
 
-        if (collision.gameObject.tag == "Projectile"  || collision.gameObject.tag == "ProjectileReflected" || collision.gameObject.tag == "ProjectileSpinner")
+        if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "ProjectileReflected" || collision.gameObject.tag == "ProjectileSpinner")
         {
             //RaycastHit2D hit = Physics2D.Raycast(collision.transform.position, collision.transform.up, 100);
+
+
+
+            var projController = collision.GetComponent<ProjectileController>();
+
+            if(projController.projectileType == ProjectileController.ProjectileType.HOMING)
+            {
+
+                Instantiate(LevelController.instance.explosionAnim, collision.transform.position, Quaternion.identity);
+                Destroy(collision);
+                return;
+            }
 
 
             var hit = collision.ClosestPoint(collision.gameObject.transform.position);
 
 
-
             //var normalVector = hit.normal;
             //var normalVector = hit.normal;
 
-            var normalVector = hit - (Vector2)(LevelController.instance.Player.transform.position - player.transform.up / 3.5f); 
-            debugNormal = normalVector;
-            //debugPoint = hit.point;
-            debugPoint = hit;
-            collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
-
-            shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
-
-            if(player.tag == "Spinner")
+            if (player.tag == "Spinner")
             {
+
+                var normalVector = hit - (Vector2)(LevelController.instance.Player.transform.position - player.transform.up / 3.5f);
+                debugNormal = normalVector;
+                //debugPoint = hit.point;
+                debugPoint = hit;
+                collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
+
+                shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
                 collision.tag = "ProjectileSpinner";
             }
             else
             {
+                StartCoroutine(ReflectShot(collision));
                 collision.tag = "ProjectileReflected";
-                collision.GetComponent<ProjectileController>().HPTP = true;
-                collision.GetComponent<ProjectileController>().angleReflected = Vector2.Angle(player.transform.up, collision.transform.up);
+                projController.HPTP = true;
+                projController.angleReflected = Vector2.Angle(player.transform.up, collision.transform.up);
                 //Debug.Log(collision.GetComponent<ProjectileController>().angleReflected);
             }
 
-            collision.GetComponent<ProjectileController>().mult += LevelController.instance.MultIncrease;
+            projController.mult += LevelController.instance.MultIncrease;
 
 
             //Vector2 hitCenter = (Vector2)transform.position - hit.oint;
@@ -83,29 +95,26 @@ public class ShieldController : MonoBehaviour
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
+    IEnumerator ReflectShot(Collider2D collision)
     {
-        //Debug.DrawRay(transform.position, transform.up);
-        //Debug.DrawRay(player.transform.position + player.transform.up/3.5f, debugNormal, Color.red);
-        Debug.DrawLine(player.transform.position, (Vector2)player.transform.position + debugNormal, Color.blue);
+        var comp = collision.GetComponent<ProjectileController>();
+        var speed = comp.projectileSpeed;
+        collision.GetComponent<ProjectileController>().projectileSpeed = 0f;
+        yield return new WaitForSeconds(0.1f);
+        if (collision)
+        {
+            var hit = collision.ClosestPoint(collision.gameObject.transform.position);
+            var normalVector = hit - (Vector2)(LevelController.instance.Player.transform.position - player.transform.up / 3.5f);
+            debugNormal = normalVector;
+            //debugPoint = hit.point;
+            debugPoint = hit;
+            collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
+            comp.projectileSpeed = speed;
+            shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
 
-        //Vector2 hitCenter = (Vector2)transform.position - hit.point;
-        //Debug.DrawLine(hit.point, hit.point + hitCenter);
-        //Debug.Log(Vector2.Angle(hitCenter, transform.up));
-        //for (int i = 0; i < 100; i++)
-        //{
-        //    RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition + (Vector3.up * 0.01f * i)), Vector3.left, 100);
-
-        //    Debug.DrawRay(hit.point, hit.normal);
-        //}
-        //for (int i = 0; i < 100; i++)
-        //{
-        //    RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector3.up * 0.01f * i), Vector3.left, 100);
-        //    Debug.DrawRay(hit.point, hit.normal);
-        //}
-
-
+        }
+        yield break;
     }
+
+
 }

@@ -337,12 +337,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &482535922 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2737796053912040817, guid: 09ce9d4bb8c90ce4997ae716516e237d,
-    type: 3}
-  m_PrefabInstance: {fileID: 2737796053451502720}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,12 +589,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606872825}
   m_CullTransparentMesh: 0
---- !u!1 &913695347 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7424263686623541933, guid: cbfa8d8bc23809545a364da6f8df4bc3,
-    type: 3}
-  m_PrefabInstance: {fileID: 7424263685652632312}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1145362822 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1293470221242153928, guid: 9274e22cd7a8e3844b81c44af2e41ed5,
@@ -1345,7 +1333,7 @@ PrefabInstance:
     - target: {fileID: 1199613503174647402, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 93.78712
+      value: 93.7871
       objectReference: {fileID: 0}
     - target: {fileID: 1199613503332623489, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
@@ -1492,6 +1480,12 @@ PrefabInstance:
 --- !u!1 &1848730183387835323 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 359965588, guid: c3955e22cd4dbb94789fbde347b76bbc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1848730183387835322}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1848730183387835324 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4893153921506408347, guid: c3955e22cd4dbb94789fbde347b76bbc,
     type: 3}
   m_PrefabInstance: {fileID: 1848730183387835322}
   m_PrefabAsset: {fileID: 0}
@@ -1720,12 +1714,12 @@ PrefabInstance:
         type: 3}
       propertyPath: nearStars
       value: 
-      objectReference: {fileID: 482535922}
+      objectReference: {fileID: 365102849}
     - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
         type: 3}
       propertyPath: farStars
       value: 
-      objectReference: {fileID: 913695347}
+      objectReference: {fileID: 1848730183387835324}
     - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
         type: 3}
       propertyPath: finalScoreCounter

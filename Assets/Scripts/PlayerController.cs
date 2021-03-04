@@ -268,6 +268,7 @@ public class PlayerController : MonoBehaviour
 #if UNITY_STANDALONE
 
         Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        
 
 #endif
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -300,7 +301,13 @@ public class PlayerController : MonoBehaviour
 
         if (moveForward > 0f)
         {
+            //var lPos = transform.position;
+
             transform.position += transform.up * moveSpeed * moveForward * Time.deltaTime;
+
+            //var mov = transform.position - lPos;
+
+            //LevelController.instance.nebulaMat.SetVector("_ScrollSpeed", new Vector4(mov.x * 10f, mov.y * 10f, 1, 1));
 
         }
         if (moveBackward > 0f)

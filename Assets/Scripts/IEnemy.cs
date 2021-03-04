@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 public enum EnemyType
 {
-    SIMPLE, SNIPER, SPINNER, STORMTROOPER, BOSS
+    SIMPLE, SNIPER, SPINNER, STORMTROOPER, BOSS, BOMBER
 }
 
 public class IEnemy : MonoBehaviour
@@ -29,6 +29,10 @@ public class IEnemy : MonoBehaviour
     public bool ShouldMove;
     public bool ShouldShoot = true;
 
+    protected float projectileTimer;
+    public float timerThreshold;
+
+
 
     public delegate void OnDestroy(GameObject obj, ProjectileController projectile);
     public static event OnDestroy OnDestroyEvent;
@@ -41,9 +45,13 @@ public class IEnemy : MonoBehaviour
 
     protected AudioSource shotAudioSource;
 
+    protected GameObject aimAt;
+    protected bool aim;
+
+
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "ProjectileReflected")
+        if (collision.gameObject.tag == "ProjectileReflected" || collision.gameObject.tag == "ProjectileSpinner")
         {
             if (!hasCollided)
             {
@@ -87,6 +95,21 @@ public class IEnemy : MonoBehaviour
             enteredScene = true;
         }
 
+
+        if (aimAt && aim)
+        {
+            Vector2 dir = aimAt.transform.position - transform.position;
+
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            angle -= 90f;
+
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 5f * Time.deltaTime);
+
+        }
+
         if (health <= 0)
         {
             OnDestroyEvent(gameObject, lastProjectile);
@@ -96,9 +119,9 @@ public class IEnemy : MonoBehaviour
             hasCollided = false;
             OnDamagedEvent(gameObject, lastProjectile);
         }
- 
 
-       
+
+        projectileTimer += Time.deltaTime;
 
     }
 
@@ -110,5 +133,32 @@ public class IEnemy : MonoBehaviour
 
     }
 
+    public void NormalShot()
+    {
 
+        if (projectileTimer > timerThreshold + Random.Range(-timerThreshold, timerThreshold) / 2f)
+        {
+            projectileTimer = 0f;
+            //shotAudioSource.PlayOneShot(shotSound);
+            var newProj = Instantiate(projectile, transform.position + (transform.up * 0.5f), Quaternion.identity);
+            newProj.GetComponent<ProjectileController>().origin = gameObject;
+            newProj.transform.up = transform.up;
+        }
+
+    }
+
+
+    public void HoamingShot()
+    {
+
+        if (projectileTimer > timerThreshold + Random.Range(-timerThreshold, timerThreshold) / 2f)
+        {
+            projectileTimer = 0f;
+            //shotAudioSource.PlayOneShot(shotSound);
+            var newProj = Instantiate(projectile, transform.position + (transform.up * 0.5f), Quaternion.identity);
+            newProj.GetComponent<ProjectileController>().origin = gameObject;
+            newProj.transform.up = transform.up;
+        }
+
+    }
 }

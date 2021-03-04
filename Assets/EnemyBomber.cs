@@ -2,16 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleEnemy : IEnemy
+public class EnemyBomber : IEnemy
 {
     // Start is called before the first frame update
-
-    private Vector3 directionLocal;
-
-
-
-    
-
     void Start()
     {
         base.Start();
@@ -20,20 +13,14 @@ public class SimpleEnemy : IEnemy
         baseScore = 100;
     }
 
-
-
     // Update is called once per frame
     void Update()
     {
-
-        base.Update();
+        transform.position += (direction * speed) * Time.deltaTime;
 
         transform.up = direction;
 
-
-        transform.position += (direction * speed) * Time.deltaTime;
-
         NormalShot();
-
+        base.Update();
     }
 }
