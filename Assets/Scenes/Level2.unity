@@ -1122,7 +1122,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 359965589, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -86.82492
+      value: -86.824905
       objectReference: {fileID: 0}
     - target: {fileID: 359965589, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1132,6 +1132,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 93.787125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199613503332623489, guid: c3955e22cd4dbb94789fbde347b76bbc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -77.999954
       objectReference: {fileID: 0}
     - target: {fileID: 1199613503332623490, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
@@ -1607,6 +1612,11 @@ PrefabInstance:
       propertyPath: shieldReflectSound
       value: 
       objectReference: {fileID: 8300000, guid: f2a83e166cceb164b90067baedb623df, type: 3}
+    - target: {fileID: 3013758371218138223, guid: 21708909023f6684f87141124de926a0,
+        type: 3}
+      propertyPath: shieldReactivationDelay
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7428070431825372689, guid: 21708909023f6684f87141124de926a0,
         type: 3}
       propertyPath: m_SortingOrder

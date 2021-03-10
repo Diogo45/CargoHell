@@ -17,7 +17,7 @@ public class ShieldController : MonoBehaviour
     private AudioSource shieldReflectAudioSource;
 
     [SerializeField]
-    private float shieldReactivationDelay = 0.1f;
+    private float shieldReactivationDelay;
 
     //controls if HPTP, the boolean variable
 

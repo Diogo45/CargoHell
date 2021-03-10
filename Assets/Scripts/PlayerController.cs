@@ -309,6 +309,8 @@ public class PlayerController : MonoBehaviour
         {
             //var lPos = transform.position;
 
+            
+
             transform.position += transform.up * moveSpeed * moveForward * Time.deltaTime;
 
             //var mov = transform.position - lPos;

@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7428070431825372695}
+  shieldReflectSound: {fileID: 8300000, guid: f2a83e166cceb164b90067baedb623df, type: 3}
+  shieldReactivationDelay: 5
 --- !u!50 &2849154092521919722
 Rigidbody2D:
   serializedVersion: 4
@@ -233,8 +235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c96ff0be5ba804c965e593b9124a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveJoystick: {fileID: 0}
-  lookJoystick: {fileID: 0}
   Projectile: {fileID: 8474159051582411123, guid: 115a57c9ee4936b45b03adbcced4b6b7,
     type: 3}
   maxCurrentHealth: 3
@@ -243,6 +243,7 @@ MonoBehaviour:
   moveSpeed: 5
   AngularSpeed: 15
   PlayerInvulnerable: 0
+  Movement: 1
 --- !u!61 &343232428141593761
 BoxCollider2D:
   m_ObjectHideFlags: 0
