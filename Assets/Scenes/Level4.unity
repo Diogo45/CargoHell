@@ -615,23 +615,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 359965589, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -86.6499
-      objectReference: {fileID: 0}
-    - target: {fileID: 359965589, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 1.0500488
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199613503174647402, guid: c3955e22cd4dbb94789fbde347b76bbc,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 93.78711
-      objectReference: {fileID: 0}
     - target: {fileID: 1199613503332623489, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -74.99997
+      value: -81
       objectReference: {fileID: 0}
     - target: {fileID: 1199613503332623490, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
@@ -752,21 +739,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PostProcessedCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 1848730185298506588, guid: c3955e22cd4dbb94789fbde347b76bbc,
-        type: 3}
-      propertyPath: m_TagString
-      value: canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 3534983898242851538, guid: c3955e22cd4dbb94789fbde347b76bbc,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 3534983898242851538, guid: c3955e22cd4dbb94789fbde347b76bbc,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}

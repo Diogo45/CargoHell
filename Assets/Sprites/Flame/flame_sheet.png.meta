@@ -1,0 +1,329 @@
+fileFormatVersion: 2
+guid: d810cc9f5035a5046b7bec35493b15f7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9191825586924537273
+    second: flame_sheet_0
+  - first:
+      213: 2232659997268470015
+    second: flame_sheet_1
+  - first:
+      213: -5453796584952749573
+    second: flame_sheet_2
+  - first:
+      213: -1883942397173072261
+    second: flame_sheet_3
+  - first:
+      213: -3060278145287372570
+    second: flame_sheet_4
+  - first:
+      213: 3182205081949092055
+    second: flame_sheet_5
+  - first:
+      213: 8329187610908629103
+    second: flame_sheet_6
+  - first:
+      213: 5412808659522011373
+    second: flame_sheet_7
+  - first:
+      213: -3632224181288553415
+    second: flame_sheet_8
+  - first:
+      213: 1880493914102751091
+    second: flame_sheet_9
+  - first:
+      213: -3351572703856835971
+    second: flame_sheet_10
+  - first:
+      213: 4836633357133832056
+    second: flame_sheet_11
+  - first:
+      213: 2707259301804714467
+    second: flame_sheet_12
+  - first:
+      213: -4323244031589345776
+    second: flame_sheet_13
+  - first:
+      213: -7954494094328291093
+    second: flame_sheet_14
+  - first:
+      213: -3348601088829844040
+    second: flame_sheet_15
+  - first:
+      213: -2705198165725735530
+    second: flame_sheet_16
+  - first:
+      213: -4117292940211225549
+    second: flame_sheet_17
+  - first:
+      213: -8351145470160444309
+    second: flame_sheet_18
+  - first:
+      213: -8960594560055365719
+    second: flame_sheet_19
+  - first:
+      213: -4375939424987972008
+    second: flame_sheet_20
+  - first:
+      213: -2813955284142294419
+    second: flame_sheet_21
+  - first:
+      213: -988183388084064345
+    second: flame_sheet_22
+  - first:
+      213: 240406201241138668
+    second: flame_sheet_23
+  - first:
+      213: -7629563147511582086
+    second: flame_sheet_24
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: flame_sheet_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 29
+        width: 14
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74a340e3453107080800000000000000
+      internalID: -9191825586924537273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flame_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 30
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff8696930700cfe10800000000000000
+      internalID: 2232659997268470015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flame_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 30
+        width: 12
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf127a4c6e83054b0800000000000000
+      internalID: -5453796584952749573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flame_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 0
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7e733f0f54ead5e0800000000000000
+      internalID: -1883942397173072261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flame_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 1
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e0414cad35b785d0800000000000000
+      internalID: -3060278145287372570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flame_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 1
+        width: 12
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d8b40879a6792c20800000000000000
+      internalID: 3182205081949092055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

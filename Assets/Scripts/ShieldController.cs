@@ -16,6 +16,9 @@ public class ShieldController : MonoBehaviour
     public AudioClip shieldReflectSound;
     private AudioSource shieldReflectAudioSource;
 
+    [SerializeField]
+    private float shieldReactivationDelay = 0.1f;
+
     //controls if HPTP, the boolean variable
 
     // Start is called before the first frame update
@@ -41,12 +44,20 @@ public class ShieldController : MonoBehaviour
 
             var projController = collision.GetComponent<ProjectileController>();
 
-            if(projController.projectileType == ProjectileController.ProjectileType.HOMING)
+            if (projController.projectileType == ProjectileController.ProjectileType.HOMING)
             {
 
-                Instantiate(LevelController.instance.explosionAnim, collision.transform.position, Quaternion.identity);
-                Destroy(collision);
+                LevelController.instance.Explosion(collision.transform.position);
+                Destroy(collision.gameObject);
+               
+
+                StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay, gameObject.GetComponent<Collider2D>()));
+                StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay, gameObject.GetComponent<SpriteRenderer>()));
+
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                gameObject.GetComponent<Collider2D>().enabled = false;
                 return;
+
             }
 
 

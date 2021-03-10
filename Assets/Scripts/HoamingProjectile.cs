@@ -12,12 +12,17 @@ public class HoamingProjectile : ProjectileController
 
     [SerializeField]
     private float Fuel;
+    private float startFuel;
+    private float fuelStrobePercentage = 0.2f;
     [SerializeField]
     private float FuelConsumptionRate;
+
+    [field: SerializeField] public GameObject Flame { get; private set; }
 
     void Start()
     {
         aimAt = GameObject.Find("Player");
+        startFuel = Fuel;
     }
 
     // Update is called once per frame
@@ -27,6 +32,12 @@ public class HoamingProjectile : ProjectileController
 
         if (aimAt && Fuel > 0)
         {
+
+            if (Fuel < startFuel * fuelStrobePercentage)
+            {
+                StartCoroutine(Utils.StrobeColor(gameObject, Color.white, 10));
+            }
+
             float dist = Vector2.Distance(transform.position, aimAt.transform.position);
 
             Vector2 dir = aimAt.transform.position - transform.position;
@@ -50,7 +61,13 @@ public class HoamingProjectile : ProjectileController
 
             Fuel -= FuelConsumptionRate;
         }
+        else
+        {
+            Flame.SetActive(false);
+            tag = "ProjectileSpinner";
+        }
        
+        
 
 
     }
@@ -61,7 +78,7 @@ public class HoamingProjectile : ProjectileController
         if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
         {
             transform.position = FlowPos().Item1;
-            tag = "ProjectileSpinner";
+            //tag = "ProjectileSpinner";
         }
     }
 

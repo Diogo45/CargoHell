@@ -23,7 +23,7 @@ public class ProjectileController : MonoBehaviour
 
     public GameObject origin;
 
-    [SerializeField]
+    [field: SerializeField]
     public ProjectileType projectileType { get; private set; }
 
     void Start()

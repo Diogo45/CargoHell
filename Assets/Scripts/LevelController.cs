@@ -565,14 +565,18 @@ public class LevelController : MonoBehaviour
         yield return CheckEndGame();
     }
 
+    public void Explosion(Vector3 pos)
+    {
+        var newExplosion = Instantiate(explosionAnim, pos, Quaternion.identity);
+        newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
+    }
 
     IEnumerator DeathAnim()
     {
         hasLost = true;
-        var newExplosion = Instantiate(explosionAnim, Player.transform.position, Quaternion.identity);
-        newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
-        Destroy(Player.transform.GetChild(0).gameObject);
+        Explosion(Player.transform.position);
 
+        Destroy(Player.transform.GetChild(0).gameObject);
         Destroy(Player);
 
         yield return new WaitForSeconds(.5f);

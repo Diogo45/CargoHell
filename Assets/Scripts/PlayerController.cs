@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MOVEMENT
+{
+    TWO_JOYSTICK, ONE_JOYSTICK, PUSH
+}
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -90,8 +94,10 @@ public class PlayerController : MonoBehaviour
 
        
 
-        if (collision.gameObject.tag == "Projectile")
+        if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "ProjectileSpinner")
         {
+
+
             if (PlayerInvulnerable)
             {
                 Destroy(collision.gameObject);
@@ -132,7 +138,7 @@ public class PlayerController : MonoBehaviour
             currentHealth--;
         }
 
-        if (collision.tag == "Enemy" || collision.tag == "Projectile")
+        if (collision.tag == "Enemy" || collision.tag == "Projectile" || collision.gameObject.tag == "ProjectileSpinner")
         {
             StartCoroutine(StrobeColor(Color.white));
         }
@@ -362,8 +368,4 @@ public class PlayerController : MonoBehaviour
 
 
 
-}
-public enum MOVEMENT
-{
-    TWO_JOYSTICK, ONE_JOYSTICK, PUSH
 }
