@@ -23,9 +23,9 @@ public class ProjectileSpawner : MonoBehaviour
 
             var newProjectile = Instantiate(projectile, mousePos + projectile.transform.position,Quaternion.identity );
 
-            //newProjectile.transform.up = dir;
+            newProjectile.transform.up = dir;
 
-            //newProjectile.transform.rotation = projectile.transform.rotation;
+            newProjectile.transform.rotation = projectile.transform.rotation;
         }
 
 

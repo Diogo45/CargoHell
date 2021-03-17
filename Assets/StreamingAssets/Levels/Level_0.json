@@ -1,0 +1,15 @@
+{
+    "config": [
+        
+    ],
+    "SpawnFrames": [
+       
+    ],
+    "LevelMusic": 2,
+    "ShaderVariables": {
+        "R": 100,
+        "G": 112,
+        "B": 255
+    }
+    
+}

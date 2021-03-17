@@ -10,6 +10,8 @@ public class ShieldController : MonoBehaviour
     private PlayerController ship;
 
 
+    [Range(0, 1), SerializeField] private float AngleDamping;
+
     private Vector2 debugNormal;
     private Vector2 debugPoint;
 
@@ -35,21 +37,32 @@ public class ShieldController : MonoBehaviour
 
         shieldReflectAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
 
+        var projController = collision.GetComponent<ProjectileController>();
 
-        if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "ProjectileReflected" || collision.gameObject.tag == "ProjectileSpinner")
+        var hit = collision.ClosestPoint(collision.gameObject.transform.position);
+
+        if ((collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "ProjectileReflected" || collision.gameObject.tag == "ProjectileSpinner") && player.tag == "Spinner")
         {
-            //RaycastHit2D hit = Physics2D.Raycast(collision.transform.position, collision.transform.up, 100);
+
+            var normalVector = hit - (Vector2)(LevelController.instance.Player.transform.position - player.transform.up / 3.5f);
+            debugNormal = normalVector;
+            debugPoint = hit;
+            collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
+            shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
+            collision.tag = "ProjectileSpinner";
+
+        }
+        else if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "ProjectileSpinner")
+        {
 
 
-
-            var projController = collision.GetComponent<ProjectileController>();
 
             if (projController.projectileType == ProjectileController.ProjectileType.HOMING)
             {
 
                 LevelController.instance.Explosion(collision.transform.position);
                 Destroy(collision.gameObject);
-               
+
 
                 StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay, gameObject.GetComponent<Collider2D>()));
                 StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay, gameObject.GetComponent<SpriteRenderer>()));
@@ -60,70 +73,52 @@ public class ShieldController : MonoBehaviour
 
             }
 
+            var normalVector = hit - (Vector2)(LevelController.instance.Player.transform.position - player.transform.up / 3.5f);
+            StartCoroutine(ReflectShot(collision));
+            collision.tag = "ProjectileReflected";
+            projController.HPTP = true;
+            projController.angleReflected = Vector2.Angle(player.transform.up, collision.transform.up);
 
-            var hit = collision.ClosestPoint(collision.gameObject.transform.position);
-
-
-            //var normalVector = hit.normal;
-            //var normalVector = hit.normal;
-
-            if (player.tag == "Spinner")
-            {
-
-                var normalVector = hit - (Vector2)(LevelController.instance.Player.transform.position - player.transform.up / 3.5f);
-                debugNormal = normalVector;
-                //debugPoint = hit.point;
-                debugPoint = hit;
-                collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
-
-                shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
-                collision.tag = "ProjectileSpinner";
-            }
-            else
-            {
-                StartCoroutine(ReflectShot(collision));
-                collision.tag = "ProjectileReflected";
-                projController.HPTP = true;
-                projController.angleReflected = Vector2.Angle(player.transform.up, collision.transform.up);
-                //Debug.Log(collision.GetComponent<ProjectileController>().angleReflected);
-            }
 
             projController.mult += LevelController.instance.MultIncrease;
-
-
-            //Vector2 hitCenter = (Vector2)transform.position - hit.oint;
-            //Vector2.Angle(hitCenter, transform.up);
-            ////Debug.Log(Vector2.Angle(hitCenter, transform.up));
-            //Debug.Log("Normal:" + normalVector.normalized);
-            ////if (Vector2.Angle(hitCenter, transform.up) == 179.9115)
-            ////{
-            ////    collision.transform.up = Vector2.up;
-            ////}
-
-
-            //if()
-
         }
+
+
+
+
     }
 
     IEnumerator ReflectShot(Collider2D collision)
     {
         var comp = collision.GetComponent<ProjectileController>();
         var speed = comp.projectileSpeed;
-        collision.GetComponent<ProjectileController>().projectileSpeed = 0f;
-        yield return new WaitForSeconds(0.1f);
+        comp.projectileSpeed = 0f;
+        var hit = collision.ClosestPoint(collision.gameObject.transform.position);
+        var playerPos = player.transform.position;
+        var oldPlayerUp = player.transform.up;
+
         if (collision)
         {
-            var hit = collision.ClosestPoint(collision.gameObject.transform.position);
-            var normalVector = hit - (Vector2)(LevelController.instance.Player.transform.position - player.transform.up / 3.5f);
+
+            var normalVector = hit - (Vector2)(playerPos - oldPlayerUp / 3.5f);
+            //Debug.Log("After: " + normalVector.x + " " + normalVector.y);
             debugNormal = normalVector;
-            //debugPoint = hit.point;
             debugPoint = hit;
             collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
-            comp.projectileSpeed = speed;
             shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
 
         }
+
+        yield return new WaitForSeconds(0.2f);
+
+
+        if (collision)
+        {
+            float deltaAngle = Vector2.SignedAngle(oldPlayerUp, player.transform.up) * AngleDamping;
+            collision.transform.Rotate(0, 0, Mathf.Clamp(deltaAngle, -90, 90));
+            comp.projectileSpeed = speed;
+        }
+
         yield break;
     }
 

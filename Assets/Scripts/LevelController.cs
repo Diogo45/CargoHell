@@ -29,7 +29,8 @@ public class LevelController : MonoBehaviour
     public delegate void OnEndLevel(bool win);
     public static event OnEndLevel onEndLevel;
 
-    public class SceneArgs
+    [CreateAssetMenu(fileName = "LevelDefinition")]
+    public class SceneArgs : ScriptableObject
     {
         [System.Serializable]
         public struct EnemyConfig

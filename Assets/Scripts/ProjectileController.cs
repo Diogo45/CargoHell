@@ -18,7 +18,6 @@ public class ProjectileController : MonoBehaviour
 
     public bool HPTP = false;
 
-    private float distanceTraveled = 0f;
     public float angleReflected = 180f;
 
     public GameObject origin;
@@ -35,9 +34,6 @@ public class ProjectileController : MonoBehaviour
     public void Update()
     {
         transform.position += transform.up * projectileSpeed * Time.deltaTime;
-
-
-        //Debug.DrawRay(transform.position, transform.up);
 
         OutOfBounds();
 
