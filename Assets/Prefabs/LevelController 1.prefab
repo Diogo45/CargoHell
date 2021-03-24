@@ -50,8 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac5f441070026443b812485f55c85dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneFile: 2
+  sceneFile: 4
   IsFile: 1
+  _levelList: {fileID: 11400000, guid: a52a380726bbf2f4f99e3fe152bc249c, type: 2}
   spawnFrame: 0
   levelClips:
   - {fileID: 8300000, guid: f4b488cd5886f6042be924ba1406b1d9, type: 3}

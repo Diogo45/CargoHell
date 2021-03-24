@@ -54,4 +54,8 @@ public static class Utils
         material.SetColor("_Color", color);
     }
 
+
+    [System.Serializable] public struct float2 { public float x; public float y; }
+    [System.Serializable] public struct float3 { public float x; public float y; public float z; }
+    [System.Serializable] public struct float4 { public float x; public float y; public float z; public float w; }
 }

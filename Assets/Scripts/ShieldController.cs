@@ -21,14 +21,10 @@ public class ShieldController : MonoBehaviour
     [SerializeField]
     private float shieldReactivationDelay;
 
-    //controls if HPTP, the boolean variable
 
-    // Start is called before the first frame update
     void Start()
     {
-        //gameObject.GetComponent<EdgeCollider2D>().
         shieldReflectAudioSource = gameObject.AddComponent<AudioSource>();
-        //shieldReflectAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
     }
 
 
@@ -83,7 +79,7 @@ public class ShieldController : MonoBehaviour
             projController.mult += LevelController.instance.MultIncrease;
         }
 
-
+        
 
 
     }
@@ -93,10 +89,10 @@ public class ShieldController : MonoBehaviour
         var comp = collision.GetComponent<ProjectileController>();
         var speed = comp.projectileSpeed;
         comp.projectileSpeed = 0f;
-        var hit = collision.ClosestPoint(collision.gameObject.transform.position);
+        var hit = collision.ClosestPoint(collision.gameObject.transform.position /*+ (collision.transform.up / 2f)*/);
         var playerPos = player.transform.position;
         var oldPlayerUp = player.transform.up;
-
+      
         if (collision)
         {
 
@@ -120,6 +116,59 @@ public class ShieldController : MonoBehaviour
         }
 
         yield break;
+    }
+
+
+    IEnumerator ReflectShotDiscretized(Collider2D collision)
+    {
+        var hit = transform.InverseTransformPoint(collision.ClosestPoint(collision.gameObject.transform.position + (collision.transform.up / 2f)));
+
+        float angle = 0f;
+
+        switch (hit.x)
+        {
+            
+
+            case var expression when hit.x < -1.0:
+                angle = 45f;
+                break;
+            case var expression when hit.x > 1.0:
+                angle = -45f;
+                break;
+
+            case var expression when hit.x < -.8 && hit.x >= -1.0:
+                angle = 35f;
+                break;
+            case var expression when hit.x > .8 && hit.x <= 1.0:
+                angle = -35f;
+                break;
+
+            case var expression when hit.x < -.6 && hit.x >= -.8:
+                angle = 25f;
+                break;
+            case var expression when hit.x > .6 && hit.x <= .8:
+                angle = -25f;
+                break;
+
+
+            case var expression when hit.x < -.4 && hit.x >= -.6:
+                angle = 15f;
+                break;
+            case var expression when hit.x > .4 && hit.x <= .6:
+                angle = -15f;
+                break;
+
+            default:
+                angle = 0f;
+                break;
+        }
+
+
+        collision.transform.up = -collision.transform.up;
+        collision.transform.Rotate(0, 0, angle);
+
+
+        yield return null;
     }
 
 

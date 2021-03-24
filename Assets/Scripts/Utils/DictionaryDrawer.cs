@@ -176,7 +176,7 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
 
 [CustomPropertyDrawer(typeof(GameObjectDictionary))]
 public class ParameterDrawer : DictionaryDrawer<string, GameObject> { }
-[CustomPropertyDrawer(typeof(IntObjectDictionary))]
+[CustomPropertyDrawer(typeof(EnemyObjectDictionary))]
 public class ParameterDrawer2 : DictionaryDrawer<string, int> { }
 #endif
 

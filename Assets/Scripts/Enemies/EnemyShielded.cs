@@ -49,13 +49,13 @@ public class EnemyShielded : IEnemy
 
 
 
-        if (health <= 0)
-        {
-            var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
-            newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
-            LevelController.instance.spawned["EnemySniper"]--;
-            Destroy(gameObject);
+        //if (health <= 0)
+        //{
+        //    var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+        //    newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
+        //    LevelController.instance.spawned["EnemySniper"]--;
+        //    Destroy(gameObject);
 
-        }
+        //}
     }
 }

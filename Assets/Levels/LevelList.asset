@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: LevelDefinition
-  m_EditorClassIdentifier: Assembly-CSharp::LevelController/SceneArgs
-  config: []
-  SpawnFrames: 0000000058020000
-  LevelMusic: 2
-  ShaderVariables:
-    R: 0
-    G: 0
-    B: 200
+  m_Script: {fileID: 11500000, guid: 2d790fc7a30e52e428f7ac81c0e41666, type: 3}
+  m_Name: LevelList
+  m_EditorClassIdentifier: 
+  <_levels>k__BackingField:
+  - {fileID: 11400000, guid: ca0b6c118f0af564f8a6a6807d01a3ee, type: 2}

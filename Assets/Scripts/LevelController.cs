@@ -6,117 +6,31 @@ using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-[Flags]
-public enum AnimStates
-{
-    None = 0, PlayerCentering = 1, PlayerStretch = 2, PlayerGoToInfinityAndBeyond = 4, NebulaTilling = 8, NebulaSpeed = 16
-}
 
-
-[System.Serializable] public class GameObjectDictionary : SerializableDictionary<string, GameObject> { }
-[System.Serializable] public class IntObjectDictionary : SerializableDictionary<string, int> { }
-
-[System.Serializable] public struct float2 { public float x; public float y; }
-[System.Serializable] public struct float3 { public float x; public float y; public float z; }
-[System.Serializable] public struct float4 { public float x; public float y; public float z; public float w; }
 
 public class LevelController : MonoBehaviour
 {
-
+    #region Events
     public delegate void OnSpawnEnemy(IEnemy controller);
     public static event OnSpawnEnemy onSpawnEnemy;
 
     public delegate void OnEndLevel(bool win);
     public static event OnEndLevel onEndLevel;
+    #endregion
 
-    [CreateAssetMenu(fileName = "LevelDefinition")]
-    public class SceneArgs : ScriptableObject
-    {
-        [System.Serializable]
-        public struct EnemyConfig
-        {
-            public string enemyType;
+    [SerializeField]
+    private int _levelID;
 
-            public int side;
-            public float posInSide;
-            public float delay;
-        }
+    private bool IsFile = false;
 
-        [System.Serializable]
-        public struct ShaderVar
-        {
-            public int R;
-            public int G;
-            public int B;
+    [SerializeField]
+    private LevelList _levelList;
+    private Level _level;
 
-            //public float2 offset;
-
-        }
-
-        [System.Serializable]
-        public struct EnemyConfigList
-        {
-            [SerializeField]
-            public List<EnemyConfig> enemyPositions;
-        }
-
-        public List<EnemyConfigList> config = new List<EnemyConfigList>();
+    [SerializeField]
+    private EnemyList _enemyTypes;
 
 
-
-
-
-        public int[] SpawnFrames = { 0, 600 };
-
-        public int LevelMusic = 2;
-
-        public SceneArgs()
-        {
-            //config.Add(new EnemyConfigList
-            //{
-            //    enemyPositions = new List<EnemyConfig>
-            //    {
-            //        new EnemyConfig
-            //        {
-            //            enemyType = "EnemySniper", side = 1, posInSide = 0.7f
-            //        },
-            //        new EnemyConfig
-            //        {
-            //            enemyType = "EnemySniper", side = 3, posInSide = 0.4f
-            //        }
-
-            //    }
-            //});
-
-            //config.Add(new EnemyConfigList
-            //{
-            //    enemyPositions = new List<EnemyConfig>
-            //    {
-            //        new EnemyConfig
-            //        {
-            //            enemyType = "SimpleEnemy", side = 1, posInSide = 0.7f },
-            //        new EnemyConfig
-            //        {
-            //            enemyType = "SimpleEnemy", side = 3, posInSide = 0.4f }
-
-            //    }
-            //});
-
-        }
-
-        public ShaderVar ShaderVariables = new ShaderVar
-        {
-            R = 0,
-            G = 0,
-            B = 200
-        };
-
-    }
-
-    public int sceneFile;
-    public bool IsFile = false;
-
-    public SceneArgs sceneArgs;
     public int spawnFrame = 0;
 
     public List<AudioClip> levelClips;
@@ -139,13 +53,12 @@ public class LevelController : MonoBehaviour
 
     #endregion
 
-    public GameObjectDictionary enemyTypes;
     // Quantity of enemies of each type to spawn during the whole level
-    public IntObjectDictionary enemySpawnCount;
+    public EnemyObjectDictionary enemySpawnCount;
     // Currently alive enemies of each type
-    public IntObjectDictionary spawned;
+    public EnemyObjectDictionary spawned;
     // Max number of enemies of each type that can present on screen at one time
-    public IntObjectDictionary maxScreenEnemies;
+    public EnemyObjectDictionary maxScreenEnemies;
 
     public List<GameObject> enemyAlive;
 
@@ -183,6 +96,8 @@ public class LevelController : MonoBehaviour
     public AnimationCurve scrollSpeedCurve;
 
 
+    private int[] intCount;
+    private bool[] finishedCount;
 
     public AnimStates animationState = AnimStates.PlayerCentering;
 
@@ -204,15 +119,8 @@ public class LevelController : MonoBehaviour
 
         Application.targetFrameRate = 60;
 
-        sceneArgs = new SceneArgs();
-#if UNITY_EDITOR
-        System.IO.File.WriteAllText(string.Format("{0}\\Levels\\BaseLevel.json", Application.streamingAssetsPath), JsonUtility.ToJson(sceneArgs));
-#endif
-        //Debug.Log(JsonUtility.ToJson(sceneArgs));
-
-
         IsFile = true;
-        //Debug.Log(@"Levels\" + sceneFile.name);
+
         try
         {
 #if UNITY_ANDROID
@@ -225,8 +133,9 @@ public class LevelController : MonoBehaviour
 
 
 #if UNITY_STANDALONE
-            var jsonText = System.IO.File.ReadAllText(Application.streamingAssetsPath + @"\Levels\Level_" + sceneFile + ".json");
-            sceneArgs = JsonUtility.FromJson<SceneArgs>(jsonText);
+
+            _level = _levelList[_levelID];
+
             var Joystick1 = GameObject.Find("LookJoystick");
             var Joystick2 = GameObject.Find("MoveJoystick");
             Joystick1.SetActive(false);
@@ -240,47 +149,35 @@ public class LevelController : MonoBehaviour
             var errorObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
             errorObj.transform.position = Player.transform.position;
         }
-
-        //if (sceneArgs.config.Count != sceneArgs.SpawnFrames.Length)
-        //{
-        //    Debug.LogError("ENEMY POS LENGTH DIFFERENT FROM SCENE FRAMES LENGTH");
-        //}
-
-        enemySpawnCount = new IntObjectDictionary();
-        for (int i = 0; i < sceneArgs.config.Count; i++)
+        enemySpawnCount = new EnemyObjectDictionary();
+        for (int i = 0; i < _level.LevelConfig.Count; i++)
         {
-            for (int j = 0; j < sceneArgs.config[i].enemyPositions.Count; j++)
+            for (int j = 0; j < _level.LevelConfig[i].enemies.Count; j++)
             {
-                var enemy = sceneArgs.config[i].enemyPositions[j].enemyType;
-                if (enemy == "Spinner") continue;
-                if (!enemySpawnCount.ContainsKey(enemy))
+                var enemy = _level.LevelConfig[i].enemies[j].enemyType;
+                if (enemy == EnemyType.SPINNER) continue;
+                if (!enemySpawnCount.ContainsKey((int)enemy))
                 {
-                    enemySpawnCount.Add(enemy, 0);
+                    enemySpawnCount.Add((int)enemy, 0);
                 }
-                enemySpawnCount[enemy]++;
+                enemySpawnCount[(int)enemy]++;
             }
         }
 
 
 
-        spawned = new IntObjectDictionary();
+        spawned = new EnemyObjectDictionary();
 
-        foreach (var enemyType in enemyTypes.Keys)
+        foreach (var enemyType in _enemyTypes.Keys)
         {
-            spawned.Add(enemyType, 0);
+            spawned.Add((int)enemyType, 0);
         }
 
-        LevelAudioSource.clip = levelClips[sceneArgs.LevelMusic];
+        LevelAudioSource.clip = levelClips[_level.LevelMusic];
         LevelAudioSource.Play();
 
-
-        //for (int i = 0; i < maxScreenEnemies["SimpleEnemy"]; i++)
-        //{
-        //    StartCoroutine((SpawnEnemyRand("SimpleEnemy", Random.Range(2f, 4f))));
-        //}
-
         enemyAlive = new List<GameObject>();
-        nebulaMat.SetColor("_Color", new Color(sceneArgs.ShaderVariables.R / 255f, sceneArgs.ShaderVariables.G / 255f, sceneArgs.ShaderVariables.B / 255f));
+        nebulaMat.SetColor("_Color", new Color(_level.ShaderVariables.color.r, _level.ShaderVariables.color.g, _level.ShaderVariables.color.b));
         nebulaMat.SetVector("_Tilling", new Vector4(1, 1, 1, 1));
         nebulaMat.SetVector("_ScrollSpeed", new Vector4(0.05f, 0.05f, 1, 1));
         StartCoroutine(SpawnPowerUp());
@@ -308,9 +205,9 @@ public class LevelController : MonoBehaviour
         }
         else
         {
-            foreach (var enemyType in enemyTypes.Keys)
+            foreach (var enemyType in _enemyTypes.Keys)
             {
-                if (enemySpawnCount[enemyType] > 0)
+                if (enemySpawnCount[(int)enemyType] > 0)
                 {
                     StartCoroutine(SpawnEnemyRand(enemyType, Random.Range(2f, 4f)));
 
@@ -428,8 +325,6 @@ public class LevelController : MonoBehaviour
 
     }
 
-    private int[] intCount;
-    private bool[] finishedCount;
     IEnumerator countScore()
     {
         AnimateNebula();
@@ -489,13 +384,13 @@ public class LevelController : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
 
-        if (/*sceneArgs.SpawnFrames[spawnFrame] <= frame &&*/ !finishedSpawn)
+        if (!finishedSpawn)
         {
-            for (int i = 0; i < sceneArgs.config[spawnFrame].enemyPositions.Count; i++)
+            for (int i = 0; i < _level.LevelConfig[spawnFrame].enemies.Count; i++)
             {
-                StartCoroutine(SpawnEnemyFile(i, sceneArgs.config[spawnFrame].enemyPositions[i].delay));
+                StartCoroutine(SpawnEnemyFile(i, _level.LevelConfig[spawnFrame].enemies[i].delay));
             }
-            if (spawnFrame < sceneArgs.config.Count - 1)
+            if (spawnFrame < _level.LevelConfig.Count - 1)
             {
                 spawnFrame++;
             }
@@ -606,9 +501,9 @@ public class LevelController : MonoBehaviour
         yield break;
     }
 
-    IEnumerator SpawnEnemyRand(string enemyType, float delay)
+    IEnumerator SpawnEnemyRand(EnemyType enemyType, float delay)
     {
-        if (!IsFile && spawned[enemyType] >= maxScreenEnemies[enemyType])
+        if (!IsFile && spawned[(int)enemyType] >= maxScreenEnemies[(int)enemyType])
         {
             yield break;
         }
@@ -636,15 +531,15 @@ public class LevelController : MonoBehaviour
                 break;
         }
 
-        var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
+        var newEnemy = Instantiate(_enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
 
 
         var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
         comp.direction = direction;
         //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
 
-        enemySpawnCount[enemyType]--;
-        spawned[enemyType]++;
+        enemySpawnCount[(int)enemyType]--;
+        spawned[(int)enemyType]++;
 
         yield return null;
 
@@ -653,13 +548,10 @@ public class LevelController : MonoBehaviour
     IEnumerator SpawnEnemyFile(int i, float delay)
     {
 
-        string enemyType = sceneArgs.config[spawnFrame].enemyPositions[i].enemyType;
-        //if (spawned[enemyType] >= maxScreenEnemies[enemyType])
-        //{
-        //    yield break;
-        //}
-        int side = sceneArgs.config[spawnFrame].enemyPositions[i].side;
-        float inSide = sceneArgs.config[spawnFrame].enemyPositions[i].posInSide;
+        EnemyType enemyType = _level.LevelConfig[spawnFrame].enemies[i].enemyType;
+
+        int side = _level.LevelConfig[spawnFrame].enemies[i].side;
+        float inSide = _level.LevelConfig[spawnFrame].enemies[i].posInSide;
         Vector3 spawnPos = Vector3.zero;
         Vector2 direction = Vector2.zero;
         switch (side)
@@ -685,9 +577,9 @@ public class LevelController : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
 
-        var newEnemy = Instantiate(enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
+        var newEnemy = Instantiate(_enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
 
-        if (enemyType == "Spinner")
+        if (enemyType == EnemyType.SPINNER)
         {
             var comp = (IObject)newEnemy.GetComponentInChildren(typeof(IObject));
             comp.direction = direction;
@@ -701,25 +593,11 @@ public class LevelController : MonoBehaviour
             //Spawn event
             onSpawnEnemy?.Invoke(comp);
 
-            switch (enemyType)
-            {
-                case "SimpleEnemy":
-                    comp.type = EnemyType.SIMPLE;
-                    break;
-                case "EnemySniper":
-                    comp.type = EnemyType.SNIPER;
-                    break;
-                case "Boss":
-                    comp.type = EnemyType.BOSS;
-                    break;
-                case "EnemyBomber":
-                    comp.type = EnemyType.BOMBER;
-                    break;
-            }
+            comp.type = enemyType;
             comp.direction = direction;
 
-            enemySpawnCount[enemyType]--;
-            spawned[enemyType]++;
+            enemySpawnCount[(int)enemyType]--;
+            spawned[(int)enemyType]++;
 
         }
 
@@ -795,23 +673,7 @@ public class LevelController : MonoBehaviour
         var newExplosion = Instantiate(enemy.explosion, obj.transform.position, Quaternion.identity);
         newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
 
-        //TEM Q RESOLVER ESSES NOMESSS
-        //USAR INTS PRA BATER COM O ENUM
-        switch (enemy.type)
-        {
-            case EnemyType.SIMPLE:
-                instance.spawned["SimpleEnemy"]--;
-                break;
-            case EnemyType.SNIPER:
-                instance.spawned["EnemySniper"]--;
-                break;
-            case EnemyType.BOSS:
-                instance.spawned["Boss"]--;
-                break;
-            case EnemyType.BOMBER:
-                instance.spawned["EnemyBomber"]--;
-                break;
-        }
+        instance.spawned[(int)enemy.type]--;
 
 
         if (projectile && projectile.HPTP)
@@ -832,3 +694,14 @@ public class LevelController : MonoBehaviour
         enemyAlive.Remove(obj);
     }
 }
+
+[Flags]
+public enum AnimStates
+{
+    None = 0, PlayerCentering = 1, PlayerStretch = 2, PlayerGoToInfinityAndBeyond = 4, NebulaTilling = 8, NebulaSpeed = 16
+}
+
+
+[System.Serializable] public class GameObjectDictionary : SerializableDictionary<EnemyType, GameObject> { }
+[System.Serializable] public class EnemyObjectDictionary : SerializableDictionary<int, int> { }
+

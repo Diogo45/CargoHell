@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -615,6 +615,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 359965589, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 14.999992
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943602824, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199613503174647402, guid: c3955e22cd4dbb94789fbde347b76bbc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 93.78711
+      objectReference: {fileID: 0}
     - target: {fileID: 1199613503332623489, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -739,6 +752,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PostProcessedCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893153921506408347, guid: c3955e22cd4dbb94789fbde347b76bbc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
@@ -1449,14 +1467,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
         type: 3}
-      propertyPath: powerUpPrefabs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
-        type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 1996386810}
+    - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
+        type: 3}
+      propertyPath: Shield
+      value: 
+      objectReference: {fileID: 7428070431991977966}
     - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
         type: 3}
       propertyPath: doubleAudio
@@ -1479,22 +1497,6 @@ PrefabInstance:
       objectReference: {fileID: 979613907}
     - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
         type: 3}
-      propertyPath: sceneFile
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
-        type: 3}
-      propertyPath: powerUpPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 368294850616983019, guid: 97852930d6369bf4588636f6aded1026,
-        type: 3}
-    - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
-        type: 3}
-      propertyPath: Shield
-      value: 
-      objectReference: {fileID: 7428070431991977966}
-    - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
-        type: 3}
       propertyPath: nearStars
       value: 
       objectReference: {fileID: 1226331796}
@@ -1508,6 +1510,18 @@ PrefabInstance:
       propertyPath: finalScoreCounter
       value: 
       objectReference: {fileID: 979613909}
+    - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
+        type: 3}
+      propertyPath: enemyTypes
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ba58c24d9129c848a5adc1b244f169c,
+        type: 2}
+    - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
+        type: 3}
+      propertyPath: _enemyTypes
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ba58c24d9129c848a5adc1b244f169c,
+        type: 2}
     - target: {fileID: 5514053384919717163, guid: ef3898679aae1024b828890707ed33fe,
         type: 3}
       propertyPath: m_LocalPosition.x
