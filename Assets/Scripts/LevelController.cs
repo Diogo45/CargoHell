@@ -30,7 +30,6 @@ public class LevelController : MonoBehaviour
     [SerializeField]
     private EnemyList _enemyTypes;
 
-
     public int spawnFrame = 0;
 
     public List<AudioClip> levelClips;
@@ -115,6 +114,7 @@ public class LevelController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         #endregion
 
         Application.targetFrameRate = 60;
@@ -149,6 +149,7 @@ public class LevelController : MonoBehaviour
             var errorObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
             errorObj.transform.position = Player.transform.position;
         }
+
         enemySpawnCount = new EnemyObjectDictionary();
         for (int i = 0; i < _level.LevelConfig.Count; i++)
         {

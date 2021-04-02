@@ -15,7 +15,7 @@ public class LevelSelector : MonoBehaviour
     public int page;
     public int maxPage;
 
-    public PlayButtonController levelController;
+    public UIController levelController;
     void Start()
     {
 

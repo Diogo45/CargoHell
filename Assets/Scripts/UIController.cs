@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
-public class PlayButtonController : MonoBehaviour
+public class UIController : MonoBehaviour
 {
 
 

@@ -6,6 +6,7 @@ public enum MOVEMENT
 {
     TWO_JOYSTICK, ONE_JOYSTICK, PUSH
 }
+
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     public int currentHealth = 3;
     private bool hasCollided = false;
-
+    
 
     [Range(0, 360)]
     public int rotationSpeed;
@@ -96,7 +97,6 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "ProjectileSpinner")
         {
-
 
             if (PlayerInvulnerable)
             {

@@ -89,7 +89,7 @@ public class ShieldController : MonoBehaviour
         var comp = collision.GetComponent<ProjectileController>();
         var speed = comp.projectileSpeed;
         comp.projectileSpeed = 0f;
-        var hit = collision.ClosestPoint(collision.gameObject.transform.position /*+ (collision.transform.up / 2f)*/);
+        var hit = collision.ClosestPoint(collision.gameObject.transform.position);
         var playerPos = player.transform.position;
         var oldPlayerUp = player.transform.up;
       
