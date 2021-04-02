@@ -21,18 +21,18 @@ public class UIController : MonoBehaviour
     public GameObject OptionsMenu;
     public GameObject LevelSelector;
 
-    public GameObject GlobalVolume;
-    public GameObject SFXVolume;
+    public GameObject GlobalVolumeSlider;
+    public GameObject SFXVolumeSlider;
 
     public void Start()
     {
         DebugUI = Instantiate(DebugUIPrefab, GameObject.FindGameObjectWithTag("canvas").transform);
         globalMixer.SetFloat("GlobalVolume", Mathf.Log10(PlayerPrefs.GetFloat("GlobalVolume")) * 20f);
         globalMixer.SetFloat("SFXVolume", Mathf.Log10(PlayerPrefs.GetFloat("SFXVolume")) * 20f);
-        if(GlobalVolume)
-            GlobalVolume.GetComponent<Slider>().value = PlayerPrefs.GetFloat("GlobalVolume");
-        if(SFXVolume)
-            SFXVolume.GetComponent<Slider>().value = PlayerPrefs.GetFloat("SFXVolume");
+        if(GlobalVolumeSlider)
+            GlobalVolumeSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("GlobalVolume");
+        if(SFXVolumeSlider)
+            SFXVolumeSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("SFXVolume");
 
     }
     private void Update()

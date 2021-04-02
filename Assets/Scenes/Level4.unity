@@ -222,7 +222,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14364b4811068cd4b971c14e0783e7f7, type: 3}
+  m_Script: {fileID: 11500000, guid: dc00733a9469e1b4cb9c1e5c66cdd854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &519420028
@@ -416,6 +416,12 @@ MonoBehaviour:
   projectile: {fileID: 8474159051582411123, guid: 115a57c9ee4936b45b03adbcced4b6b7,
     type: 3}
   dir: {x: -1, y: 0, z: 0}
+--- !u!1 &959036294 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8082817578181034286, guid: c3955e22cd4dbb94789fbde347b76bbc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1119712541}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &979613906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -615,23 +621,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 359965589, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 14.999992
-      objectReference: {fileID: 0}
-    - target: {fileID: 1943602824, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1199613503174647402, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 93.78711
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199613503332623489, guid: c3955e22cd4dbb94789fbde347b76bbc,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -81
+      value: 93.7871
       objectReference: {fileID: 0}
     - target: {fileID: 1199613503332623490, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
@@ -752,11 +745,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PostProcessedCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 4893153921506408347, guid: c3955e22cd4dbb94789fbde347b76bbc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
@@ -1204,6 +1192,17 @@ PrefabInstance:
       propertyPath: Score
       value: 
       objectReference: {fileID: 1119712544}
+    - target: {fileID: 8911567794002422758, guid: 7eadf6ca5023a3a49bf68288c8515855,
+        type: 3}
+      propertyPath: DebugUIPrefab
+      value: 
+      objectReference: {fileID: 959036294}
+    - target: {fileID: 8911567794002422758, guid: 7eadf6ca5023a3a49bf68288c8515855,
+        type: 3}
+      propertyPath: globalMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: c8b4f9cb673c9784cbcd173876c4be6b,
+        type: 2}
     - target: {fileID: 8911567794002422759, guid: 7eadf6ca5023a3a49bf68288c8515855,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1271,7 +1270,7 @@ PrefabInstance:
     - target: {fileID: 8376393641180919920, guid: 771188fbd0fe1414188ae97d7190d226,
         type: 3}
       propertyPath: m_Name
-      value: Global Volume
+      value: GlobalPostProcessVolume
       objectReference: {fileID: 0}
     - target: {fileID: 8376393641180919920, guid: 771188fbd0fe1414188ae97d7190d226,
         type: 3}
