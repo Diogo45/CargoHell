@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 public enum EnemyType
 {
-    SIMPLE, SNIPER, SPINNER, STORMTROOPER, BOSS, BOMBER
+    SIMPLE, SNIPER, SPINNER, STORMTROOPER, BOSS, BOMBER, SHOOTER
 }
 
 public class IEnemy : MonoBehaviour
@@ -160,5 +160,29 @@ public class IEnemy : MonoBehaviour
             newProj.transform.up = transform.up;
         }
 
+    }
+
+    public void MultiShot(int numShots)
+    {
+
+        if (projectileTimer > timerThreshold + Random.Range(-timerThreshold, timerThreshold) / 2f)
+        {
+            projectileTimer = 0f;
+            StartCoroutine(ShootMany(numShots));   
+        }
+
+    }
+
+    IEnumerator ShootMany(int numShots)
+    {
+        for(int i=0; i<numShots; i++)
+        {
+            var newProj = Instantiate(projectile, transform.position + (transform.up * 0.5f), Quaternion.identity);
+            newProj.GetComponent<ProjectileController>().origin = gameObject;
+            newProj.transform.up = transform.up;
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield break;
+        
     }
 }
