@@ -717,6 +717,9 @@ public class LevelController : MonoBehaviour
                 case "EnemyShooter":
                     comp.type = EnemyType.SHOOTER;
                     break;
+                case "EnemyChaser":
+                    comp.type = EnemyType.CHASER;
+                    break;
             }
             comp.direction = direction;
 
