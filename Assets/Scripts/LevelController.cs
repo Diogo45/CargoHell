@@ -336,7 +336,7 @@ public class LevelController : MonoBehaviour
 
         string strCount = "";
 
-        if(!Array.Exists(finishedCount, x => x == false))
+        if (!Array.Exists(finishedCount, x => x == false))
         {
             animationState = AnimStates.PlayerGoToInfinityAndBeyond;
             yield break;
@@ -551,29 +551,33 @@ public class LevelController : MonoBehaviour
 
         EnemyType enemyType = _level.LevelConfig[spawnFrame].enemies[i].enemyType;
 
-        int side = _level.LevelConfig[spawnFrame].enemies[i].side;
-        float inSide = _level.LevelConfig[spawnFrame].enemies[i].posInSide;
-        Vector3 spawnPos = Vector3.zero;
-        Vector2 direction = Vector2.zero;
-        switch (side)
-        {
-            case 0:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 1, 0));
-                direction = Vector2.down;
-                break;
-            case 1:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(1, inSide, 0));
-                direction = Vector2.left;
-                break;
-            case 2:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 0, 0));
-                direction = Vector2.up;
-                break;
-            case 3:
-                spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(0, inSide, 0));
-                direction = Vector2.right;
-                break;
-        }
+        //int side = _level.LevelConfig[spawnFrame].enemies[i].side;
+        //float inSide = _level.LevelConfig[spawnFrame].enemies[i].posInSide;
+        //Vector3 spawnPos = Vector3.zero;
+        //Vector2 direction = Vector2.zero;
+        //switch (side)
+        //{
+        //    case 0:
+        //        spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 1, 0));
+        //        direction = Vector2.down;
+        //        break;
+        //    case 1:
+        //        spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(1, inSide, 0));
+        //        direction = Vector2.left;
+        //        break;
+        //    case 2:
+        //        spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 0, 0));
+        //        direction = Vector2.up;
+        //        break;
+        //    case 3:
+        //        spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(0, inSide, 0));
+        //        direction = Vector2.right;
+        //        break;
+        //}
+
+
+        Vector3 spawnPos = Camera.main.ViewportToScreenPoint(_level.LevelConfig[spawnFrame].enemies[i].viewportPosition);
+        Vector3 direction = Camera.main.ViewportToScreenPoint(_level.LevelConfig[spawnFrame].enemies[i].direction);
 
         yield return new WaitForSeconds(delay);
 
@@ -652,7 +656,7 @@ public class LevelController : MonoBehaviour
     }
 
 
-   
+
 
     private void OnEnable()
     {

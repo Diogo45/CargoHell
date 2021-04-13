@@ -10,16 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83b85a2a99ed3244e9ba40bfb22b038c, type: 3}
-  m_Name: Level01
+  m_Name: LevelTest
   m_EditorClassIdentifier: 
   LevelConfig:
-  - enemies:
-    - enemyType: 0
-      side: 1
-      posInSide: 0.5
-      delay: 0
-      speed: 0
-      shouldMove: 1
+  - enemies: []
   ShaderVariables:
-    color: {r: 0.24959952, g: 0.24959952, b: 0.745283, a: 1}
-  LevelMusic: 2
+    color: {r: 0, g: 0, b: 1, a: 1}
+  LevelMusic: 0

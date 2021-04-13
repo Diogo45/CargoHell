@@ -9,6 +9,8 @@ public class Level : ScriptableObject
     public struct EnemyConfig
     {
         public EnemyType enemyType;
+        public Vector2 viewportPosition;
+        public Vector2 direction;
         public int side;
         public float posInSide;
         public float delay;

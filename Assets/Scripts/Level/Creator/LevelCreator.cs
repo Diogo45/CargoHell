@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelCreator : MonoBehaviour
+public class LevelCreator : Singleton<LevelCreator>
 {
+
+
     [SerializeField] private Level _level;
-    [SerializeField] private EnemyList _enemyList;
     public int WaveNumber { get; private set; }
 
     private string _levelSavePath;
 
     private void Awake()
     {
+        base.Awake();
+
         _levelSavePath = Application.dataPath + @"/Levels/";
     }
 
