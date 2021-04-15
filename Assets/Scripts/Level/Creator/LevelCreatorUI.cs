@@ -29,6 +29,7 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
     public void OnMouseClick(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
+
         GameObject instance = _enemyList[_selectedEnemyPrefab];
         GameObject newEnemy = Instantiate(instance, Camera.main.ScreenToWorldPoint(_mouse.position.ReadValue()), Quaternion.identity);
         newEnemy.transform.Translate(0, 0, 10);
