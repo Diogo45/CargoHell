@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a974ce2a4c4ec47a816d968542be87, type: 3}
   m_Name: CreatorEnemyList
   m_EditorClassIdentifier: 
-  _types: 00000000
+  _types: 01000000
   _obj:
   - {fileID: 4751236136264206698, guid: 33f3efed1f1cdcd4ba1dc18e85c3e72b, type: 3}

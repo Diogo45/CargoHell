@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 public enum EnemyType
 {
-    SIMPLE, SNIPER, SPINNER, STORMTROOPER, BOSS, BOMBER
+   NONE, SIMPLE, SNIPER, SPINNER, STORMTROOPER, BOSS, BOMBER
 }
 
 public class IEnemy : MonoBehaviour
