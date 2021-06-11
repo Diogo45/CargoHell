@@ -11,6 +11,9 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
     [SerializeField] private EnemyList _enemyList;
     [SerializeField] private EnemyType _selectedEnemyPrefab;
 
+
+    [field: SerializeField] public EnemyData _selectedObject { get; private set; }
+
     [SerializeField] private GameObject _nextWaveButton;
     [SerializeField] private GameObject _previousWaveButton;
 
@@ -26,7 +29,6 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
     private Mouse _mouse;
 
-    private Camera Camera;
 
     private void Awake()
     {
@@ -38,7 +40,6 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
         _mouse = Mouse.current;
 
-        Camera = Camera.main;
 
     }
 
@@ -53,9 +54,16 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
         var mousePos = Camera.main.ScreenToWorldPoint(_mouse.position.ReadValue());
 
-        //var pointerEventData = new PointerEventData(EventSystem.current) { position = _mouse.position.ReadValue() };
-        //var raycastResults = new List<RaycastResult>();
-        //EventSystem.current.RaycastAll(pointerEventData, raycastResults);
+        var pointerEventData = new PointerEventData(EventSystem.current) { position = _mouse.position.ReadValue() };
+        var raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, raycastResults);
+
+
+        if (raycastResults.Count > 0)
+        {
+            return;
+        }
+
 
         GameObject instance = _enemyList[_selectedEnemyPrefab];
         GameObject newEnemy = Instantiate(instance, mousePos, Quaternion.identity);
@@ -63,16 +71,6 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
         LevelCreator.instance.AddEnemy(_selectedEnemyPrefab, _mouse.position.ReadValue());
 
 
-        //if (raycastResults.Count > 0)
-        //{
-        //    var result = raycastResults[0];
-        //    //Debug.Log(result.gameObject.name);
-        //    if (result.gameObject.tag == "SpawnableArea")
-        //    {
-
-        //    }
-
-        //}
 
 
     }
@@ -87,26 +85,34 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
         if (hit && hit.transform.tag == "Enemy")
         {
+            _selectedObject = hit.transform.gameObject.GetComponent<EnemyData>();
 
             HandleMoveEditWindow(hit);
 
             return true;
         }
+        else if (!hit)
+        {
+            //_enemyInfoUI.SetActive(false);
+
+        }
 
 
 
-        //_enemyInfoUI.SetActive(false);
+
         return false;
 
     }
 
     private void HandleMoveEditWindow(RaycastHit2D hit)
     {
+        _enemyInfoUI.SetActive(false);
+
         _enemyInfoUI.SetActive(true);
+
         var pos = new Vector3(hit.point.x + _xOffset, hit.point.y + _yOffset, 0f);
         pos = Canvas.transform.InverseTransformPoint(pos);
         pos = new Vector3(pos.x, pos.y, 0f);
-        //Debug.Log(pos);
 
         _enemyInfoUI.GetComponent<RectTransform>().anchoredPosition = pos;
 

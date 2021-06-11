@@ -27,8 +27,10 @@ public class UIController : MonoBehaviour
     public void Start()
     {
         DebugUI = Instantiate(DebugUIPrefab, GameObject.FindGameObjectWithTag("canvas").transform);
+
         globalMixer.SetFloat("GlobalVolume", Mathf.Log10(PlayerPrefs.GetFloat("GlobalVolume")) * 20f);
         globalMixer.SetFloat("SFXVolume", Mathf.Log10(PlayerPrefs.GetFloat("SFXVolume")) * 20f);
+
         if(GlobalVolumeSlider)
             GlobalVolumeSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("GlobalVolume");
         if(SFXVolumeSlider)
