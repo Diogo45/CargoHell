@@ -10,7 +10,10 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
     [SerializeField] private EnemyList _enemyList;
     [SerializeField] private EnemyType _selectedEnemyPrefab;
+    [SerializeField] private RectTransform _enemyTab;
 
+    private List<GameObject> _waveEnemies;
+    
 
     [field: SerializeField] public EnemyData _selectedObject { get; private set; }
 
@@ -33,12 +36,58 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
     private void Awake()
     {
         base.Awake();
+    }
+
+
+    private void Start()
+    {
+        _waveEnemies = new List<GameObject>();
+
+        ReadCurrentWave();
 
         _selectedEnemyPrefab = EnemyType.NONE;
 
         _levelCreator = LevelCreator.instance;
 
         _mouse = Mouse.current;
+    }
+
+    public void NextWave()
+    {
+        LevelCreator.instance.NextWave();
+      
+        ReadCurrentWave();
+
+    }
+
+    public void PrevWave()
+    {
+        LevelCreator.instance.PreviousWave();
+
+        ReadCurrentWave();
+    }
+
+
+    private void ReadCurrentWave()
+    {
+
+        foreach (var item in _waveEnemies)
+        {
+            Destroy(item);
+        }
+
+        _waveEnemies.Clear();
+
+        var enemies = LevelCreator.instance.currentWaveEnemies();
+
+        foreach (var item in enemies)
+        {
+            var enemy = Instantiate(_enemyList[item.enemyType], Camera.main.ViewportToWorldPoint(item.viewportPosition), Quaternion.identity);
+            enemy.transform.Translate(0, 0, 95);
+            enemy.transform.up = item.direction;
+            _waveEnemies.Add(enemy);
+
+        }
 
 
     }
@@ -68,10 +117,20 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
         GameObject instance = _enemyList[_selectedEnemyPrefab];
         GameObject newEnemy = Instantiate(instance, mousePos, Quaternion.identity);
         newEnemy.transform.Translate(0, 0, 95);
-        LevelCreator.instance.AddEnemy(_selectedEnemyPrefab, _mouse.position.ReadValue());
+        _waveEnemies.Add(newEnemy);
+        var data = newEnemy.GetComponent<EnemyData>();
+        data.enemyType = _selectedEnemyPrefab;
 
 
+    }
 
+   
+
+    public void Save(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+
+        LevelCreator.instance.Save(_waveEnemies);
 
     }
 
@@ -121,6 +180,13 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
     public void OnChangeEnemyType(EnemyType type)
     {
         _selectedEnemyPrefab = type;
+    }
+
+    public void ToggleEnemyTab(bool value)
+    {
+        _enemyTab.gameObject.SetActive(value);
+
+        
     }
 
 }

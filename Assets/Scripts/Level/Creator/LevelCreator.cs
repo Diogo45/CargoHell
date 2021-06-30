@@ -18,6 +18,8 @@ public class LevelCreator : Singleton<LevelCreator>
         _levelSavePath = Application.dataPath + @"/Levels/";
     }
 
+
+
     public void CreateLevel(string name)
     {
         _level = ScriptableObject.CreateInstance<Level>();
@@ -67,16 +69,42 @@ public class LevelCreator : Singleton<LevelCreator>
         _level.LevelConfig.Remove(_level.LevelConfig[WaveNumber]);
     }
 
-    public void AddEnemy(EnemyType enemy, Vector2 screenPosition)
+
+    public void Save(List<GameObject> enemies)
     {
         Level.Wave currentWave = _level.LevelConfig[WaveNumber];
-        currentWave.enemies.Add(new Level.EnemyConfig 
+
+        currentWave.enemies.Clear();
+
+        for (int i = 0; i < enemies.Count; i++)
         {
-            enemyType = enemy,
-            side = (int)screenPosition.x,
-            posInSide = screenPosition.y,
-            
+            AddEnemy(enemies[i].GetComponent<EnemyData>());
+          
+        }
+
+    }
+
+    public void AddEnemy(EnemyData data)
+    {
+        Level.Wave currentWave = _level.LevelConfig[WaveNumber];
+
+        currentWave.enemies.Add(new Level.EnemyConfig
+        {
+            enemyType = data.enemyType,
+            viewportPosition = Camera.main.WorldToViewportPoint(data.gameObject.transform.position),
+            direction = data.gameObject.transform.up,
+            delay = data.Delay,
+            shouldMove = data.ShouldMove,
+            speed = data.Speed
         });
+
+
+    }
+
+
+    public List<Level.EnemyConfig> currentWaveEnemies()
+    {
+        return _level.LevelConfig[WaveNumber].enemies;
     }
 
 }

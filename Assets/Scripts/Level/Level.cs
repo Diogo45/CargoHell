@@ -11,8 +11,8 @@ public class Level : ScriptableObject
         public EnemyType enemyType;
         public Vector2 viewportPosition;
         public Vector2 direction;
-        public int side;
-        public float posInSide;
+        //public int side;
+        //public float posInSide;
         public float delay;
         public float speed;
         public bool shouldMove;
