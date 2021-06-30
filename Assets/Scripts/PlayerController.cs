@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum MOVEMENT
 {
@@ -25,15 +26,18 @@ public class PlayerController : MonoBehaviour
 
     public int currentHealth = 3;
     private bool hasCollided = false;
-    
+
 
     [Range(0, 360)]
     public int rotationSpeed;
 
     public float moveSpeed;
 
-    private float moveForward = 0f;
-    private float moveBackward = 0f;
+
+    [SerializeField] private Vector2 _moveAxis;
+
+    //private float moveForward = 0f;
+    //private float moveBackward = 0f;
 
     private Material material;
     public int MaxPossibleHealth { get => maxPossibleHealth; set => maxPossibleHealth = value; }
@@ -89,11 +93,11 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "PowerUpInv")
         {
             StartCoroutine(DamageAnimationPlayer(10f));
-            
+
             Destroy(collision.gameObject);
         }
 
-       
+
 
         if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "ProjectileSpinner")
         {
@@ -102,7 +106,7 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(collision.gameObject);
                 return;
-                
+
             }
 
             if (!hasCollided)
@@ -183,6 +187,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
+    public void OnMove(InputValue value)
+    {
+
+        _moveAxis = value.Get<Vector2>();
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -190,30 +203,10 @@ public class PlayerController : MonoBehaviour
         if (!Movement)
             return;
 
-#region Input
+        #region Input
 
 #if UNITY_STANDALONE
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            moveForward = 1f;
-
-        }
-        else if (Input.GetKeyUp(KeyCode.W))
-        {
-            moveForward = 0f;
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            moveBackward = 1f;
-
-        }
-        else if (Input.GetKeyUp(KeyCode.S))
-        {
-            moveBackward = 0f;
-        }
 
 #endif
 
@@ -232,9 +225,9 @@ public class PlayerController : MonoBehaviour
 
 #endif
 
-#endregion
+        #endregion
 
-#region Apply Input
+        #region Apply Input
 
 
 
@@ -273,8 +266,13 @@ public class PlayerController : MonoBehaviour
 
 #if UNITY_STANDALONE
 
-        Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        
+
+        var mouseValue = Mouse.current.position.ReadValue();
+
+        Vector3 mousePosition = new Vector3(mouseValue.x, mouseValue.y, 0f);
+
+        Vector2 direction = Camera.main.ScreenToWorldPoint(mousePosition) - transform.position;
+
 
 #endif
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -304,25 +302,7 @@ public class PlayerController : MonoBehaviour
 
 #else
 
-
-        if (moveForward > 0f)
-        {
-            //var lPos = transform.position;
-
-            
-
-            transform.position += transform.up * moveSpeed * moveForward * Time.deltaTime;
-
-            //var mov = transform.position - lPos;
-
-            //LevelController.instance.nebulaMat.SetVector("_ScrollSpeed", new Vector4(mov.x * 10f, mov.y * 10f, 1, 1));
-
-        }
-        if (moveBackward > 0f)
-        {
-            transform.position -= transform.up * moveSpeed * moveBackward * Time.deltaTime;
-
-        }
+        transform.position += transform.up * _moveAxis.y * moveSpeed * Time.deltaTime;
 
 
 #endif
@@ -330,33 +310,17 @@ public class PlayerController : MonoBehaviour
 
 
 
-        //if (rotateClockWise)
-        //    transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
-        //if (rotateCounterClockWise)
-        //    transform.Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
+        #endregion
 
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    var newProj = Instantiate(Projectile, transform.position + (transform.up * 1.5f), Quaternion.identity);
-        //    newProj.transform.up = transform.up;
-        //    newProj.tag = "ProjectileReflected";
-        //}
-
-#endregion
-
-#region Limit to screen space
+        #region Limit to screen space
 
         var pos = Camera.main.WorldToViewportPoint(transform.position);
         pos.x = Mathf.Clamp01(pos.x);
         pos.y = Mathf.Clamp01(pos.y);
         transform.position = Camera.main.ViewportToWorldPoint(pos);
 
-#endregion
+        #endregion
         hasCollided = false;
-
-
-
-
 
     }
 

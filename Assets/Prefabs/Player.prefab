@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 343232428700217153}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.32500008, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.22036496, z: 0.22036496}
+  m_LocalScale: {x: 0.22036502, y: 0.22036496, z: 0.22036496}
   m_Children:
   - {fileID: 7561142840458722120}
   m_Father: {fileID: 7428070431825372694}
@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a018b75fa0749034bae3fe7e5ddb499b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7428070431825372695}
-  AngleDamping: 0
+  AngleDamping: 0.5
   shieldReflectSound: {fileID: 8300000, guid: f2a83e166cceb164b90067baedb623df, type: 3}
   shieldReactivationDelay: 5
 --- !u!50 &2849154092521919722
@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 343232428141593762}
   - component: {fileID: 343232428141593763}
   - component: {fileID: 343232428141593758}
+  - component: {fileID: 1996386811}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -324,6 +325,7 @@ MonoBehaviour:
   currentHealth: 3
   rotationSpeed: 150
   moveSpeed: 5
+  _moveAxis: {x: 0, y: 0}
   AngularSpeed: 15
   PlayerInvulnerable: 0
   Movement: 1
@@ -426,3 +428,86 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &1996386811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7428070431825372695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b11578bc24168f34395474942761044b,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b25c0862-e7a0-45de-ab31-e6bd82a09c6e
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 990b6e40-f0d6-4b94-8289-d2edc5eb3770
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 99375a57-a1d6-46f4-8e41-3d48cbfcb8aa
+    m_ActionName: Player/Fire[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6e30c8e9-1463-4015-afba-fa424e64210c
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 86257bbb-d84b-425b-a643-8c79d9b11376
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9f786ee6-2bf7-495f-a2c4-06ee1bebedec
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c73f7c26-62d3-4732-a99a-4c11777b9f9e
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d002dbb0-d94c-4ea8-98c8-931f7d286475
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b8a0c99f-9db2-4482-bae0-3230725fb0e9
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4ebd9afe-d937-433f-b9e6-be3decbc0845
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5e81c1b8-6b8e-4d01-9835-4ee4f18a24fe
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: de3dbcb1-f156-40dc-a2be-12e4c855f68e
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4446023a-b07c-4040-bd7e-ca2a89191e3e
+    m_ActionName: UI/TrackedDeviceOrientation
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
