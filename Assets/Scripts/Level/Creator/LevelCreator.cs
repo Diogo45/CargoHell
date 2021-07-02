@@ -82,6 +82,8 @@ public class LevelCreator : Singleton<LevelCreator>
           
         }
 
+        SaveLevel();
+
     }
 
     public void AddEnemy(EnemyData data)

@@ -4,16 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class LevelCreatorUI : Singleton<LevelCreatorUI>
 {
+
+
 
     [SerializeField] private EnemyList _enemyList;
     [SerializeField] private EnemyType _selectedEnemyPrefab;
     [SerializeField] private RectTransform _enemyTab;
 
     private List<GameObject> _waveEnemies;
-    
 
     [field: SerializeField] public EnemyData _selectedObject { get; private set; }
 
@@ -41,6 +43,9 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
     private void Start()
     {
+
+        InputManager.instance.clickAction.performed += HoldOrClickPerformed;
+
         _waveEnemies = new List<GameObject>();
 
         ReadCurrentWave();
@@ -52,10 +57,28 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
         _mouse = Mouse.current;
     }
 
+    private bool held = false;
+
+    private void HoldOrClickPerformed(InputAction.CallbackContext ctx)
+    {
+
+        if (ctx.interaction is HoldInteraction)
+        {
+           
+        }
+        else
+        {
+            //Debug.Log("CLICK");
+            OnClick();
+        }
+    }
+
+
+
     public void NextWave()
     {
         LevelCreator.instance.NextWave();
-      
+
         ReadCurrentWave();
 
     }
@@ -66,7 +89,6 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
         ReadCurrentWave();
     }
-
 
     private void ReadCurrentWave()
     {
@@ -92,12 +114,15 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
     }
 
-    public void OnMouseClick(InputAction.CallbackContext ctx)
+    public void OnClick()
     {
-        if (!ctx.performed) return;
+        //if (!value) return;
 
-        if (ShouldEditEnemy(ctx) || _selectedEnemyPrefab == EnemyType.NONE)
+
+        if (HitEnemy(out GameObject hit) || _selectedEnemyPrefab == EnemyType.NONE)
         {
+            if (hit != null)
+                HandleMoveEditWindow(hit);
             return;
         }
 
@@ -124,52 +149,45 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
     }
 
-   
 
-    public void Save(InputAction.CallbackContext ctx)
+
+    public void Save(InputValue ctx)
     {
-        if (!ctx.performed) return;
+        if (!ctx.isPressed) return;
 
         LevelCreator.instance.Save(_waveEnemies);
 
     }
 
-    private bool ShouldEditEnemy(InputAction.CallbackContext ctx)
+    private bool HitEnemy(out GameObject selected)
     {
-
-
         var mousePos = Camera.main.ScreenToWorldPoint(_mouse.position.ReadValue());
 
         RaycastHit2D hit = Physics2D.GetRayIntersection(new Ray { origin = mousePos, direction = Vector3.forward });
 
         if (hit && hit.transform.tag == "Enemy")
         {
-            _selectedObject = hit.transform.gameObject.GetComponent<EnemyData>();
-
-            HandleMoveEditWindow(hit);
-
+            selected = hit.transform.gameObject;
             return true;
         }
-        else if (!hit)
-        {
-            //_enemyInfoUI.SetActive(false);
 
-        }
-
-
-
+        selected = null;
 
         return false;
 
     }
 
-    private void HandleMoveEditWindow(RaycastHit2D hit)
+
+
+    private void HandleMoveEditWindow(GameObject hit)
     {
+        _selectedObject = hit.GetComponent<EnemyData>();
+
         _enemyInfoUI.SetActive(false);
 
         _enemyInfoUI.SetActive(true);
 
-        var pos = new Vector3(hit.point.x + _xOffset, hit.point.y + _yOffset, 0f);
+        var pos = new Vector3(hit.transform.position.x + _xOffset, hit.transform.position.y + _yOffset, 0f);
         pos = Canvas.transform.InverseTransformPoint(pos);
         pos = new Vector3(pos.x, pos.y, 0f);
 
@@ -186,7 +204,7 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
     {
         _enemyTab.gameObject.SetActive(value);
 
-        
+
     }
 
 }

@@ -297,18 +297,9 @@ public class PlayerController : MonoBehaviour
         {
 
         }
-        
-
-
 #else
-
         transform.position += transform.up * _moveAxis.y * moveSpeed * Time.deltaTime;
-
-
 #endif
-
-
-
 
         #endregion
 
