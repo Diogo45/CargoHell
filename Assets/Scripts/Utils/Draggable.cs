@@ -36,10 +36,6 @@ public class Draggable : MonoBehaviour
         {
             var pos = Mouse.current.position.ReadValue();
 
-            //Debug.Log(pos);
-
-          
-
             _selectedObject.transform.position = _camera.ScreenToWorldPoint(new Vector3(pos.x, pos.y, _selectedObject.transform.position.z));
         }
     }
@@ -49,9 +45,7 @@ public class Draggable : MonoBehaviour
 
         if (ctx.interaction is HoldInteraction)
         {
-            //Debug.Log("HELD");
-
-            if (HitEnemy(out GameObject hit))
+            if (LevelCreator.HitEnemy(out GameObject hit))
             {
                 _held = true;
 
@@ -60,29 +54,9 @@ public class Draggable : MonoBehaviour
 
           
         }
-        else
-        {
-            //Debug.Log("CLICK");
-
-        }
+   
     }
 
-    private bool HitEnemy(out GameObject selected)
-    {
-        var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-
-        RaycastHit2D hit = Physics2D.GetRayIntersection(new Ray { origin = mousePos, direction = Vector3.forward });
-
-        if (hit && hit.transform.tag == "Enemy")
-        {
-            selected = hit.transform.gameObject;
-            return true;
-        }
-
-        selected = null;
-
-        return false;
-
-    }
+    
 
 }

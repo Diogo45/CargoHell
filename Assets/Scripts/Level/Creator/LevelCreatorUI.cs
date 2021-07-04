@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.UI;
 
 public class LevelCreatorUI : Singleton<LevelCreatorUI>
 {
 
-
+    [field: SerializeField]
+    public Canvas Canvas { get; private set; }
 
     [SerializeField] private EnemyList _enemyList;
     [SerializeField] private EnemyType _selectedEnemyPrefab;
@@ -17,18 +19,20 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
     private List<GameObject> _waveEnemies;
 
-    [field: SerializeField] public EnemyData _selectedObject { get; private set; }
+    [SerializeField] private Button _nextWaveButton;
+    [SerializeField] private Button _previousWaveButton;
+    [SerializeField] private Button _addWaveButton;
+    [SerializeField] private Button _removeWaveButton;
 
-    [SerializeField] private GameObject _nextWaveButton;
-    [SerializeField] private GameObject _previousWaveButton;
+    [SerializeField] private TMPro.TMP_Text _waveText;
 
+    
     [SerializeField] private GameObject _enemyInfoUI;
 
     [SerializeField, Range(-5f, 5f)] private float _xOffset;
     [SerializeField, Range(-5f, 5f)] private float _yOffset;
 
-    [field: SerializeField]
-    public Canvas Canvas { get; private set; }
+    [field: SerializeField] public EnemyData _selectedObject { get; private set; }
 
     private LevelCreator _levelCreator;
 
@@ -45,10 +49,18 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
     {
 
         InputManager.instance.clickAction.performed += HoldOrClickPerformed;
+        InputManager.instance.save.performed += Save;
 
         _waveEnemies = new List<GameObject>();
 
         ReadCurrentWave();
+        UpdateWaveText();
+
+        _nextWaveButton.onClick.AddListener(NextWave);
+        _previousWaveButton.onClick.AddListener(PrevWave);
+        _addWaveButton.onClick.AddListener(AddWave);
+        _removeWaveButton.onClick.AddListener(RemoveWave);
+
 
         _selectedEnemyPrefab = EnemyType.NONE;
 
@@ -62,18 +74,35 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
     private void HoldOrClickPerformed(InputAction.CallbackContext ctx)
     {
 
-        if (ctx.interaction is HoldInteraction)
+        if (!(ctx.interaction is HoldInteraction))
         {
-           
-        }
-        else
-        {
-            //Debug.Log("CLICK");
             OnClick();
         }
+       
     }
 
+    public void UpdateWaveText()
+    {
+        _waveText.text = String.Format("{0:00}|{1:00}", LevelCreator.instance.WaveNumber + 1, LevelCreator.instance._level.LevelConfig.Count);
+    }
 
+    public void AddWave()
+    {
+        LevelCreator.instance.AddWave();
+
+        NextWave();
+
+        UpdateWaveText();
+    }
+
+    public void RemoveWave()
+    {
+        LevelCreator.instance.DeleteWave();
+
+        PrevWave();
+
+        UpdateWaveText();
+    }
 
     public void NextWave()
     {
@@ -81,6 +110,7 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
         ReadCurrentWave();
 
+        UpdateWaveText();
     }
 
     public void PrevWave()
@@ -88,6 +118,8 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
         LevelCreator.instance.PreviousWave();
 
         ReadCurrentWave();
+
+        UpdateWaveText();
     }
 
     private void ReadCurrentWave()
@@ -105,6 +137,14 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
         foreach (var item in enemies)
         {
             var enemy = Instantiate(_enemyList[item.enemyType], Camera.main.ViewportToWorldPoint(item.viewportPosition), Quaternion.identity);
+
+            var data = enemy.GetComponent<EnemyData>();
+
+            data.Delay = item.delay;
+            data.enemyType = item.enemyType;
+            data.ShouldMove = item.shouldMove;
+            data.Speed = item.speed;
+
             enemy.transform.Translate(0, 0, 95);
             enemy.transform.up = item.direction;
             _waveEnemies.Add(enemy);
@@ -119,7 +159,7 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
         //if (!value) return;
 
 
-        if (HitEnemy(out GameObject hit) || _selectedEnemyPrefab == EnemyType.NONE)
+        if (LevelCreator.HitEnemy(out GameObject hit) || _selectedEnemyPrefab == EnemyType.NONE)
         {
             if (hit != null)
                 HandleMoveEditWindow(hit);
@@ -151,31 +191,12 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
 
 
-    public void Save(InputValue ctx)
+    public void Save(InputAction.CallbackContext ctx)
     {
-        if (!ctx.isPressed) return;
-
         LevelCreator.instance.Save(_waveEnemies);
-
     }
 
-    private bool HitEnemy(out GameObject selected)
-    {
-        var mousePos = Camera.main.ScreenToWorldPoint(_mouse.position.ReadValue());
-
-        RaycastHit2D hit = Physics2D.GetRayIntersection(new Ray { origin = mousePos, direction = Vector3.forward });
-
-        if (hit && hit.transform.tag == "Enemy")
-        {
-            selected = hit.transform.gameObject;
-            return true;
-        }
-
-        selected = null;
-
-        return false;
-
-    }
+    
 
 
 

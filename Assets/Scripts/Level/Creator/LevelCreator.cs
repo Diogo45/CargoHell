@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LevelCreator : Singleton<LevelCreator>
 {
 
 
-    [SerializeField] private Level _level;
+    [field: SerializeField] public Level _level { get; private set; }
     public int WaveNumber { get; private set; }
 
     private string _levelSavePath;
@@ -29,7 +30,7 @@ public class LevelCreator : Singleton<LevelCreator>
         UnityEditor.AssetDatabase.Refresh();
 #endif
 
-#if UNITY_STANDALONE
+#if !UNITY_EDITOR
         Debug.LogError("Level Editor CREATE LEVEL not implemented in builded version yet");
 #endif
     }
@@ -42,7 +43,7 @@ public class LevelCreator : Singleton<LevelCreator>
         UnityEditor.AssetDatabase.Refresh();
 #endif
 
-#if UNITY_STANDALONE
+#if !UNITY_EDITOR
         Debug.LogError("Level Editor SAVE LEVEL not implemented in builded version yet");
 #endif
 
@@ -51,17 +52,20 @@ public class LevelCreator : Singleton<LevelCreator>
 
     public void NextWave()
     {
-        WaveNumber += 1;
+        if(WaveNumber + 1 < _level.LevelConfig.Count)
+            WaveNumber += 1;
     }
 
     public void PreviousWave()
     {
-        WaveNumber += 1;
+        if(WaveNumber > 0)
+            WaveNumber -= 1;
     }
 
     public void AddWave()
     {
-        _level.LevelConfig.Add(new Level.Wave());
+        _level.LevelConfig.Add(new Level.Wave() { enemies = new List<Level.EnemyConfig>() });
+
     }
 
     public void DeleteWave()
@@ -79,7 +83,7 @@ public class LevelCreator : Singleton<LevelCreator>
         for (int i = 0; i < enemies.Count; i++)
         {
             AddEnemy(enemies[i].GetComponent<EnemyData>());
-          
+
         }
 
         SaveLevel();
@@ -107,6 +111,25 @@ public class LevelCreator : Singleton<LevelCreator>
     public List<Level.EnemyConfig> currentWaveEnemies()
     {
         return _level.LevelConfig[WaveNumber].enemies;
+    }
+
+
+    public static bool HitEnemy(out GameObject selected)
+    {
+        var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        RaycastHit2D hit = Physics2D.GetRayIntersection(new Ray { origin = mousePos, direction = Vector3.forward });
+
+        if (hit && hit.transform.tag == "Enemy")
+        {
+            selected = hit.transform.gameObject;
+            return true;
+        }
+
+        selected = null;
+
+        return false;
+
     }
 
 }

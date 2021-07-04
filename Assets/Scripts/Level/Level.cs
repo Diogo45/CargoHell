@@ -32,6 +32,7 @@ public class Level : ScriptableObject
     {
         [SerializeField]
         public List<EnemyConfig> enemies;
+
     }
 
     public List<Wave> LevelConfig = new List<Wave>();

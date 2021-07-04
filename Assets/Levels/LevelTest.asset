@@ -15,35 +15,50 @@ MonoBehaviour:
   LevelConfig:
   - enemies:
     - enemyType: 1
-      viewportPosition: {x: 0.4376757, y: 0.9166667}
+      viewportPosition: {x: 0.04545462, y: 0.8016667}
+      direction: {x: 0.9945214, y: -0.104533434}
+      delay: 0
+      speed: 0
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.048266172, y: 0.49833333}
+      direction: {x: 0.9945224, y: -0.10452378}
+      delay: 0
+      speed: 0
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.048266172, y: 0.20833331}
+      direction: {x: 0.99452174, y: 0.10452986}
+      delay: 0
+      speed: 0
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.9536083, y: 0.20666665}
+      direction: {x: -0.99452174, y: 0.10452986}
+      delay: 0
+      speed: 0
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.94704777, y: 0.8016667}
+      direction: {x: -0.95105726, y: -0.30901527}
+      delay: 0
+      speed: 0
+      shouldMove: 1
+  - enemies:
+    - enemyType: 1
+      viewportPosition: {x: 0.04280159, y: 0.46539792}
       direction: {x: 0, y: 1}
       delay: 0
       speed: 0
       shouldMove: 1
     - enemyType: 1
-      viewportPosition: {x: 0.7197751, y: 0.92}
-      direction: {x: 0.00000008742278, y: -1}
-      delay: 0
-      speed: 0
-      shouldMove: 1
-    - enemyType: 1
-      viewportPosition: {x: 0.8828491, y: 0.9066667}
+      viewportPosition: {x: 0.061284035, y: 0.6453287}
       direction: {x: 0, y: 1}
       delay: 0
       speed: 0
       shouldMove: 1
-    - enemyType: 1
-      viewportPosition: {x: 0.93345827, y: 0.7966667}
-      direction: {x: 0, y: 1}
-      delay: 0
-      speed: 0
-      shouldMove: 1
-    - enemyType: 1
-      viewportPosition: {x: 0.9671978, y: 0.54833335}
-      direction: {x: 0, y: 1}
-      delay: 0
-      speed: 0
-      shouldMove: 1
+  - enemies: []
+  - enemies: []
   ShaderVariables:
     color: {r: 0, g: 0, b: 1, a: 1}
   LevelMusic: 0
