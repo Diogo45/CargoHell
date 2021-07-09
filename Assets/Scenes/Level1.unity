@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -771,23 +771,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 359965589, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -86.64993
-      objectReference: {fileID: 0}
-    - target: {fileID: 359965589, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 1.0500488
-      objectReference: {fileID: 0}
     - target: {fileID: 1199613503174647402, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 93.7871
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199613503332623489, guid: c3955e22cd4dbb94789fbde347b76bbc,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -86.64993
+      value: 93.78711
       objectReference: {fileID: 0}
     - target: {fileID: 1199613503332623490, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
@@ -1159,11 +1146,6 @@ PrefabInstance:
       propertyPath: finalScoreCounter
       value: 
       objectReference: {fileID: 1746023090}
-    - target: {fileID: 2418899906210031201, guid: ef3898679aae1024b828890707ed33fe,
-        type: 3}
-      propertyPath: sceneFile
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5514053384919717163, guid: ef3898679aae1024b828890707ed33fe,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1274,13 +1256,48 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelController
       objectReference: {fileID: 0}
-    - target: {fileID: 6427536317852529000, guid: ef3898679aae1024b828890707ed33fe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef3898679aae1024b828890707ed33fe, type: 3}
+--- !u!1 &6364214915942790630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6427536317852529000, guid: ef3898679aae1024b828890707ed33fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 6364214915942790629}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6364214915942790631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6364214915942790630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851325b33f0f6894089e8becc791e4c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <levelClips>k__BackingField:
+  - {fileID: 8300000, guid: f4b488cd5886f6042be924ba1406b1d9, type: 3}
+  - {fileID: 8300000, guid: 82fdcbe04c90d734e90c96f938c1609c, type: 3}
+  - {fileID: 8300000, guid: ca9a489c6c15d964588b8b7dc4c368f3, type: 3}
+  - {fileID: 8300000, guid: 910d17e287b75c247a7063b01491eee7, type: 3}
+  - {fileID: 8300000, guid: 2468354c8cc3af4499e9ff9a70a27f3b, type: 3}
+  - {fileID: 8300000, guid: a3fb0755b3f29504281ecb93bc76a199, type: 3}
+  <MasterMixer>k__BackingField: {fileID: 24300002, guid: c8b4f9cb673c9784cbcd173876c4be6b,
+    type: 2}
+  <SFXMixer>k__BackingField: {fileID: 1104852525917040062, guid: c8b4f9cb673c9784cbcd173876c4be6b,
+    type: 2}
+  <doubleAudio>k__BackingField: {fileID: 1383579264}
+  <LevelAudioSource>k__BackingField: {fileID: 6364214915942790632}
+  <AuxAudioSource>k__BackingField: {fileID: 8556390536415765820}
+  <GameOverAudioClip>k__BackingField: {fileID: 8300000, guid: d911c13a24559af44b6e4c2c26da41ff,
+    type: 3}
+--- !u!82 &6364214915942790632 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2135719467, guid: ef3898679aae1024b828890707ed33fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 6364214915942790629}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7424263685652632312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1375,10 +1392,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 1996386811, guid: 21708909023f6684f87141124de926a0, type: 3}
-      propertyPath: m_NotificationBehavior
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7428070431825372694, guid: 21708909023f6684f87141124de926a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1664,3 +1677,9 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9274e22cd7a8e3844b81c44af2e41ed5, type: 3}
+--- !u!82 &8556390536415765820 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8556390536574809865, guid: 9274e22cd7a8e3844b81c44af2e41ed5,
+    type: 3}
+  m_PrefabInstance: {fileID: 8556390536415765819}
+  m_PrefabAsset: {fileID: 0}

@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a974ce2a4c4ec47a816d968542be87, type: 3}
   m_Name: CreatorEnemyList
   m_EditorClassIdentifier: 
-  _types: 01000000
+  _types: 0100000002000000030000000500000006000000
   _obj:
   - {fileID: 4751236136264206698, guid: 33f3efed1f1cdcd4ba1dc18e85c3e72b, type: 3}
+  - {fileID: 5163771887632508685, guid: 5d2779e50bdf0d54487ec03814b4ae57, type: 3}
+  - {fileID: 7400700178218642301, guid: 658ae83daa60e9c4daa91ed2edad183f, type: 3}
+  - {fileID: 1549073631071524236, guid: 2b62f30bf88f78948af9795f90ce46f3, type: 3}
+  - {fileID: 4817168579904331096, guid: 0d5af952d68ad85478732c2351dd7f78, type: 3}

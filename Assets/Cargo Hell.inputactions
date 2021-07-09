@@ -43,7 +43,7 @@
                     "id": "aa188b79-f65c-46b1-8250-6b922e025d15",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap(duration=0.1),Hold(duration=0.1)"
+                    "interactions": "Tap(duration=0.08),Hold(duration=0.085)"
                 }
             ],
             "bindings": [
@@ -669,7 +669,7 @@
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "",
                     "action": "Point",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -775,6 +775,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Delete",
+                    "type": "Button",
+                    "id": "61ff1e86-d46f-4f06-85b0-3f247d8fd257",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Shift",
+                    "type": "Button",
+                    "id": "f265c123-0e5b-4d13-b7e0-84e7d910d8fb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -810,6 +826,28 @@
                     "action": "Save",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "5aff7481-f2ef-4354-b17f-884ed0b24ee5",
+                    "path": "<Keyboard>/delete",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Delete",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa050388-695f-488a-bcc7-ab3357af1196",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "Hold(duration=0.1)",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Shift",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

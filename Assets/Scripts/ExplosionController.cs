@@ -13,7 +13,7 @@ public class ExplosionController : MonoBehaviour
     private void Start()
     {
         explosionAudioSource = gameObject.AddComponent<AudioSource>();
-        explosionAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
+        explosionAudioSource.outputAudioMixerGroup = AudioController.instance.SFXMixer;
         explosionAudioSource.PlayOneShot(explosionSound);
         Invoke("DestroyMe", explosionTime); // shedules derived call 
     }

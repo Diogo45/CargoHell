@@ -66,7 +66,7 @@ public class IEnemy : MonoBehaviour
     public void Start()
     {
         shotAudioSource = gameObject.AddComponent<AudioSource>();
-        shotAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
+        shotAudioSource.outputAudioMixerGroup = AudioController.instance.SFXMixer;
         ShouldMove = true;
         ShouldShoot = true;
         initialHealth = health;

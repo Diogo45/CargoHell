@@ -44,6 +44,29 @@ public class Level : ScriptableObject
 
     public int LevelMusic;
 
-  
+    public static Vector3 CorrectViewportPosition(Vector3 pos)
+    {
+
+        if (pos.x > 0.5f)
+        {
+            pos.x += 0.1f;
+        }
+        else
+        {
+            pos.x -= 0.1f;
+        }
+
+        if (pos.y > 0.5f)
+        {
+            pos.y += 0.1f;
+        }
+        else
+        {
+            pos.y -= 0.1f;
+
+        }
+
+        return pos;
+    }
 
 }

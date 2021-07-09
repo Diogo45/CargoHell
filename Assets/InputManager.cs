@@ -14,6 +14,8 @@ public class InputManager : Singleton<InputManager>
     public InputAction clickAction { get; private set; }
     public InputAction scrollWheel { get; private set; }
     public InputAction save { get; private set; }
+    public InputAction delete { get; private set; }
+    public InputAction shift { get; private set; }
 
 
     private void Awake()
@@ -31,6 +33,8 @@ public class InputManager : Singleton<InputManager>
         scrollWheel = UIInputActionMap.FindAction("ScrollWheel");
 
         save = LevelCreatorInputActionMap.FindAction("Save");
+        delete = LevelCreatorInputActionMap.FindAction("Delete");
+        shift = LevelCreatorInputActionMap.FindAction("Shift");
 
 
 

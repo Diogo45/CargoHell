@@ -50,6 +50,7 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
 
         InputManager.instance.clickAction.performed += HoldOrClickPerformed;
         InputManager.instance.save.performed += Save;
+        InputManager.instance.delete.performed += Delete_performed;
 
         _waveEnemies = new List<GameObject>();
 
@@ -69,7 +70,17 @@ public class LevelCreatorUI : Singleton<LevelCreatorUI>
         _mouse = Mouse.current;
     }
 
-    private bool held = false;
+    private void Delete_performed(InputAction.CallbackContext obj)
+    {
+        if(LevelCreator.HitEnemy(out GameObject hit))
+        {
+            if(hit != null)
+            {
+                _waveEnemies.Remove(hit);
+                Destroy(hit);
+            }
+        }
+    }
 
     private void HoldOrClickPerformed(InputAction.CallbackContext ctx)
     {

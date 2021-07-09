@@ -31,7 +31,7 @@ public class ShieldController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        shieldReflectAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
+        shieldReflectAudioSource.outputAudioMixerGroup = AudioController.instance.SFXMixer;
 
         var projController = collision.GetComponent<ProjectileController>();
 

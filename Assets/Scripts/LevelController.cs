@@ -18,6 +18,9 @@ public class LevelController : MonoBehaviour
     public static event OnEndLevel onEndLevel;
     #endregion
 
+    public static LevelController instance;
+
+
     [SerializeField]
     private int _levelID;
 
@@ -25,25 +28,17 @@ public class LevelController : MonoBehaviour
 
     [SerializeField]
     private LevelList _levelList;
-    private Level _level;
+    public Level _level { get; private set; }
 
     [SerializeField]
     private EnemyList _enemyTypes;
 
     public int spawnFrame = 0;
 
-    public List<AudioClip> levelClips;
-
-    public static LevelController instance;
-
-    public GameObject explosionAnim;
     public GameObject Player;
     public GameObject Shield;
 
-    public DoubleAudioSource doubleAudio;
-    public AudioSource LevelAudioSource;
-    public AudioSource AuxAudioSource;
-    public AudioClip GameOverAudioClip;
+
 
     #region CanvasRefs
 
@@ -61,14 +56,10 @@ public class LevelController : MonoBehaviour
 
     public List<GameObject> enemyAlive;
 
-    //PowerUp List
     public List<GameObject> powerUpPrefabs;
 
     public bool hasWon = false;
     private bool hasLost = false;
-
-
-    //private int enemyTotal;
 
     private float frame = 0f;
     private bool finishedSpawn = false;
@@ -77,28 +68,32 @@ public class LevelController : MonoBehaviour
     public GameObject nearStars;
     public GameObject farStars;
 
-    public GameObject finalScoreCounter;
-    private int scoreCount;
+    private bool startedSpawn;
 
-    private bool startedCoroutine;
+    //AUDIO
 
+    
 
-    public int Score = 0;
-    public AudioClip scoreCountAudio;
-    public float MultIncrease = 1;
+    //ANIMATION
+    public AnimStates animationState = AnimStates.PlayerCentering;
 
-
-    public AudioMixerGroup MasterMixer;
-    public AudioMixerGroup SFXMixer;
+    public GameObject explosionAnim;
 
     public AnimationCurve tillingCurve;
     public AnimationCurve scrollSpeedCurve;
+    public AudioClip scoreCountAudio;
 
+    //SCORECOUNT
+    public GameObject finalScoreCounter;
 
     private int[] intCount;
     private bool[] finishedCount;
 
-    public AnimStates animationState = AnimStates.PlayerCentering;
+    public int Score = 0;
+    public float MultIncrease = 1;
+
+    
+
 
     // Start is called before the first frame update
     void Start()
@@ -120,6 +115,9 @@ public class LevelController : MonoBehaviour
         Application.targetFrameRate = 60;
 
         IsFile = true;
+
+
+        //ISSO VAI PRA INPUT
 
         try
         {
@@ -165,8 +163,6 @@ public class LevelController : MonoBehaviour
             }
         }
 
-
-
         spawned = new EnemyObjectDictionary();
 
         foreach (var enemyType in _enemyTypes.Keys)
@@ -174,17 +170,18 @@ public class LevelController : MonoBehaviour
             spawned.Add((int)enemyType, 0);
         }
 
-        LevelAudioSource.clip = levelClips[_level.LevelMusic];
-        LevelAudioSource.Play();
+        //VAI PRA AUDIO
 
+      
         enemyAlive = new List<GameObject>();
+
+        //VAI PRA ANIM
+
         nebulaMat.SetColor("_Color", new Color(_level.ShaderVariables.color.r, _level.ShaderVariables.color.g, _level.ShaderVariables.color.b));
         nebulaMat.SetVector("_Tilling", new Vector4(1, 1, 1, 1));
         nebulaMat.SetVector("_ScrollSpeed", new Vector4(0.05f, 0.05f, 1, 1));
         StartCoroutine(SpawnPowerUp());
         StartCoroutine(CheckEndGame());
-
-
 
     }
 
@@ -196,12 +193,11 @@ public class LevelController : MonoBehaviour
         if (IsFile)
         {
 
-            if (enemyAlive.Count <= 0 && !startedCoroutine)
+            if (enemyAlive.Count <= 0 && !startedSpawn)
             {
-                startedCoroutine = true;
+                startedSpawn = true;
                 StartCoroutine(Spawn(2));
             }
-
 
         }
         else
@@ -216,16 +212,15 @@ public class LevelController : MonoBehaviour
             }
         }
 
-
-
-
-
         if (Player != null && Player.GetComponent<PlayerController>().currentHealth <= 0)
         {
+            //VAI PRA ANIM
             StartCoroutine(DeathAnim());
             onEndLevel?.Invoke(false);
-
         }
+
+
+        //VAI PRA ANIM
 
         if (hasWon)
         {
@@ -277,7 +272,6 @@ public class LevelController : MonoBehaviour
                 {
                     animationState = AnimStates.None;
                     WinCanvas.SetActive(true);
-                    scoreCount = 0;
                     var score = Score.ToString().ToCharArray();
 
                     intCount = new int[score.Length];
@@ -290,9 +284,9 @@ public class LevelController : MonoBehaviour
                     {
                         StartCoroutine(CountUp(i));
                     }
-                    AuxAudioSource.clip = scoreCountAudio;
-                    AuxAudioSource.loop = true;
-                    AuxAudioSource.Play();
+                    //AuxAudioSource.clip = scoreCountAudio;
+                    //AuxAudioSource.loop = true;
+                    //AuxAudioSource.Play();
 
                 }
 
@@ -300,7 +294,7 @@ public class LevelController : MonoBehaviour
             }
             else if (animationState == AnimStates.PlayerGoToInfinityAndBeyond)
             {
-                AuxAudioSource.Stop();
+                //AuxAudioSource.Stop();
                 AnimateNebula();
             }
 
@@ -309,10 +303,9 @@ public class LevelController : MonoBehaviour
 
         }
 
-
     }
 
-
+    //ANIM
     private void AnimateNebula()
     {
         var nebula = nebulaMat.GetVector("_Tilling");
@@ -326,6 +319,7 @@ public class LevelController : MonoBehaviour
 
     }
 
+    //SCORE
     IEnumerator countScore()
     {
         AnimateNebula();
@@ -353,6 +347,8 @@ public class LevelController : MonoBehaviour
         yield break;
     }
 
+    //SCORE
+
     IEnumerator CountUp(int index)
     {
         var score = Score.ToString().ToCharArray();
@@ -378,10 +374,8 @@ public class LevelController : MonoBehaviour
         yield break;
     }
 
-
     IEnumerator Spawn(float delay)
     {
-
 
         yield return new WaitForSeconds(delay);
 
@@ -403,8 +397,6 @@ public class LevelController : MonoBehaviour
 
         }
 
-
-
         yield break;
     }
 
@@ -424,7 +416,6 @@ public class LevelController : MonoBehaviour
             }
 
         }
-
 
         if (!isThereEnemiesLeft)
         {
@@ -462,12 +453,15 @@ public class LevelController : MonoBehaviour
         yield return CheckEndGame();
     }
 
+
+    //ANIM
     public void Explosion(Vector3 pos)
     {
         var newExplosion = Instantiate(explosionAnim, pos, Quaternion.identity);
         newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
     }
 
+    //ANIM
     IEnumerator DeathAnim()
     {
         hasLost = true;
@@ -480,12 +474,13 @@ public class LevelController : MonoBehaviour
 
         GameOverCanvas.SetActive(true);
 
-        doubleAudio.CrossFade(GameOverAudioClip, 0.5f, 0.5f);
+
+        AudioController.instance.PlayGameOverAudioClip();
 
         yield break;
     }
 
-
+    //ANIM
     IEnumerator WinAnim()
     {
 
@@ -493,12 +488,9 @@ public class LevelController : MonoBehaviour
 
         WinCanvas.SetActive(true);
 
-        doubleAudio.CrossFade(GameOverAudioClip, 0.5f, 0.5f);
+        AudioController.instance.PlayGameOverAudioClip();
+
         hasWon = true;
-
-
-
-
         yield break;
     }
 
@@ -551,36 +543,15 @@ public class LevelController : MonoBehaviour
 
         EnemyType enemyType = _level.LevelConfig[spawnFrame].enemies[i].enemyType;
 
-        //int side = _level.LevelConfig[spawnFrame].enemies[i].side;
-        //float inSide = _level.LevelConfig[spawnFrame].enemies[i].posInSide;
-        //Vector3 spawnPos = Vector3.zero;
-        //Vector2 direction = Vector2.zero;
-        //switch (side)
-        //{
-        //    case 0:
-        //        spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 1, 0));
-        //        direction = Vector2.down;
-        //        break;
-        //    case 1:
-        //        spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(1, inSide, 0));
-        //        direction = Vector2.left;
-        //        break;
-        //    case 2:
-        //        spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(inSide, 0, 0));
-        //        direction = Vector2.up;
-        //        break;
-        //    case 3:
-        //        spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(0, inSide, 0));
-        //        direction = Vector2.right;
-        //        break;
-        //}
+        Vector3 spawnPos = Level.CorrectViewportPosition(_level.LevelConfig[spawnFrame].enemies[i].viewportPosition);
+        spawnPos = Camera.main.ViewportToWorldPoint(spawnPos);
+        Vector3 direction = _level.LevelConfig[spawnFrame].enemies[i].direction;
 
+        float speed = _level.LevelConfig[spawnFrame].enemies[i].speed;
 
-        Vector3 spawnPos = Camera.main.ViewportToScreenPoint(_level.LevelConfig[spawnFrame].enemies[i].viewportPosition);
-        Vector3 direction = Camera.main.ViewportToScreenPoint(_level.LevelConfig[spawnFrame].enemies[i].direction);
+        bool shouldMove = _level.LevelConfig[spawnFrame].enemies[i].shouldMove;
 
         yield return new WaitForSeconds(delay);
-
 
         var newEnemy = Instantiate(_enemyTypes[enemyType], spawnPos + Vector3.forward * 30, Quaternion.identity);
 
@@ -600,13 +571,15 @@ public class LevelController : MonoBehaviour
 
             comp.type = enemyType;
             comp.direction = direction;
+            comp.speed = speed;
+            comp.ShouldMove = shouldMove;
 
             enemySpawnCount[(int)enemyType]--;
             spawned[(int)enemyType]++;
 
         }
 
-        startedCoroutine = false;
+        startedSpawn = false;
 
 
         yield return null;
@@ -672,14 +645,12 @@ public class LevelController : MonoBehaviour
 
     private void IEnemy_OnDestroyEvent(GameObject obj, ProjectileController projectile)
     {
-        //Debug.Log("MORREU " + obj.name + obj.GetComponent<IEnemy>().type);
-        //TODO: UI OUCH OOF aqle get component
+      
         var enemy = obj.GetComponent<IEnemy>();
         var newExplosion = Instantiate(enemy.explosion, obj.transform.position, Quaternion.identity);
         newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
 
         instance.spawned[(int)enemy.type]--;
-
 
         if (projectile && projectile.HPTP)
         {
@@ -690,7 +661,6 @@ public class LevelController : MonoBehaviour
                 Score += 50;
             }
 
-            //Debug.Log(String.Format("{0} {1} {2}", enemy.baseScore, projectile.mult, Mathf.FloorToInt(enemy.baseScore * projectile.mult)));
         }
 
         if (projectile) Destroy(projectile.gameObject);

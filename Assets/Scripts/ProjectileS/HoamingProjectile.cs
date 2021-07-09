@@ -51,12 +51,10 @@ public class HoamingProjectile : ProjectileController
             if (dist < 3f)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, (RotationSpeed + RotationSpeedIncrease) * Time.deltaTime);
-
             }
             else
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, RotationSpeed * Time.deltaTime);
-
             }
 
             Fuel -= FuelConsumptionRate;
