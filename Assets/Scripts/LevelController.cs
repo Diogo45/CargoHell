@@ -816,6 +816,12 @@ public class LevelController : MonoBehaviour
             case EnemyType.BOMBER:
                 instance.spawned["EnemyBomber"]--;
                 break;
+            case EnemyType.CHASER:
+                instance.spawned["EnemyChaser"]--;
+                break;
+            case EnemyType.SHOOTER:
+                instance.spawned["EnemyShooter"]--;
+                break;
         }
 
 

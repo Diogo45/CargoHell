@@ -22,15 +22,21 @@ public class EnemyChaser : IEnemy
     {
         base.Update();
 
-        if (!aim && animTimer < 3)
+        if (!aim && animTimer < 1.5)
         {
             //TODO: There should be a charge-up animation before it chases the player - for now it will just move forward for a bit
             transform.position += (direction * speed) * Time.deltaTime;
         }
-        else if (animTimer >= 3 && animTimer < 3.5)        
+        else if (animTimer >= 1.5 && animTimer < 3)
         {
             aim = true;
             aimAt = LevelController.instance.Player;
+            transform.position -= (direction * (speed * 0.6f)) * Time.deltaTime;
+        }
+        else if (animTimer >= 3 && animTimer < 3.5)        
+        {
+            //aim = true;
+            //aimAt = LevelController.instance.Player;
             speed += 0.2f;
         }
         else
