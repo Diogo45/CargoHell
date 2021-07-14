@@ -9,7 +9,7 @@ Cargo Hell is a 2D side scroller spaceship shooter game where your only weapon a
 Initially developed for the Digital Games Development discipline of the undergraduate course in Computer Science at PUCRS, we are still working on adding new features for a future release.
 
 Such features include:
- - New enemies kinds of enemies, including boss fights
+ - New kinds of enemies, including boss fights
  
  ![ezgif-6-22db090e388d](https://user-images.githubusercontent.com/42148950/125676671-984bcdf8-73de-419c-94e3-4defd8bb176b.gif)
 
