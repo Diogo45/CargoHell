@@ -23,6 +23,9 @@ public class AudioController : Singleton<AudioController>
     [field: SerializeField]
     public AudioClip GameOverAudioClip { get; private set; }
 
+
+    public AudioClip scoreCountAudio { get; private set; }
+
     private void Awake()
     {
         base.Awake();

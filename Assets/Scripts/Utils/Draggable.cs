@@ -9,6 +9,9 @@ public class Draggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 {
     private bool _held;
     private bool _selected;
+    private bool _draguing;
+
+    private bool _snapping;
 
     private Camera _camera;
 
@@ -26,17 +29,25 @@ public class Draggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (ctx.interaction is HoldInteraction)
         {
             _held = false;
-            
+            _draguing = false;
         }
     }
 
     private void Update()
     {
-        if (_held && _selected)
+        if(_held && _selected)
+            _draguing = true;
+
+        if (_draguing)
         {
+
             var pos = Mouse.current.position.ReadValue();
 
             transform.position = _camera.ScreenToWorldPoint(new Vector3(pos.x, pos.y, transform.position.z));
+
+            var newPost = transform.position;
+
+            transform.position = new Vector3(Mathf.Round(newPost.x / 0.5f) * 0.5f, Mathf.Round(newPost.y / 0.5f) * 0.5f, transform.position.z);
         }
     }
 

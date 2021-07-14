@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CargoHell.Animation;
 
 public class ShieldController : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class ShieldController : MonoBehaviour
 
     void Start()
     {
+        
         shieldReflectAudioSource = gameObject.AddComponent<AudioSource>();
     }
 
@@ -51,14 +53,11 @@ public class ShieldController : MonoBehaviour
         else if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "ProjectileSpinner")
         {
 
-
-
             if (projController.projectileType == ProjectileController.ProjectileType.HOMING)
             {
 
-                LevelController.instance.Explosion(collision.transform.position);
+                AnimationController.instance.Explosion(collision.transform.position);
                 Destroy(collision.gameObject);
-
 
                 StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay, gameObject.GetComponent<Collider2D>()));
                 StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay, gameObject.GetComponent<SpriteRenderer>()));

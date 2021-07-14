@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
-
+using CargoHell.Animation;
 
 
 public class LevelController : MonoBehaviour
@@ -61,27 +61,16 @@ public class LevelController : MonoBehaviour
     public bool hasWon = false;
     private bool hasLost = false;
 
-    private float frame = 0f;
     private bool finishedSpawn = false;
 
-    public Material nebulaMat;
-    public GameObject nearStars;
-    public GameObject farStars;
+  
 
     private bool startedSpawn;
-
-    //AUDIO
 
     
 
     //ANIMATION
-    public AnimStates animationState = AnimStates.PlayerCentering;
-
-    public GameObject explosionAnim;
-
-    public AnimationCurve tillingCurve;
-    public AnimationCurve scrollSpeedCurve;
-    public AudioClip scoreCountAudio;
+    
 
     //SCORECOUNT
     public GameObject finalScoreCounter;
@@ -175,11 +164,8 @@ public class LevelController : MonoBehaviour
       
         enemyAlive = new List<GameObject>();
 
-        //VAI PRA ANIM
 
-        nebulaMat.SetColor("_Color", new Color(_level.ShaderVariables.color.r, _level.ShaderVariables.color.g, _level.ShaderVariables.color.b));
-        nebulaMat.SetVector("_Tilling", new Vector4(1, 1, 1, 1));
-        nebulaMat.SetVector("_ScrollSpeed", new Vector4(0.05f, 0.05f, 1, 1));
+
         StartCoroutine(SpawnPowerUp());
         StartCoroutine(CheckEndGame());
 
@@ -214,115 +200,20 @@ public class LevelController : MonoBehaviour
 
         if (Player != null && Player.GetComponent<PlayerController>().currentHealth <= 0)
         {
-            //VAI PRA ANIM
             StartCoroutine(DeathAnim());
             onEndLevel?.Invoke(false);
         }
 
 
-        //VAI PRA ANIM
-
-        if (hasWon)
-        {
-
-            if (animationState == AnimStates.PlayerCentering)
-            {
-                Player.GetComponent<PlayerController>().Movement = false;
-                Shield.SetActive(false);
-                var pos = Player.transform.position;
-                var FinalPos = Vector3.zero;
-
-                Player.transform.position = Vector3.Lerp(pos, FinalPos, frame);
-                Player.transform.up = (FinalPos - pos).normalized;
-
-                if (Vector3.Distance(Player.transform.position, FinalPos) < 0.1f)
-                {
-                    animationState = AnimStates.NebulaTilling | AnimStates.NebulaSpeed;
-                    Player.transform.rotation = Quaternion.Euler(0, 0, -90);
-                    nearStars.SetActive(false);
-                    farStars.SetActive(false);
-                    frame = 0f;
-                }
-
-
-            }
-            else if (animationState == (AnimStates.NebulaTilling | AnimStates.NebulaSpeed))
-            {
-
-                AnimateNebula();
-
-                if (frame > 0.06f)
-                {
-                    animationState = animationState | AnimStates.PlayerStretch;
-
-                }
-
-            }
-            else if (animationState == (AnimStates.NebulaTilling | AnimStates.NebulaSpeed | AnimStates.PlayerStretch))
-            {
-                AnimateNebula();
-
-                Player.GetComponent<SpriteRenderer>().material.SetColor("_Color", nebulaMat.GetColor("_Color") * 3f);
-
-                Player.transform.localScale = Vector3.Lerp(Player.transform.localScale, new Vector3(0.5f, 7f, 1f), frame);
-
-                Player.transform.position = Vector3.Lerp(Player.transform.position, new Vector3(15f, 0, 0), scrollSpeedCurve.Evaluate((frame - 0.06f) * 25f));
-
-                if (Camera.main.WorldToViewportPoint(Player.transform.position).x > 1.2f)
-                {
-                    animationState = AnimStates.None;
-                    WinCanvas.SetActive(true);
-                    var score = Score.ToString().ToCharArray();
-
-                    intCount = new int[score.Length];
-                    finishedCount = new bool[score.Length];
-                    StartCoroutine(countScore());
-
-
-
-                    for (int i = 0; i < score.Length; i++)
-                    {
-                        StartCoroutine(CountUp(i));
-                    }
-                    //AuxAudioSource.clip = scoreCountAudio;
-                    //AuxAudioSource.loop = true;
-                    //AuxAudioSource.Play();
-
-                }
-
-
-            }
-            else if (animationState == AnimStates.PlayerGoToInfinityAndBeyond)
-            {
-                //AuxAudioSource.Stop();
-                AnimateNebula();
-            }
-
-            frame += Time.deltaTime / 50f;
-
-
-        }
-
     }
 
     //ANIM
-    private void AnimateNebula()
-    {
-        var nebula = nebulaMat.GetVector("_Tilling");
-        var nebulaScrollSpeed = nebulaMat.GetVector("_ScrollSpeed");
 
-        var nebulaFinal = new Vector4(nebula.x, 500f, nebula.z, nebula.w);
-        var nebulaFinalScrollSpeed = new Vector4(30f, 0f, nebulaScrollSpeed.z, nebulaScrollSpeed.w);
-
-        nebulaMat.SetVector("_Tilling", Vector4.Lerp(nebula, nebulaFinal, tillingCurve.Evaluate(frame)));
-        nebulaMat.SetVector("_ScrollSpeed", Vector4.Lerp(nebulaScrollSpeed, nebulaFinalScrollSpeed, scrollSpeedCurve.Evaluate(frame)));
-
-    }
 
     //SCORE
     IEnumerator countScore()
     {
-        AnimateNebula();
+        //AnimateNebula();
 
         yield return new WaitForSeconds(0.005f);
 
@@ -332,7 +223,7 @@ public class LevelController : MonoBehaviour
 
         if (!Array.Exists(finishedCount, x => x == false))
         {
-            animationState = AnimStates.PlayerGoToInfinityAndBeyond;
+            //animationState = AnimStates.PlayerGoToInfinityAndBeyond;
             yield break;
         }
 
@@ -455,17 +346,10 @@ public class LevelController : MonoBehaviour
 
 
     //ANIM
-    public void Explosion(Vector3 pos)
-    {
-        var newExplosion = Instantiate(explosionAnim, pos, Quaternion.identity);
-        newExplosion.transform.localScale = newExplosion.transform.localScale * 5;
-    }
-
-    //ANIM
     IEnumerator DeathAnim()
     {
         hasLost = true;
-        Explosion(Player.transform.position);
+        AnimationController.instance.Explosion(Player.transform.position);
 
         Destroy(Player.transform.GetChild(0).gameObject);
         Destroy(Player);
@@ -670,11 +554,7 @@ public class LevelController : MonoBehaviour
     }
 }
 
-[Flags]
-public enum AnimStates
-{
-    None = 0, PlayerCentering = 1, PlayerStretch = 2, PlayerGoToInfinityAndBeyond = 4, NebulaTilling = 8, NebulaSpeed = 16
-}
+
 
 
 [System.Serializable] public class GameObjectDictionary : SerializableDictionary<EnemyType, GameObject> { }
