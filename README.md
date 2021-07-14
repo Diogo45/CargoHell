@@ -19,6 +19,8 @@ Such features include:
 
  - Level editor/creator
 
+![ezgif-6-06a28a97a685](https://user-images.githubusercontent.com/42148950/125694085-7a94ac2c-6497-44c6-8a88-7ffc1a689f1e.gif)
+
 Our playable prototype, which doesn't include all new the features yet, is available to download in our [releases](https://github.com/Diogo45/CargoHell/releases). There is also an Android version.
 Stay tuned for more updates!
 
