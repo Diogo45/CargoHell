@@ -9,6 +9,7 @@ public class ShieldController : MonoBehaviour
     public GameObject player;
     private PlayerController ship;
 
+    private SpriteRenderer shieldRender;
 
     private Vector2 debugNormal;
     private Vector2 debugPoint;
@@ -24,8 +25,8 @@ public class ShieldController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //gameObject.GetComponent<EdgeCollider2D>().
         shieldReflectAudioSource = gameObject.AddComponent<AudioSource>();
+        shieldRender = gameObject.GetComponent<SpriteRenderer>();
         //shieldReflectAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
     }
 
@@ -35,12 +36,22 @@ public class ShieldController : MonoBehaviour
 
         shieldReflectAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
 
+        if (collision.gameObject.name.Contains("Chaser"))
+        {
+            collision.gameObject.GetComponent<IEnemy>().health--;
+            StartCoroutine(ShieldFlickerDown());
+            StartCoroutine(ShieldFlickerUp());
+            StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay, gameObject.GetComponent<CapsuleCollider2D>()));
+            StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay, gameObject.GetComponent<SpriteRenderer>()));
+
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.GetComponent<Collider2D>().enabled = false;
+            return;
+        }
+
 
         if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "ProjectileReflected" || collision.gameObject.tag == "ProjectileSpinner")
         {
-            //RaycastHit2D hit = Physics2D.Raycast(collision.transform.position, collision.transform.up, 100);
-
-
 
             var projController = collision.GetComponent<ProjectileController>();
 
@@ -49,9 +60,10 @@ public class ShieldController : MonoBehaviour
 
                 LevelController.instance.Explosion(collision.transform.position);
                 Destroy(collision.gameObject);
-               
 
-                StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay, gameObject.GetComponent<Collider2D>()));
+                StartCoroutine(ShieldFlickerDown());
+                StartCoroutine(ShieldFlickerUp());
+                StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay, gameObject.GetComponent<CapsuleCollider2D>()));
                 StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay, gameObject.GetComponent<SpriteRenderer>()));
 
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -127,5 +139,29 @@ public class ShieldController : MonoBehaviour
         yield break;
     }
 
+    IEnumerator ShieldFlickerDown()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            shieldRender.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            shieldRender.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+        }
+        shieldRender.enabled = false;
+    }
+
+    IEnumerator ShieldFlickerUp()
+    {
+        yield return new WaitForSeconds(shieldReactivationDelay - 1.0f);
+        for (int i = 0; i < 5; i++)
+        {
+            shieldRender.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+            shieldRender.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+        }
+        shieldRender.enabled = true;
+    }
 
 }
