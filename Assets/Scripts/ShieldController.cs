@@ -40,9 +40,9 @@ public class ShieldController : MonoBehaviour
         {
             collision.gameObject.GetComponent<IEnemy>().health--;
             StartCoroutine(ShieldFlickerDown());
-            StartCoroutine(ShieldFlickerUp());
-            StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay, gameObject.GetComponent<CapsuleCollider2D>()));
-            StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay, gameObject.GetComponent<SpriteRenderer>()));
+            StartCoroutine(ShieldFlickerUp(shieldReactivationDelay * 2));
+            StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay*2, gameObject.GetComponent<CapsuleCollider2D>()));
+            StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay*2, gameObject.GetComponent<SpriteRenderer>()));
 
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponent<Collider2D>().enabled = false;
@@ -62,7 +62,7 @@ public class ShieldController : MonoBehaviour
                 Destroy(collision.gameObject);
 
                 StartCoroutine(ShieldFlickerDown());
-                StartCoroutine(ShieldFlickerUp());
+                StartCoroutine(ShieldFlickerUp(shieldReactivationDelay));
                 StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay, gameObject.GetComponent<CapsuleCollider2D>()));
                 StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay, gameObject.GetComponent<SpriteRenderer>()));
 
@@ -151,9 +151,9 @@ public class ShieldController : MonoBehaviour
         shieldRender.enabled = false;
     }
 
-    IEnumerator ShieldFlickerUp()
+    IEnumerator ShieldFlickerUp(float startTime)
     {
-        yield return new WaitForSeconds(shieldReactivationDelay - 1.0f);
+        yield return new WaitForSeconds(startTime - 1.0f);
         for (int i = 0; i < 5; i++)
         {
             shieldRender.enabled = true;
