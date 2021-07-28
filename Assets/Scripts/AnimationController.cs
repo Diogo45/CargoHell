@@ -8,13 +8,7 @@ namespace CargoHell.Animation
 {
     public class AnimationController : Singleton<AnimationController>
     {
-        [Flags]
-        public enum AnimStates
-        {
-            None = 0, PlayerCentering = 1, PlayerStretch = 2, PlayerGoToInfinityAndBeyond = 4, NebulaTilling = 8, NebulaSpeed = 16
-        }
 
-        public AnimStates animationState = AnimStates.PlayerCentering;
 
         public GameObject explosionAnim;
 
@@ -36,6 +30,7 @@ namespace CargoHell.Animation
         [field: SerializeField]
         public float AnimSpeed { get; private set; }
 
+        public float time { get; private set; }
 
 
         // Start is called before the first frame update
@@ -57,62 +52,44 @@ namespace CargoHell.Animation
 
         }
 
-        // Update is called once per frame
-        void Update()
+        public void SetStars(bool on)
         {
+            Stars.SetActive(on);
+        }
 
 
+        // Update is called once per frame
+        void LateUpdate()
+        {
+            time += Time.deltaTime;
+        }
 
-            //if (Camera.main.WorldToViewportPoint(_player.transform.position).x > 1.2f)
-            //{
-            //    animationState = AnimStates.None;
-            //    WinCanvas.SetActive(true);
-            //    var score = Score.ToString().ToCharArray();
-
-            //    intCount = new int[score.Length];
-            //    finishedCount = new bool[score.Length];
-            //    StartCoroutine(countScore());
-
-
-
-            //    for (int i = 0; i < score.Length; i++)
-            //    {
-            //        StartCoroutine(CountUp(i));
-            //    }
-            //    //AuxAudioSource.clip = scoreCountAudio;
-            //    //AuxAudioSource.loop = true;
-            //    //AuxAudioSource.Play();
-
-            //}
-
-
-
-            if (animationState == AnimStates.PlayerGoToInfinityAndBeyond)
-            {
-                //AuxAudioSource.Stop();
-                AnimateNebula();
-            }
-
-            
-
-
-
+        public void Reset()
+        {
+            time = 0f;
         }
 
         public void AnimateNebula()
         {
-          
+
+            nebula = nebulaMat.GetVector("_Tilling");
+            nebulaScrollSpeed = nebulaMat.GetVector("_ScrollSpeed");
+
 
             var nebulaFinal = new Vector4(nebula.x, 500f, nebula.z, nebula.w);
             var nebulaFinalScrollSpeed = new Vector4(30f, 0f, nebulaScrollSpeed.z, nebulaScrollSpeed.w);
 
-            var tillingSpeed = tillingCurve.Evaluate(frame);
-            var scrollSpeed = scrollSpeedCurve.Evaluate(frame);
+            //var tillingSpeed = tillingCurve.Evaluate(time);
+            //var scrollSpeed = scrollSpeedCurve.Evaluate(time);
+
+            var tillingSpeed = tillingCurve.Evaluate(time / 500f);
+            //Debug.Log(tillingSpeed);
+            var scrollSpeed = scrollSpeedCurve.Evaluate(time / 15f);
 
             nebulaMat.SetVector("_Tilling", Vector4.Lerp(nebula, nebulaFinal, tillingSpeed));
             nebulaMat.SetVector("_ScrollSpeed", Vector4.Lerp(nebulaScrollSpeed, nebulaFinalScrollSpeed, scrollSpeed));
 
-            frame += Time.deltaTime * AnimSpeed;
+
         }
 
         public void Explosion(Vector3 pos)

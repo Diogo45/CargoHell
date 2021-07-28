@@ -7,22 +7,29 @@ public class StretchMoveState : StateMachineBehaviour
 {
 
     private AnimationController instance;
-    private Vector3 targetScale = new Vector3(0.5f, 15f, 1f);
+    private Vector3 targetScale = new Vector3(0.5f, 7f, 1f);
     private Vector3 targetPos = new Vector3(15f, 0, 0);
     private Vector3 InitialPos;
+    private Vector3 InitialScale;
 
-    private float ScaleTime;
-    private float PosTime;
-    private float speed = 0.05f;
-
+    private float delayFromPreviousState;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
+
         instance = AnimationController.instance;
         InitialPos = instance._player.transform.position;
-        PosTime = Time.deltaTime;
-        ScaleTime = Time.deltaTime;
+        InitialScale = instance._player.transform.localScale;
+       
+
+        Color col = instance.nebulaMat.GetColor("_Color") * 3f;
+
+        instance._player.GetComponent<SpriteRenderer>().material.SetColor("_Color", col);
+
+        delayFromPreviousState = animator.GetFloat("DelayCharge");
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -30,26 +37,30 @@ public class StretchMoveState : StateMachineBehaviour
     {
         instance.AnimateNebula();
 
-        Color col = instance.nebulaMat.GetColor("_Color") * 3f;
-
-        instance._player.GetComponent<SpriteRenderer>().material.SetColor("_Color",  col);
-        var evalCurve = instance.scrollSpeedCurve.Evaluate(speed);
+        var time = instance.time - delayFromPreviousState;
 
 
-        var scale = instance._player.transform.localScale;
+        //var evalCurve = instance.scrollSpeedCurve.Evaluate(speed);
+        var evalCurve = instance.scrollSpeedCurve.Evaluate(time);
 
-        instance._player.transform.localScale = Vector3.Lerp(scale, targetScale, ScaleTime);
+
+        //var scale = instance._player.transform.localScale;
+        var scale = InitialScale;
+
+        //instance._player.transform.localScale = Vector3.Lerp(scale, targetScale, ScaleTime);
+        instance._player.transform.localScale = Vector3.Lerp(scale, targetScale, time);
 
         //ScaleTime = (scale - targetScale).magnitude * Time.deltaTime * instance.AnimSpeed ;
-        
-        
-        var pos = instance._player.transform.position;
 
-        instance._player.transform.position = Vector3.Lerp(pos, targetPos, PosTime);
 
-        PosTime = ((pos - InitialPos).magnitude * Time.deltaTime * instance.AnimSpeed) * evalCurve;
+        //var pos = instance._player.transform.position;
+        var pos = InitialPos;
 
-        speed += Time.deltaTime;
+        instance._player.transform.position = Vector3.Lerp(pos, targetPos, evalCurve);
+
+        //PosTime = ((pos - InitialPos).magnitude * Time.deltaTime * instance.AnimSpeed) * evalCurve;
+
+       
 
     }
 

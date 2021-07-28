@@ -16,6 +16,9 @@ public class LevelController : MonoBehaviour
 
     public delegate void OnEndLevel(bool win);
     public static event OnEndLevel onEndLevel;
+
+  
+
     #endregion
 
     public static LevelController instance;
@@ -58,8 +61,8 @@ public class LevelController : MonoBehaviour
 
     public List<GameObject> powerUpPrefabs;
 
-    public bool hasWon = false;
-    private bool hasLost = false;
+    public bool hasWon { get; private set; } = false;
+    public bool hasLost { get; private set; } = false;
 
     private bool finishedSpawn = false;
 

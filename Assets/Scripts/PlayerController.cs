@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
 
         material = gameObject.GetComponent<SpriteRenderer>().material;
 
+        InputManager.instance.move.performed += Move_performed;
+        InputManager.instance.move.canceled += Move_canceled;
 #if UNITY_ANDROID
 
         movType = (MOVEMENT)PlayerPrefs.GetInt("InputType", 0);
@@ -74,6 +76,16 @@ public class PlayerController : MonoBehaviour
             moveJoystick.gameObject.SetActive(false);
         }
 #endif        
+    }
+
+    private void Move_canceled(InputAction.CallbackContext obj)
+    {
+        _moveAxis = Vector2.zero;
+    }
+
+    private void Move_performed(InputAction.CallbackContext obj)
+    {
+        _moveAxis = obj.ReadValue<Vector2>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -298,6 +310,7 @@ public class PlayerController : MonoBehaviour
 
         }
 #else
+       
         transform.position += transform.up * _moveAxis.y * moveSpeed * Time.deltaTime;
 #endif
 

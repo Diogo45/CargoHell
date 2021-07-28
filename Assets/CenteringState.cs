@@ -19,6 +19,7 @@ public class CenteringState : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         instance = AnimationController.instance;
+        instance.Reset();
         instance._player.GetComponent<PlayerController>().Movement = false;
         instance._shield.SetActive(false);
         InitialPos = instance._player.transform.position;
@@ -29,9 +30,10 @@ public class CenteringState : StateMachineBehaviour
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Pos = instance._player.transform.position;
-        instance._player.transform.position = Vector3.Lerp(Pos, FinalPos, time);
-        time = ((Pos - InitialPos).magnitude * Time.deltaTime) * instance.AnimSpeed;
+        //Pos = instance._player.transform.position;
+        instance._player.transform.position = Vector3.Lerp(InitialPos, FinalPos, time);
+        //time = ((Pos - InitialPos).magnitude * Time.deltaTime) * instance.AnimSpeed;
+        time = instance.time; // - instance.TransitionTime??
 
         instance._player.transform.up = (FinalPos - InitialPos).normalized;
 
