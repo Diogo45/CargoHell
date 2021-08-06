@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CargoHell.Animation;
+using CargoHell;
+using CargoHell.Audio;
 
 public class ShieldController : MonoBehaviour
 {

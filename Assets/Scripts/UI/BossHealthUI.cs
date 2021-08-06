@@ -2,57 +2,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossHealthUI : MonoBehaviour
+namespace CargoHell
 {
-    // Start is called before the first frame update
-
-    private UnityEngine.UI.Slider slider;
-    private float initialHealth;
-    public BossController bossController;
-
-    void Start()
+    public class BossHealthUI : MonoBehaviour
     {
+        // Start is called before the first frame update
 
-        slider = GetComponent<UnityEngine.UI.Slider>();
-        
-    }
+        private UnityEngine.UI.Slider slider;
+        private float initialHealth;
+        public BossController bossController;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (bossController)
-            slider.value = bossController.health / initialHealth;
-    }
-
-   
-
-    private void LevelController_onEndLevel(bool win)
-    {
-        gameObject.SetActive(false);
-    }
-
-  
-
-    private void LevelController_onSpawnEnemy(IEnemy controller)
-    {
-        if (controller.type == EnemyType.BOSS)
+        void Start()
         {
-            bossController = FindObjectOfType<BossController>();
-            initialHealth = bossController.health;
-            LevelController.onSpawnEnemy -= LevelController_onSpawnEnemy;
+
+            slider = GetComponent<UnityEngine.UI.Slider>();
+
         }
-    }
 
-    private void OnEnable()
-    {
-        LevelController.onSpawnEnemy += LevelController_onSpawnEnemy;
-        LevelController.onEndLevel += LevelController_onEndLevel;
-    }
+        // Update is called once per frame
+        void Update()
+        {
+            if (bossController)
+                slider.value = bossController.health / initialHealth;
+        }
 
-    private void OnDisable()
-    {
-        LevelController.onSpawnEnemy -= LevelController_onSpawnEnemy;
-        LevelController.onEndLevel -= LevelController_onEndLevel;
-    }
 
+
+        private void LevelController_onEndLevel(bool win)
+        {
+            gameObject.SetActive(false);
+        }
+
+
+
+        private void LevelController_onSpawnEnemy(IEnemy controller)
+        {
+            if (controller.type == EnemyType.BOSS)
+            {
+                bossController = FindObjectOfType<BossController>();
+                initialHealth = bossController.health;
+                LevelController.onSpawnEnemy -= LevelController_onSpawnEnemy;
+            }
+        }
+
+        private void OnEnable()
+        {
+            LevelController.onSpawnEnemy += LevelController_onSpawnEnemy;
+            LevelController.onEndLevel += LevelController_onEndLevel;
+        }
+
+        private void OnDisable()
+        {
+            LevelController.onSpawnEnemy -= LevelController_onSpawnEnemy;
+            LevelController.onEndLevel -= LevelController_onEndLevel;
+        }
+
+    }
 }
