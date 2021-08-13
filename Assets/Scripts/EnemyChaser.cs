@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CargoHell;
 
 public class EnemyChaser : IEnemy
 
@@ -10,7 +11,7 @@ public class EnemyChaser : IEnemy
 
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Detected collision: "+collision.gameObject.tag);
+        Debug.Log("Detected collision: " + collision.gameObject.tag);
 
         if (collision.tag == "Enemy")
         {
@@ -21,7 +22,7 @@ public class EnemyChaser : IEnemy
 
         base.OnTriggerEnter2D(collision);
     }
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,8 @@ public class EnemyChaser : IEnemy
     // Update is called once per frame
     void Update()
     {
+
+
         base.Update();
 
         if (!aim && animTimer < 1.5)
@@ -48,7 +51,7 @@ public class EnemyChaser : IEnemy
             aimAt = LevelController.instance.Player;
             transform.position -= (direction * (speed * 0.6f)) * Time.deltaTime;
         }
-        else if (animTimer >= 3 && animTimer < 3.5)        
+        else if (animTimer >= 3 && animTimer < 3.5)
         {
             speed += 0.4f;
         }
@@ -59,4 +62,10 @@ public class EnemyChaser : IEnemy
 
         animTimer += Time.deltaTime;
     }
+
+    public override void OutOfBounds()
+    {
+        return;
+    }
+
 }

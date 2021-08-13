@@ -69,6 +69,8 @@ public class ShieldController : MonoBehaviour
         else if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "ProjectileSpinner")
         {
 
+            ProjectileController projController = collision.GetComponent<ProjectileController>();
+
             if (projController.projectileType == ProjectileController.ProjectileType.HOMING)
             {
 
@@ -91,14 +93,8 @@ public class ShieldController : MonoBehaviour
             collision.tag = "ProjectileReflected";
             projController.HPTP = true;
             projController.angleReflected = Vector2.Angle(player.transform.up, collision.transform.up);
-
-
             projController.mult += LevelController.instance.MultIncrease;
         }
-
-        
-
-
     }
 
     IEnumerator ReflectShot(Collider2D collision)

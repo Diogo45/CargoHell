@@ -195,11 +195,6 @@ namespace CargoHell
 
         }
 
-        //ANIM
-
-
-        
-
         IEnumerator Spawn(float delay)
         {
 
@@ -279,8 +274,6 @@ namespace CargoHell
             yield return CheckEndGame();
         }
 
-
-        //ANIM
         IEnumerator DeathAnim()
         {
             hasLost = true;
