@@ -11,7 +11,7 @@ public class EnemyChaser : IEnemy
 
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Detected collision: " + collision.gameObject.tag);
+        //Debug.Log("Detected collision: " + collision.gameObject.tag);
 
         if (collision.tag == "Enemy")
         {
@@ -53,7 +53,7 @@ public class EnemyChaser : IEnemy
         }
         else if (animTimer >= 3 && animTimer < 3.5)
         {
-            speed += 0.4f;
+            speed += 0.2f;
         }
         else
         {

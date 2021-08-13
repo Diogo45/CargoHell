@@ -112,6 +112,20 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
+    public void NextScene()
+    {
+        LevelController._levelID += 1;
+
+        SceneManager.LoadSceneAsync("Level1");
+        
+    }
+
+    public void Reload()
+    {
+        SceneManager.LoadSceneAsync("Level1");
+    }
+
+
     public void Level1()
     {
         SceneManager.LoadScene("Level1");

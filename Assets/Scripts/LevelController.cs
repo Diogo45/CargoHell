@@ -24,7 +24,7 @@ namespace CargoHell
         public static LevelController instance;
 
         [SerializeField]
-        private int _levelID;
+        public static int _levelID;
 
         private bool IsFile = false;
 
@@ -75,7 +75,6 @@ namespace CargoHell
         // Start is called before the first frame update
         void Start()
         {
-
             #region Singleton, é isso
 
             if (instance == null)
