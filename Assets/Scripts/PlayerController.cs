@@ -142,11 +142,10 @@ public class PlayerController : MonoBehaviour
             currentHealth--;
         }
 
-        if (collision.tag == "Object")
+        if (collision.tag == "Spinner")
         {
             if (PlayerInvulnerable)
             {
-                //Destroy(collision.gameObject);
                 return;
             }
             collision.gameObject.GetComponent<IObject>().health--;
@@ -154,7 +153,7 @@ public class PlayerController : MonoBehaviour
             currentHealth--;
         }
 
-        if (collision.tag == "Enemy" || collision.tag == "Projectile" || collision.gameObject.tag == "ProjectileSpinner")
+        if (collision.tag == "Enemy" || collision.tag == "Projectile" || collision.gameObject.tag == "ProjectileSpinner" || collision.tag == "Spinner" || collision.tag == "EnemyChaser")
         {
             StartCoroutine(StrobeColor(Color.white));
         }

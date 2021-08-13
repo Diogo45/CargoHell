@@ -14,6 +14,7 @@ TagManager:
   - Spinner
   - ProjectileSpinner
   - SpawnableArea
+  - Shield
   layers:
   - Default
   - TransparentFX

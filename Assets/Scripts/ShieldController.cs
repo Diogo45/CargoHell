@@ -12,6 +12,7 @@ public class ShieldController : MonoBehaviour
     public GameObject player;
     private PlayerController ship;
 
+    private SpriteRenderer shieldRender;
 
     [Range(0, 1), SerializeField] private float AngleDamping;
 
@@ -27,8 +28,9 @@ public class ShieldController : MonoBehaviour
 
     void Start()
     {
-        
         shieldReflectAudioSource = gameObject.AddComponent<AudioSource>();
+        shieldRender = gameObject.GetComponent<SpriteRenderer>();
+        //shieldReflectAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
     }
 
 
@@ -37,7 +39,19 @@ public class ShieldController : MonoBehaviour
 
         shieldReflectAudioSource.outputAudioMixerGroup = AudioController.instance.SFXMixer;
 
-        var projController = collision.GetComponent<ProjectileController>();
+        if (collision.gameObject.name.Contains("Chaser"))
+        {
+            collision.gameObject.GetComponent<IEnemy>().health--;
+            StartCoroutine(ShieldFlickerDown());
+            StartCoroutine(ShieldFlickerUp(shieldReactivationDelay * 2));
+            StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay*2, gameObject.GetComponent<CapsuleCollider2D>()));
+            StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay*2, gameObject.GetComponent<SpriteRenderer>()));
+
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.GetComponent<Collider2D>().enabled = false;
+            return;
+        }
+
 
         var hit = collision.ClosestPoint(collision.gameObject.transform.position);
 
@@ -61,7 +75,9 @@ public class ShieldController : MonoBehaviour
                 AnimationController.instance.Explosion(collision.transform.position);
                 Destroy(collision.gameObject);
 
-                StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay, gameObject.GetComponent<Collider2D>()));
+                StartCoroutine(ShieldFlickerDown());
+                StartCoroutine(ShieldFlickerUp(shieldReactivationDelay));
+                StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay, gameObject.GetComponent<CapsuleCollider2D>()));
                 StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay, gameObject.GetComponent<SpriteRenderer>()));
 
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -119,6 +135,30 @@ public class ShieldController : MonoBehaviour
         yield break;
     }
 
+    IEnumerator ShieldFlickerDown()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            shieldRender.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            shieldRender.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+        }
+        shieldRender.enabled = false;
+    }
+
+    IEnumerator ShieldFlickerUp(float startTime)
+    {
+        yield return new WaitForSeconds(startTime - 1.0f);
+        for (int i = 0; i < 5; i++)
+        {
+            shieldRender.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+            shieldRender.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+        }
+        shieldRender.enabled = true;
+    }
 
     IEnumerator ReflectShotDiscretized(Collider2D collision)
     {
