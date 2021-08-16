@@ -6,13 +6,14 @@ using UnityEngine.Audio;
 
 namespace CargoHell.Audio
 {
-
-
     public class AudioController : Singleton<AudioController>
     {
 
         [field: SerializeField]
         public List<AudioClip> levelClips { get; private set; }
+
+        [field: SerializeField]
+        public List<LevelMusic> levelMusic { get; private set; }
 
         [field: SerializeField]
         public AudioMixerGroup MasterMixer { get; private set; }
@@ -31,6 +32,8 @@ namespace CargoHell.Audio
         [field: SerializeField]
         public AudioClip scoreCountAudio { get; private set; }
 
+        private LevelMusic currentLevelMusic;
+
         private void Awake()
         {
             base.Awake();
@@ -38,12 +41,30 @@ namespace CargoHell.Audio
 
         public void Start()
         {
-            LevelAudioSource.clip = levelClips[LevelController.instance._level.LevelMusic];
-            LevelAudioSource.Play();
+            if (LevelController.instance._level.LevelMusicIndex >= 0)
+            {
+                currentLevelMusic = levelMusic[LevelController.instance._level.LevelMusicIndex];
+                LevelAudioSource.clip = currentLevelMusic.introClip;
+                LevelAudioSource.Play();
+            }
+            else
+            {
+                LevelAudioSource.clip = levelClips[LevelController.instance._level.LevelClipIndex];
+                LevelAudioSource.Play();
+            }
+            
 
         }
 
-     
+        public void Update()
+        {
+            if (LevelController.instance._level.LevelMusicIndex >= 0 && !LevelAudioSource.isPlaying)
+            {
+                LevelAudioSource.clip = currentLevelMusic.loopClip;
+                LevelAudioSource.loop = true;
+                LevelAudioSource.Play();
+            }
+        }
 
         public void PlayGameOverAudioClip()
         {
@@ -62,6 +83,5 @@ namespace CargoHell.Audio
         {
             AuxAudioSource.Stop();
         }
-
     }
 }

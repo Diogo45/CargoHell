@@ -40,4 +40,5 @@ MonoBehaviour:
       shouldMove: 1
   ShaderVariables:
     color: {r: 0.14117648, g: 0.4392157, b: 1, a: 1}
-  LevelMusic: 0
+  LevelMusicIndex: 0
+  LevelClipIndex: -1
