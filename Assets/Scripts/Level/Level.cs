@@ -42,7 +42,9 @@ public class Level : ScriptableObject
         color = Color.blue
     };
 
-    public int LevelMusic;
+    public int LevelMusicIndex;
+
+    public int LevelClipIndex;
 
     public static Vector3 CorrectViewportPosition(Vector3 pos)
     {

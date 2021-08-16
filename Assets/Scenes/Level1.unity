@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1387,6 +1387,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 910d17e287b75c247a7063b01491eee7, type: 3}
   - {fileID: 8300000, guid: 2468354c8cc3af4499e9ff9a70a27f3b, type: 3}
   - {fileID: 8300000, guid: a3fb0755b3f29504281ecb93bc76a199, type: 3}
+  <levelMusic>k__BackingField:
+  - {fileID: 11400000, guid: 7f01ad813aff5f74a83232044b5a68ed, type: 2}
   <MasterMixer>k__BackingField: {fileID: 24300002, guid: c8b4f9cb673c9784cbcd173876c4be6b,
     type: 2}
   <SFXMixer>k__BackingField: {fileID: 1104852525917040062, guid: c8b4f9cb673c9784cbcd173876c4be6b,
