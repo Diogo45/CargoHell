@@ -7,15 +7,13 @@ public class EnemyChaser : IEnemy
 
 {
     private float animTimer = 0.0f;
+    private bool canCrash = false;
 
 
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("Detected collision: " + collision.gameObject.tag);
-
-        if (collision.tag == "Enemy")
+        if (canCrash && collision.tag == "Enemy" && collision.gameObject.GetComponent<IEnemy>().type != EnemyType.CHASER)
         {
-            Debug.Log("Detected collision with enemy!");
             collision.gameObject.GetComponent<IEnemy>().health--;
             health--;
         }
@@ -37,8 +35,6 @@ public class EnemyChaser : IEnemy
     // Update is called once per frame
     void Update()
     {
-
-
         base.Update();
 
         if (!aim && animTimer < 1.5)
@@ -54,6 +50,7 @@ public class EnemyChaser : IEnemy
         else if (animTimer >= 3 && animTimer < 3.5)
         {
             speed += 0.2f;
+            canCrash = true;
         }
         else
         {
