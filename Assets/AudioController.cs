@@ -82,6 +82,7 @@ namespace CargoHell.Audio
         public void StopCountScore()
         {
             AuxAudioSource.Stop();
+            AuxAudioSource.loop = false;
         }
     }
 }
