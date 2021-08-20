@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  type: 0
+  type: 1
   projectile: {fileID: 8474159051582411123, guid: 115a57c9ee4936b45b03adbcced4b6b7,
     type: 3}
   explosion: {fileID: 4423235050795805989, guid: ff8e04a385048b8439b91f1ec62c0765,

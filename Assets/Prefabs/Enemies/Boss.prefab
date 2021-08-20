@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 30
-  type: 4
+  type: 5
   projectile: {fileID: 8474159051582411123, guid: 115a57c9ee4936b45b03adbcced4b6b7,
     type: 3}
   explosion: {fileID: 4423235050795805989, guid: ff8e04a385048b8439b91f1ec62c0765,
@@ -320,6 +320,7 @@ MonoBehaviour:
   baseScore: 5000
   ShouldMove: 0
   ShouldShoot: 1
+  timerThreshold: 0
   startRotation: {x: 0, y: 0, z: 90}
   turretLeft: {fileID: 3182771585871806198}
   turretRight: {fileID: 8606885676022696990}

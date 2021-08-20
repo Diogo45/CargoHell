@@ -15,7 +15,7 @@ MonoBehaviour:
   LevelConfig:
   - enemies:
     - enemyType: 1
-      viewportPosition: {x: 0.93540645, y: 0.64285713}
+      viewportPosition: {x: 0.93540645, y: 0.5}
       direction: {x: -0.99999994, y: -0.00000011920929}
       delay: 0
       speed: 2
@@ -27,7 +27,7 @@ MonoBehaviour:
       speed: 2
       shouldMove: 1
     - enemyType: 7
-      viewportPosition: {x: 0.93540645, y: 0.53571427}
+      viewportPosition: {x: 0.93540645, y: 0.49999}
       direction: {x: -0.99999994, y: -0.00000011920929}
       delay: 1
       speed: 2

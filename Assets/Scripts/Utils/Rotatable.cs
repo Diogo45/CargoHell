@@ -14,11 +14,20 @@ public class Rotatable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private Vector2 _rotate;
 
-    private void Start()
+    private void OnEnable()
     {
         InputManager.instance.scrollWheel.performed += Rotate;
         InputManager.instance.shift.performed += Shift_performed;
         InputManager.instance.shift.canceled += Shift_canceled; ;
+    }
+
+
+
+    private void OnDisable()
+    {
+        InputManager.instance.scrollWheel.performed -= Rotate;
+        InputManager.instance.shift.performed -= Shift_performed;
+        InputManager.instance.shift.canceled -= Shift_canceled;
     }
 
 

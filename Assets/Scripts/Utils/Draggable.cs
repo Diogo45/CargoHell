@@ -24,6 +24,12 @@ public class Draggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     }
 
+    private void OnDisable()
+    {
+        InputManager.instance.clickAction.performed -= HoldOrClickPerformed;
+        InputManager.instance.clickAction.canceled -= ClickAction_canceled;
+    }
+
     private void ClickAction_canceled(InputAction.CallbackContext ctx)
     {
         if (ctx.interaction is HoldInteraction)

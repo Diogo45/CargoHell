@@ -43,7 +43,7 @@
                     "id": "aa188b79-f65c-46b1-8250-6b922e025d15",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap(duration=0.08),Hold(duration=0.085)"
+                    "interactions": "Tap(duration=0.1),Hold(duration=0.15)"
                 }
             ],
             "bindings": [

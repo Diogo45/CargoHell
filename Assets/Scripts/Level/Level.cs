@@ -58,11 +58,12 @@ public class Level : ScriptableObject
             pos.x -= 0.1f;
         }
 
+
         if (pos.y > 0.5f)
         {
             pos.y += 0.1f;
         }
-        else
+        else if(pos.y < 0.5f)
         {
             pos.y -= 0.1f;
 
