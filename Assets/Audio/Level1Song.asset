@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e3c525a34cef94e95cf5cd54afcfbd, type: 3}
   m_Name: Level1Song
   m_EditorClassIdentifier: 
-  introClip: {fileID: 8300000, guid: bc7453248e8575247b00ac9f9c82933e, type: 3}
-  loopClip: {fileID: 8300000, guid: f9d9871abcdde9b439970783fe2f3129, type: 3}
+  introClip: {fileID: 8300000, guid: 2cda1c12100fb004f94b3109afb7d425, type: 3}
+  loopClip: {fileID: 8300000, guid: b961d478355ed3c44bc577090f1e2e5e, type: 3}

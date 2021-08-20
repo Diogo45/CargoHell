@@ -17,6 +17,7 @@ public class LevelCreator : Singleton<LevelCreator>
         base.Awake();
 
         _levelSavePath = Application.dataPath + @"/Levels/";
+        UnityEditor.EditorUtility.SetDirty(_level);
     }
 
 

@@ -133,7 +133,7 @@ public class EnemyInfoController : MonoBehaviour
 
         var selected = LevelCreatorUI.instance._selectedObject;
 
-        selected.Speed = newDelay;
+        selected.Delay = newDelay;
     }
 
     void ShouldMoveInput(bool move)
