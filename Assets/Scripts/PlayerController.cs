@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     private Material material;
     public int MaxPossibleHealth { get => maxPossibleHealth; set => maxPossibleHealth = value; }
 
+    public float velocity { get; private set; }
 
     public float AngularSpeed;
 
@@ -211,8 +212,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (!Movement)
-            return;
 
         #region Input
 
@@ -281,8 +280,41 @@ public class PlayerController : MonoBehaviour
         var mouseValue = Mouse.current.position.ReadValue();
 
         Vector3 mousePosition = new Vector3(mouseValue.x, mouseValue.y, 0f);
+        //Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(new Vector3(mouseValue.x, mouseValue.y, 0f));
+        //Vector3 played2dPos = new Vector3(transform.position.x, transform.position.y, 0f);
 
-        Vector2 direction = Camera.main.ScreenToWorldPoint(mousePosition) - transform.position;
+        Vector3 direction = (Camera.main.ScreenToWorldPoint(mousePosition) - (transform.position)).normalized;
+
+        //var dist = Vector3.Distance(mouseWorld, played2dPos) - 10f;
+
+        //Debug.Log(dist);
+
+        //Debug.DrawLine(mouseWorld + Vector3.forward * 10f, mouseWorld + new Vector3(direction.x, direction.y, 1f) * 100f);
+
+        //if (dist < 0.1f)
+        //{
+        //    mouseWorld += new Vector3(direction.x, direction.y, 0f);
+
+        //    direction = (mouseWorld * 2f - (transform.position)).normalized;
+        //    Debug.Log(direction);
+        //}
+
+        //Ray ray = new Ray(mouseWorld + Vector3.forward * mousePosition.z, Vector3.forward);
+
+        //var hit = Physics2D.GetRayIntersection(ray);
+
+
+
+        //if (hit && hit.transform.CompareTag("Player"))
+        //{
+        //    Movement = false;
+        //}
+        //else
+        //{
+        //    Movement = true;
+        //}
+
+
 
 
 #endif
@@ -291,6 +323,10 @@ public class PlayerController : MonoBehaviour
         angle -= 90f;
 
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+
+        if (!Movement)
+            return;
 
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, AngularSpeed * Time.deltaTime);
 
@@ -309,8 +345,12 @@ public class PlayerController : MonoBehaviour
 
         }
 #else
-       
+        var lastPos = transform.position;
         transform.position += transform.up * _moveAxis.y * moveSpeed * Time.deltaTime;
+        velocity = (transform.position - lastPos).magnitude * (1f / Time.deltaTime);
+
+        
+
 #endif
 
         #endregion
