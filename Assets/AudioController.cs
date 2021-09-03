@@ -68,7 +68,7 @@ namespace CargoHell.Audio
 
         public void PlayGameOverAudioClip()
         {
-            doubleAudio.CrossFade(GameOverAudioClip, 0.5f, 0.5f);
+           //doubleAudio.CrossFade(GameOverAudioClip, 0.5f, 0.5f);
 
         }
 

@@ -19,6 +19,7 @@ namespace CargoHell {
         {
             if (!win)
             {
+                PlayerPrefs.SetInt("UnlockedLevels", LevelController._levelID);
                 LoseCanvas.SetActive(true);
             }
         }

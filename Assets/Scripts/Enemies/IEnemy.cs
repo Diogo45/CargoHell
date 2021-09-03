@@ -42,6 +42,9 @@ public class IEnemy : MonoBehaviour
     public delegate void OnDamaged(GameObject obj, ProjectileController projectile);
     public static event OnDamaged OnDamagedEvent;
 
+    public delegate void OnOutOfBounds(GameObject obj);
+    public static event OnOutOfBounds onOutOfBounds;
+
 
     private ProjectileController lastProjectile;
 
@@ -129,9 +132,11 @@ public class IEnemy : MonoBehaviour
 
     public virtual void OutOfBounds()
     {
-        var dirPos = LevelController.instance.RequestRandomPos();
-        gameObject.transform.position = dirPos.Item1;
-        direction = dirPos.Item2;
+
+        onOutOfBounds?.Invoke(gameObject);
+        //var dirPos = LevelController.instance.RequestRandomPos();
+        //gameObject.transform.position = dirPos.Item1;
+        //direction = dirPos.Item2;
 
     }
 

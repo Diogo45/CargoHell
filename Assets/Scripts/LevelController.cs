@@ -44,7 +44,7 @@ namespace CargoHell
 
         #region CanvasRefs
 
-        public GameObject GameOverCanvas;
+        //public GameObject GameOverCanvas;
         public GameObject WinCanvas;
 
         #endregion
@@ -88,7 +88,7 @@ namespace CargoHell
 
             #endregion
 
-            Application.targetFrameRate = 60;
+            Application.targetFrameRate = 144;
 
             IsFile = true;
 
@@ -185,7 +185,7 @@ namespace CargoHell
                 }
             }
 
-            if (Player != null && Player.GetComponent<PlayerController>().currentHealth <= 0)
+            if (!hasLost && Player != null && Player.GetComponent<PlayerController>().currentHealth <= 0)
             {
                 StartCoroutine(DeathAnim());
                 onEndLevel?.Invoke(false);
@@ -280,13 +280,6 @@ namespace CargoHell
 
             Destroy(Player.transform.GetChild(0).gameObject);
             Destroy(Player);
-
-            yield return new WaitForSeconds(.5f);
-
-            //GameOverCanvas.SetActive(true);
-
-
-            AudioController.instance.PlayGameOverAudioClip();
 
             yield break;
         }
@@ -446,6 +439,16 @@ namespace CargoHell
         {
             IEnemy.OnDestroyEvent += IEnemy_OnDestroyEvent;
             IEnemy.OnDamagedEvent += IEnemy_OnDamagedEvent;
+            IEnemy.onOutOfBounds += IEnemy_onOutOfBounds;
+        }
+
+        private void IEnemy_onOutOfBounds(GameObject obj)
+        {
+            var enemy = obj.GetComponent<IEnemy>();
+
+            instance.spawned[(int)enemy.type]--;
+            Destroy(obj);
+            enemyAlive.Remove(obj);
         }
 
         //Strobe material for multi health enemies

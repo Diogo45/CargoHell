@@ -47,12 +47,16 @@ public class ShieldController : MonoBehaviour
             if (ship.velocity < 1f && shieldEnabled)
             {
                 StartCoroutine(ShieldFlickerDown(5));
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
                 gameObject.GetComponent<Collider2D>().enabled = false;
                 shieldEnabled = false;
             }
             else if (!shieldEnabled && ship.velocity > 1f)
             {
                 StartCoroutine(ShieldFlickerUp(1.2f));
+                gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
                 gameObject.GetComponent<Collider2D>().enabled = true;
                 shieldEnabled = true;
             }

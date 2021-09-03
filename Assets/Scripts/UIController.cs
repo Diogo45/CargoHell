@@ -125,29 +125,10 @@ public class UIController : MonoBehaviour
         SceneManager.LoadSceneAsync("Level1");
     }
 
-
-    public void Level1()
+    public void LoadLevel(int id)
     {
-        SceneManager.LoadScene("Level1");
+        LevelController._levelID = id;
+        SceneManager.LoadSceneAsync("Level1");
     }
 
-    public void Level2()
-    {
-        SceneManager.LoadScene("Level2");
-    }
-
-    public void Level3()
-    {
-        SceneManager.LoadScene("Level3");
-    }
-
-    public void Level4()
-    {
-        SceneManager.LoadScene("Level4");
-    }
-
-    public void Level5()
-    {
-        SceneManager.LoadScene("Level5");
-    }
 }
