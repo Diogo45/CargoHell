@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b85a2a99ed3244e9ba40bfb22b038c, type: 3}
   m_Name: Level03
   m_EditorClassIdentifier: 
+  planetSprite: {fileID: 228813063816687610, guid: e76059066ea00d548803ec623a03e2f3,
+    type: 3}
   LevelConfig:
   - enemies:
     - enemyType: 7
@@ -76,6 +78,6 @@ MonoBehaviour:
       speed: 1
       shouldMove: 1
   ShaderVariables:
-    color: {r: 0, g: 0, b: 1, a: 1}
+    color: {r: 1, g: 0.32156864, b: 0.4901961, a: 1}
   LevelMusicIndex: 0
   LevelClipIndex: 0

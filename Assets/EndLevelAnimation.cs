@@ -11,6 +11,7 @@ namespace CargoHell.Animation
 
         [SerializeField] private Animator playerAnimator;
         [SerializeField] private Animator nebulaAnimator;
+        [SerializeField] private Animator planetAnimator;
 
         [SerializeField] private AnimationClip _playerEndAnim;
 
@@ -40,6 +41,7 @@ namespace CargoHell.Animation
             playerAnimator.enabled = true;
             playerAnimator.Play("EndLevel");
             nebulaAnimator.Play("EndLevel");
+            planetAnimator.Play("EndLevel");
 
             timer = _playerEndAnim.length;
             StartCoroutine(TriggerEvent());

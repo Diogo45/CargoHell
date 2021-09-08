@@ -50,6 +50,9 @@ namespace CargoHell.Animation
             nebula = nebulaMat.GetVector("_Tilling");
             nebulaScrollSpeed = nebulaMat.GetVector("_ScrollSpeed");
 
+            var planet = GameObject.Find("Planet");
+            planet.GetComponent<SpriteRenderer>().sprite = _level.planetSprite;
+
         }
 
         public void SetStars(bool on)

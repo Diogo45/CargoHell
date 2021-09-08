@@ -12,29 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b85a2a99ed3244e9ba40bfb22b038c, type: 3}
   m_Name: Level01
   m_EditorClassIdentifier: 
+  planetSprite: {fileID: 4519518871663985449, guid: e76059066ea00d548803ec623a03e2f3,
+    type: 3}
   LevelConfig:
   - enemies:
     - enemyType: 1
-      viewportPosition: {x: 0.53786147, y: 0.8928572}
-      direction: {x: 0.00000008742278, y: -1}
-      delay: 0
+      viewportPosition: {x: 0.5, y: 0.8928572}
+      direction: {x: 0, y: -1}
+      delay: 5
       speed: 1
       shouldMove: 1
     - enemyType: 1
-      viewportPosition: {x: 0.04809618, y: 0.49905482}
+      viewportPosition: {x: 0.95433724, y: 0.5}
+      direction: {x: -0.99999994, y: -0.000000834465}
+      delay: 0
+      speed: 1
+      shouldMove: 1
+  - enemies:
+    - enemyType: 1
+      viewportPosition: {x: 0.04566276, y: 0.5}
       direction: {x: 1.0000001, y: -0.00000011920929}
       delay: 0
       speed: 1
       shouldMove: 1
-  - enemies:
     - enemyType: 1
-      viewportPosition: {x: 0.95433724, y: 0.5}
-      direction: {x: -1.0000001, y: -0.00000011920929}
-      delay: 0
-      speed: 1
-      shouldMove: 1
-    - enemyType: 1
-      viewportPosition: {x: 0.48106927, y: 0.107142836}
+      viewportPosition: {x: 0.5, y: 0.107142836}
       direction: {x: 0, y: 1}
       delay: 0
       speed: 1

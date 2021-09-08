@@ -35,6 +35,9 @@ public class Level : ScriptableObject
 
     }
 
+    [SerializeField]
+    public Sprite planetSprite;
+
     public List<Wave> LevelConfig = new List<Wave>();
 
     public ShaderVar ShaderVariables = new ShaderVar
@@ -46,28 +49,31 @@ public class Level : ScriptableObject
 
     public int LevelClipIndex;
 
-    public static Vector3 CorrectViewportPosition(Vector3 pos)
+    public static Vector3 CorrectViewportPosition(EnemyConfig enemy)
     {
-
-        if (pos.x > 0.5f)
-        {
-            pos.x += 0.1f;
+        var pos = enemy.viewportPosition;
+        if (Mathf.Round(Mathf.Abs(enemy.direction.x)) != 0.0f)
+        {            
+            if (pos.x > 0.5f)
+            {
+                pos.x += 0.1f;
+            }
+            else if (pos.x < 0.5f)
+            {
+                pos.x -= 0.1f;
+            }
         }
-        else
+        else if (Mathf.Round(Mathf.Abs(enemy.direction.y)) != 0.0f)
         {
-            pos.x -= 0.1f;
-        }
-
-
-        if (pos.y > 0.5f)
-        {
-            pos.y += 0.1f;
-        }
-        else if(pos.y < 0.5f)
-        {
-            pos.y -= 0.1f;
-
-        }
+            if (pos.y > 0.5f)
+            {
+                pos.y += 0.1f;
+            }
+            else if (pos.y < 0.5f)
+            {
+                pos.y -= 0.1f;
+            }
+        }       
 
         return pos;
     }

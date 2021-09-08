@@ -347,7 +347,7 @@ namespace CargoHell
 
             EnemyType enemyType = _level.LevelConfig[spawnFrame].enemies[i].enemyType;
 
-            Vector3 spawnPos = Level.CorrectViewportPosition(_level.LevelConfig[spawnFrame].enemies[i].viewportPosition);
+            Vector3 spawnPos = Level.CorrectViewportPosition(_level.LevelConfig[spawnFrame].enemies[i]);
             spawnPos = Camera.main.ViewportToWorldPoint(spawnPos);
             Vector3 direction = _level.LevelConfig[spawnFrame].enemies[i].direction;
 
