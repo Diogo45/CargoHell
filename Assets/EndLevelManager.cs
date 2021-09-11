@@ -17,10 +17,21 @@ namespace CargoHell {
 
         private void LevelController_onEndLevel(bool win)
         {
+            Debug.Log("ENEND");
             if (!win)
             {
-                PlayerPrefs.SetInt("UnlockedLevels", LevelController._levelID);
                 LoseCanvas.SetActive(true);
+            }
+            else
+            {
+                var currentUnlockedLevels = PlayerPrefs.GetInt("UnlockedLevels");
+
+                if(currentUnlockedLevels <= LevelController._levelID)
+                {
+                    PlayerPrefs.SetInt("UnlockedLevels", LevelController._levelID + 1);
+                    Debug.Log(PlayerPrefs.GetInt("UnlockedLevels"));
+
+                }
             }
         }
 

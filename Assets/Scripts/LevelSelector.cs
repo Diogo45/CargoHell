@@ -16,9 +16,14 @@ public class LevelSelector : MonoBehaviour
     public int maxPage;
 
     public UIController levelController;
+
+    private int unlockedLevels;
+
     void Start()
     {
-
+        unlockedLevels = PlayerPrefs.GetInt("UnlockedLevels");
+        Debug.Log(unlockedLevels);
+        UpdatePage(0);
     }
 
     // Update is called once per frame
@@ -30,6 +35,23 @@ public class LevelSelector : MonoBehaviour
     void UpdatePage(int pageNumber)
     {
         Pages[pageNumber].SetActive(true);
+
+        for (int i = 0; i < Pages[pageNumber].transform.childCount; i++)
+        {
+            var level = Pages[pageNumber].transform.GetChild(i);
+            if (i <= unlockedLevels)
+                level.gameObject.SetActive(true);
+            else
+            {
+                //level.gameObject.SetActive(false);
+                level.gameObject.GetComponent<Button>().interactable = false;
+
+            }
+                
+        }
+
+        
+
 
         try
         {
