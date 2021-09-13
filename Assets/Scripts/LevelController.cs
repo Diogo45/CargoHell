@@ -333,7 +333,6 @@ namespace CargoHell
 
             var comp = (IEnemy)newEnemy.GetComponentInChildren(typeof(IEnemy));
             comp.direction = direction;
-            //Debug.Log("instantiate:  " + Camera.main.WorldToViewportPoint(spawnPos) + " " + direction);
 
             enemySpawnCount[(int)enemyType]--;
             spawned[(int)enemyType]++;

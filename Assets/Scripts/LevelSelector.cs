@@ -38,19 +38,21 @@ public class LevelSelector : MonoBehaviour
 
         for (int i = 0; i < Pages[pageNumber].transform.childCount; i++)
         {
-            var level = Pages[pageNumber].transform.GetChild(i);
-            if (i <= unlockedLevels)
+            int levelIndex = i + (pageNumber * 6);
+            var level = Pages[pageNumber].transform.Find((levelIndex + 1).ToString());
+            if (levelIndex <= unlockedLevels)
+            {
                 level.gameObject.SetActive(true);
+                level.gameObject.GetComponent<ImageAnimation>().enabled = false;
+            }
             else
             {
-                //level.gameObject.SetActive(false);
                 level.gameObject.GetComponent<Button>().interactable = false;
+                level.gameObject.GetComponent<ImageAnimation>().enabled = true;
 
             }
                 
-        }
-
-        
+        }        
 
 
         try
