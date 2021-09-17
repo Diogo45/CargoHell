@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53e03426c649a5548b4f0b0958f5be2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 15
+  health: 30
   type: 5
   projectile: {fileID: 8474159051582411123, guid: 115a57c9ee4936b45b03adbcced4b6b7,
     type: 3}
@@ -571,7 +571,7 @@ PrefabInstance:
     - target: {fileID: 3432872926427156597, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
       propertyPath: timeInterval
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3432872926427156599, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
@@ -674,7 +674,7 @@ PrefabInstance:
     - target: {fileID: 3432872926427156597, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
       propertyPath: timeInterval
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3432872926427156599, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}

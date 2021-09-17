@@ -60,15 +60,16 @@ public class EnemySpawner : MonoBehaviour
 
             enemyStartPos = Camera.main.WorldToViewportPoint(newEnemy.transform.position);
 
-            CTRL.Add(newEnemy, new Control { Anim = true, InvertY = invertY, InvertEnemy = invertEnemy, EnemyStartPos = enemyStartPos, Time = 0f});
+            CTRL.Add(newEnemy, new Control { Anim = true, InvertY = invertY, InvertEnemy = invertEnemy, EnemyStartPos = enemyStartPos, Time = 0f });
             enemy.Add(newEnemy);
-           
+
         }
 
         if (enemy.Count > 0)
         {
             foreach (var item in enemy)
             {
+
                 var ie = item.GetComponent<IEnemy>();
 
                 if (CTRL[item].Anim)
@@ -80,29 +81,56 @@ public class EnemySpawner : MonoBehaviour
                         return;
                     }
                     ie.ShouldMove = false;
-                    var x = (X.Evaluate(CTRL[item].Time) *  CTRL[item].InvertEnemy + CTRL[item].EnemyStartPos.x);
+                    var x = (X.Evaluate(CTRL[item].Time) * CTRL[item].InvertEnemy + CTRL[item].EnemyStartPos.x);
                     var y = Mathf.Clamp(Y.Evaluate(CTRL[item].Time) * CTRL[item].InvertY + CTRL[item].EnemyStartPos.y, 0.05f, 0.95f);
                     item.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(x, y, 0f) + Vector3.forward * 10f);
                     CTRL[item].Time += Time.deltaTime * animSpeed;
                 }
             }
 
-            
+
         }
 
 
     }
 
+    private void OnDestroy()
+    {
+        foreach (var item in enemy)
+        {
+
+            Destroy(item);
+
+        }
+    }
+
     private void OnEnable()
     {
         IEnemy.OnDestroyEvent += IEnemy_OnDestroyEvent;
+        IEnemy.onOutOfBounds += IEnemy_onOutOfBounds;
+    }
+
+    private void IEnemy_onOutOfBounds(GameObject obj)
+    {
+        if (obj.GetComponent<IEnemy>().type == EnemyType.SNIPER && enemy.Contains(obj))
+        {
+            enemy.Remove(obj);
+            CTRL.Remove(obj);
+            deathDelay = true;
+            if (enemy.Count == 0)
+            {
+                StartCoroutine(ResetDelay());
+
+            }
+        }
     }
 
     private void OnDisable()
     {
         IEnemy.OnDestroyEvent -= IEnemy_OnDestroyEvent;
+        IEnemy.onOutOfBounds -= IEnemy_onOutOfBounds;
     }
-    
+
     IEnumerator ResetDelay()
     {
         yield return new WaitForSeconds(10f);
@@ -118,13 +146,13 @@ public class EnemySpawner : MonoBehaviour
             enemy.Remove(obj);
             CTRL.Remove(obj);
             deathDelay = true;
-            if(enemy.Count == 0)
+            if (enemy.Count == 0)
             {
                 StartCoroutine(ResetDelay());
 
             }
         }
-            
+
     }
 
 

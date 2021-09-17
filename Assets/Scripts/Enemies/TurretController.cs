@@ -37,26 +37,23 @@ namespace CargoHell
         void Update()
         {
             isShooting = false;
-            if (aimAt)
+            //if (aimAt)
+            //{
+            //    Vector2 dir = (aimAt.transform.position) - transform.position;
+
+            //    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            //    angle -= 90f;
+
+            //    Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            //    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 5f * Time.deltaTime);
+
+            //}
+
+            if (shouldShoot && projectileTimer > timeInterval + Random.Range(-timeInterval, timeInterval) / 2f )
             {
-                Vector2 dir = (aimAt.transform.position) - transform.position;
-
-                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-                angle -= 90f;
-
-                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 5f * Time.deltaTime);
-
-            }
-
-            if (projectileTimer > timeInterval + Random.Range(-timeInterval, timeInterval) / 2f && shouldShoot)
-            {
-
-
-
-                if (fire && shouldShoot)
+                if (fire)
                 {
                     if (!audioSource.isPlaying)
                         audioSource.Play();
@@ -69,15 +66,17 @@ namespace CargoHell
 
                     StartCoroutine(wait());
                 }
-                if (shootedShots >= shots)
-                {
-                    audioSource.Stop();
-                    isShooting = true;
-                    shootedShots = 0;
-                    projectileTimer = 0f;
-                }
+                
 
                 //StartCoroutine(TripleShot());
+            }
+
+            if (shootedShots >= shots)
+            {
+                audioSource.Stop();
+                isShooting = true;
+                shootedShots = 0;
+                projectileTimer = 0f;
             }
 
             projectileTimer += Time.deltaTime;

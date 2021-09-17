@@ -31,7 +31,7 @@ namespace CargoHell
         private bool finishedAnimation;
         private float animationTime = 3f;
 
-        private bool ShouldTP = true;
+        private bool ShouldTP = false;
         private AnimStates animStates = AnimStates.None;
 
         public bool SecondPhase { get; private set; } = false;
@@ -52,11 +52,27 @@ namespace CargoHell
             StartCoroutine(spawnSniper());
             TP = false;
             finishedAnimation = true;
+
+            // -> BeginState
+
         }
+
+        //OnBeginState
+        // if -> state01
+        // else -> state02
+
+
+
 
         // Update is called once per frame
         void Update()
         {
+
+            if(health == 0)
+            {
+                Destroy(spawner);
+            }
+
             base.Update();
 
             if (turretLeft.isShooting)
@@ -68,7 +84,13 @@ namespace CargoHell
                 TPThreashold = 1;
             }
 
-            if (ShouldTP && timer >= TPThreashold)
+            if(timer >= TPThreashold)
+            {
+                StartCoroutine(StartTeleport());
+                timer = 0;
+            }
+
+            if (ShouldTP )
             {
 
                 turretLeft.shouldShoot = turretRight.shouldShoot = false;
@@ -175,12 +197,12 @@ namespace CargoHell
                 //Maybe in the direction of player when theres no snipers
                 if (height)
                 {
-                    currGoal = startPos + new Vector3(Random.Range(-10f, -1f) * side, Random.Range(1.5f, 3f), 0f);
+                    currGoal = startPos + new Vector3(Random.Range(-1.5f, -1f) * side, Random.Range(1.5f, 1f), 0f);
                     height = false;
                 }
                 else
                 {
-                    currGoal = startPos + new Vector3(Random.Range(-10f, -1f) * side, Random.Range(-3f, -1.5f), 0f);
+                    currGoal = startPos + new Vector3(Random.Range(-1.5f, -1f) * side, Random.Range(-3f, -1f), 0f);
                     height = true;
                 }
 
@@ -220,9 +242,23 @@ namespace CargoHell
 
         }
 
+        IEnumerator StartTeleport()
+        {
+            ShouldMove = false;
+            ShouldShoot = false;
+            turretLeft.shouldShoot = turretRight.shouldShoot = false;
+            //Debug.Log("WAIT TP");
+            yield return new WaitForSeconds(.5f);
+            //Debug.Log("START TP");
+
+            ShouldTP = true;
+            yield break;
+        }
+
 
         IEnumerator ResetTeleport()
         {
+            ShouldTP = false;
             yield return new WaitForSeconds(0.5f);
             ShouldMove = true;
             ShouldShoot = true;

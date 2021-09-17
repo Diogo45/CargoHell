@@ -28,12 +28,6 @@ MonoBehaviour:
       delay: 0
       speed: 2
       shouldMove: 1
-    - enemyType: 1
-      viewportPosition: {x: 0.05793655, y: 0.5}
-      direction: {x: 0.99999994, y: -0.00000047683716}
-      delay: 0
-      speed: 2
-      shouldMove: 1
     - enemyType: 2
       viewportPosition: {x: 0.94206345, y: 0.8214286}
       direction: {x: -0.99999994, y: 0.0000005364418}
@@ -55,25 +49,56 @@ MonoBehaviour:
   - enemies:
     - enemyType: 2
       viewportPosition: {x: 0.5401876, y: 0.8928572}
-      direction: {x: -0.7071075, y: -0.70710623}
+      direction: {x: -0.7071075, y: -0.707106}
       delay: 0
-      speed: 1
+      speed: 2
       shouldMove: 1
     - enemyType: 2
       viewportPosition: {x: 0.4196248, y: 0.107142836}
-      direction: {x: 0.70710665, y: 0.70710695}
+      direction: {x: 0.7071067, y: 0.7071068}
       delay: 0
-      speed: 1
+      speed: 2
       shouldMove: 1
     - enemyType: 1
       viewportPosition: {x: 0.94206345, y: 0.71428573}
-      direction: {x: -1, y: 0.0000005364418}
+      direction: {x: -0.99999994, y: 0.0000005364418}
       delay: 0
       speed: 1
       shouldMove: 1
     - enemyType: 1
       viewportPosition: {x: 0.94206345, y: 0.25}
-      direction: {x: -1, y: 0.0000005364418}
+      direction: {x: -0.99999994, y: 0.0000005364418}
+      delay: 0
+      speed: 1
+      shouldMove: 1
+  - enemies:
+    - enemyType: 2
+      viewportPosition: {x: 0.93631184, y: 0.7584459}
+      direction: {x: -0.99999994, y: 0.0000005364418}
+      delay: 0
+      speed: 2
+      shouldMove: 1
+    - enemyType: 2
+      viewportPosition: {x: 0.060836494, y: 0.2162162}
+      direction: {x: 0.99999994, y: -0.00000166893}
+      delay: 3
+      speed: 2
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.9353612, y: 0.6385135}
+      direction: {x: -0.99999994, y: 0.0000005364418}
+      delay: 0
+      speed: 1
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.9315589, y: 0.20777029}
+      direction: {x: -0.99999994, y: 0.0000005364418}
+      delay: 0
+      speed: 1
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.05784899, y: 0.32142857}
+      direction: {x: 0.99999994, y: 0.0000005364418}
       delay: 0
       speed: 1
       shouldMove: 1
