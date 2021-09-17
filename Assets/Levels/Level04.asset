@@ -25,4 +25,4 @@ MonoBehaviour:
   ShaderVariables:
     color: {r: 0.09803922, g: 0.60784316, b: 0.98039216, a: 1}
   LevelMusicIndex: -1
-  LevelClipIndex: 1
+  LevelClipIndex: 0

@@ -248,7 +248,7 @@ namespace CargoHell
             ShouldShoot = false;
             turretLeft.shouldShoot = turretRight.shouldShoot = false;
             //Debug.Log("WAIT TP");
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(1f);
             //Debug.Log("START TP");
 
             ShouldTP = true;

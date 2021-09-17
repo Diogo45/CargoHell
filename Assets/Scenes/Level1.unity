@@ -1141,7 +1141,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 359965589, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -86.64992
+      value: -86.64993
       objectReference: {fileID: 0}
     - target: {fileID: 845939644, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
       propertyPath: m_RaycastTarget
@@ -1159,7 +1159,7 @@ PrefabInstance:
     - target: {fileID: 1199613503332623489, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -86.64992
+      value: -86.64993
       objectReference: {fileID: 0}
     - target: {fileID: 1199613503332623490, guid: c3955e22cd4dbb94789fbde347b76bbc,
         type: 3}
@@ -1506,6 +1506,10 @@ MonoBehaviour:
   <GameOverAudioClip>k__BackingField: {fileID: 8300000, guid: d911c13a24559af44b6e4c2c26da41ff,
     type: 3}
   <scoreCountAudio>k__BackingField: {fileID: 8300000, guid: ca05c29bd8d6d494c83577912303bd20,
+    type: 3}
+  <shieldReflectSound>k__BackingField: {fileID: 8300000, guid: f2a83e166cceb164b90067baedb623df,
+    type: 3}
+  <powerupGetAudio>k__BackingField: {fileID: 8300000, guid: 8e18f4408eac1c14fb507553a2f6a187,
     type: 3}
 --- !u!82 &6364214915942790632 stripped
 AudioSource:

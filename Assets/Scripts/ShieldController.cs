@@ -19,8 +19,7 @@ public class ShieldController : MonoBehaviour
     private Vector2 debugNormal;
     private Vector2 debugPoint;
 
-    public AudioClip shieldReflectSound;
-    private AudioSource shieldReflectAudioSource;
+    //private AudioSource shieldReflectAudioSource;
 
     [SerializeField]
     private float shieldReactivationDelay;
@@ -29,14 +28,13 @@ public class ShieldController : MonoBehaviour
 
     void Start()
     {
-        shieldReflectAudioSource = gameObject.AddComponent<AudioSource>();
+        //shieldReflectAudioSource = gameObject.AddComponent<AudioSource>();
         shieldRender = gameObject.GetComponent<SpriteRenderer>();
 
         if (transform.parent.CompareTag("Player"))
         {
             ship = GetComponentInParent<PlayerController>();
         }
-        //shieldReflectAudioSource.outputAudioMixerGroup = LevelController.instance.SFXMixer;
     }
 
 
@@ -65,11 +63,8 @@ public class ShieldController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {
-
-
-
-        shieldReflectAudioSource.outputAudioMixerGroup = AudioController.instance.SFXMixer;
+    {               
+        //shieldReflectAudioSource.outputAudioMixerGroup = AudioController.instance.SFXMixer;
 
         if (collision.gameObject.name.Contains("Chaser"))
         {
@@ -94,7 +89,8 @@ public class ShieldController : MonoBehaviour
             debugNormal = normalVector;
             debugPoint = hit;
             collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
-            shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
+            //shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
+            AudioController.instance.PlayShieldSound();
             collision.tag = "ProjectileSpinner";
 
         }
@@ -148,7 +144,8 @@ public class ShieldController : MonoBehaviour
             debugNormal = normalVector;
             debugPoint = hit;
             collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
-            shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
+            //shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
+            AudioController.instance.PlayShieldSound();
 
         }
 

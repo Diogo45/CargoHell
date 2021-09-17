@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using CargoHell.Audio;
 
 public enum MOVEMENT
 {
@@ -98,6 +99,7 @@ public class PlayerController : MonoBehaviour
             if (currentHealth < maxCurrentHealth)
             {
                 currentHealth++;
+                AudioController.instance.PlayPowerupSound();
                 Destroy(collision.gameObject);
             }
 
@@ -106,7 +108,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "PowerUpInv")
         {
             StartCoroutine(DamageAnimationPlayer(10f));
-
+            AudioController.instance.PlayPowerupSound();
             Destroy(collision.gameObject);
         }
 

@@ -31,6 +31,10 @@ namespace CargoHell.Audio
 
         [field: SerializeField]
         public AudioClip scoreCountAudio { get; private set; }
+        [field: SerializeField]
+        public AudioClip shieldReflectSound { get; private set; }
+        [field: SerializeField]
+        public AudioClip powerupGetAudio { get; private set; }
 
         private LevelMusic currentLevelMusic;
 
@@ -51,6 +55,7 @@ namespace CargoHell.Audio
             {
                 LevelAudioSource.clip = levelClips[LevelController.instance._level.LevelClipIndex];
                 LevelAudioSource.Play();
+                LevelAudioSource.loop = true;
             }
             
 
@@ -66,10 +71,14 @@ namespace CargoHell.Audio
             }
         }
 
-        public void PlayGameOverAudioClip()
+        public void PlayShieldSound()
         {
-           //doubleAudio.CrossFade(GameOverAudioClip, 0.5f, 0.5f);
+            AuxAudioSource.PlayOneShot(shieldReflectSound);
+        }
 
+        public void PlayPowerupSound()
+        {
+            AuxAudioSource.PlayOneShot(powerupGetAudio);
         }
 
         public void CountScore()
