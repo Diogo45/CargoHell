@@ -51,7 +51,7 @@ namespace CargoHell
 
             //}
 
-            if (shouldShoot && projectileTimer > timeInterval + Random.Range(-timeInterval, timeInterval) / 2f )
+            if (shouldShoot && projectileTimer > timeInterval)
             {
                 if (fire)
                 {

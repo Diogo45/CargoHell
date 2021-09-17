@@ -292,8 +292,6 @@ namespace CargoHell
 
             WinCanvas.SetActive(true);
 
-            AudioController.instance.PlayGameOverAudioClip();
-
             hasWon = true;
             yield break;
         }
