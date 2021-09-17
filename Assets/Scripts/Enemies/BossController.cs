@@ -115,7 +115,7 @@ namespace CargoHell
                     if (SecondPhase)
                     {
 
-                        TPOffset = new Vector3(Random.Range(0.05f, 0.2f), Random.Range(-0.3f, 0.3f), 0f);
+                        TPOffset = new Vector3(/*Random.Range(0.05f, 0.1f)*/0f, Random.Range(-0.3f, 0.3f), 0f);
 
                         SideChange++;
                         if (SideChange >= Random.Range(0, 3))
@@ -270,7 +270,7 @@ namespace CargoHell
 
             yield return new WaitForSeconds(0.5f);
 
-            if (spawner.enemy.Count < 2)
+            if (spawner.enemy.Count < 2 && !ShouldTP)
             {
                 //yield return new WaitForSeconds(2f);
                 spawner.Spawn = true;
