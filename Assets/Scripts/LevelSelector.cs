@@ -38,10 +38,18 @@ public class LevelSelector : MonoBehaviour
 
         for (int i = 0; i < Pages[pageNumber].transform.childCount; i++)
         {
+            
+
             int levelIndex = i + (pageNumber * 6);
             var level = Pages[pageNumber].transform.Find((levelIndex + 1).ToString());
             if (levelIndex <= unlockedLevels)
             {
+
+                if (i == 0)
+                {
+                    EventSystem.current.SetSelectedGameObject(Pages[pageNumber].transform.GetChild(i).gameObject);
+                }
+
                 level.gameObject.SetActive(true);
                 level.gameObject.GetComponent<ImageAnimation>().enabled = false;
             }
@@ -51,8 +59,8 @@ public class LevelSelector : MonoBehaviour
                 level.gameObject.GetComponent<ImageAnimation>().enabled = true;
 
             }
-                
-        }        
+
+        }
 
 
         try
@@ -85,7 +93,7 @@ public class LevelSelector : MonoBehaviour
             page++;
             UpdatePage(page);
             ArrowLeft.SetActive(true);
-            if(page == maxPage)
+            if (page == maxPage)
             {
                 ArrowRight.SetActive(false);
             }
@@ -103,7 +111,7 @@ public class LevelSelector : MonoBehaviour
             page--;
             UpdatePage(page);
             ArrowRight.SetActive(true);
-            if(page == 0)
+            if (page == 0)
             {
                 ArrowLeft.SetActive(false);
             }

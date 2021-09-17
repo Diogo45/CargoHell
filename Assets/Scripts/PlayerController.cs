@@ -50,14 +50,22 @@ public class PlayerController : MonoBehaviour
     public bool PlayerInvulnerable = false;
 
     public bool Movement = true;
+    private Vector2 _lookVector;
 
     void Start()
     {
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
 
         material = gameObject.GetComponent<SpriteRenderer>().material;
 
         InputManager.instance.move.performed += Move_performed;
         InputManager.instance.move.canceled += Move_canceled;
+
+        InputManager.instance.look.performed += Look_performed;
+        InputManager.instance.look.performed -= Look_canceled;
+
 #if UNITY_ANDROID
 
         movType = (MOVEMENT)PlayerPrefs.GetInt("InputType", 0);
@@ -78,6 +86,19 @@ public class PlayerController : MonoBehaviour
             moveJoystick.gameObject.SetActive(false);
         }
 #endif        
+    }
+
+    private void Look_performed(InputAction.CallbackContext obj)
+    {
+        var delta = obj.ReadValue<Vector2>();
+
+        //_lookVector = new Vector3(delta.x, delta.y, 0f).normalized;
+        _lookVector = delta;
+    }
+
+    private void Look_canceled(InputAction.CallbackContext obj)
+    {
+        //_lookVector = Vector2.zero; 
     }
 
     private void Move_canceled(InputAction.CallbackContext obj)
@@ -213,7 +234,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.DrawLine(transform.position, transform.position + (Vector3)_lookVector);
 
         #region Input
 
@@ -279,13 +300,15 @@ public class PlayerController : MonoBehaviour
 #if UNITY_STANDALONE
 
 
-        var mouseValue = Mouse.current.position.ReadValue();
+        //var mouseValue = Mouse.current.position.ReadValue();
+        var mouseValue = _lookVector;
 
         Vector3 mousePosition = new Vector3(mouseValue.x, mouseValue.y, 0f);
         //Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(new Vector3(mouseValue.x, mouseValue.y, 0f));
         //Vector3 played2dPos = new Vector3(transform.position.x, transform.position.y, 0f);
 
-        Vector3 direction = (Camera.main.ScreenToWorldPoint(mousePosition) - (transform.position)).normalized;
+        //Vector3 direction = (Camera.main.ScreenToWorldPoint(mousePosition) - (transform.position)).normalized;
+        Vector3 direction = mousePosition;
 
         //var dist = Vector3.Distance(mouseWorld, played2dPos) - 10f;
 
@@ -330,7 +353,8 @@ public class PlayerController : MonoBehaviour
         if (!Movement)
             return;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, AngularSpeed * Time.deltaTime);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, AngularSpeed * Time.deltaTime);
+        transform.up = Vector3.Slerp(transform.up, direction, AngularSpeed * Time.deltaTime);
 
 #if UNITY_ANDROID
 

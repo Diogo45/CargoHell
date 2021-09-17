@@ -98,10 +98,10 @@ Material:
     - Vector4_7D623955: {r: 10, g: 10, b: 50, a: 50}
     - Vector4_E33811B5: {r: 1, g: 1, b: 0, a: 16.28}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.09803922, g: 0.60784316, b: 0.98039216, a: 1}
+    - _Color: {r: 0.14117648, g: 0.4392157, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Lighting: {r: 0.55, g: 1.82, b: 0.27, a: 1.12}
     - _MaskScale: {r: 10, g: 10, b: 50, a: 50}
-    - _ScrollSpeed: {r: 0.05, g: 0.05, b: 1, a: 1}
+    - _ScrollSpeed: {r: 12.381903, g: 0.05, b: 1, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _Tilling: {r: 1, g: 1, b: 1, a: 1}
+    - _Tilling: {r: 1, g: 469.71225, b: 1, a: 1}

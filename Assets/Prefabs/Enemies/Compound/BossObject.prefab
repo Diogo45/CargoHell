@@ -966,7 +966,7 @@ PrefabInstance:
     - target: {fileID: 3432872926427156597, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
       propertyPath: timeInterval
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3432872926427156599, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
@@ -1069,7 +1069,7 @@ PrefabInstance:
     - target: {fileID: 3432872926427156597, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
       propertyPath: timeInterval
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3432872926427156599, guid: a6a4c88eed1bb3b4fae4ba4db7186309,
         type: 3}
