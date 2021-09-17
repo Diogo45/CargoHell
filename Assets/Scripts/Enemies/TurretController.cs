@@ -24,9 +24,15 @@ namespace CargoHell
 
         private bool fire = true;
 
+        private System.Random rand;
+
+
         // Start is called before the first frame update
         void Start()
         {
+
+            rand = new System.Random(0);
+
             aimAt = LevelController.instance.Player;
             shouldShoot = false;
             audioSource = GetComponent<AudioSource>();
@@ -51,7 +57,7 @@ namespace CargoHell
 
             //}
 
-            if (shouldShoot && projectileTimer > timeInterval)
+            if (shouldShoot && projectileTimer > timeInterval + rand.Next(-1, 3)) 
             {
                 if (fire)
                 {
