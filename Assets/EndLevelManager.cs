@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 
 namespace CargoHell {
     public class EndLevelManager : MonoBehaviour
@@ -13,14 +13,21 @@ namespace CargoHell {
         private void EndLevelAnimation_onEndLevelAnim()
         {
             WinCanvas.SetActive(true);
+            var button = WinCanvas.transform.Find("PlayButton").gameObject;
+            Debug.Log(button);
+
+            EventSystem.current.SetSelectedGameObject(button);
         }
 
         private void LevelController_onEndLevel(bool win)
         {
-            Debug.Log("ENEND");
+            //Debug.Log("ENEND");
             if (!win)
             {
                 LoseCanvas.SetActive(true);
+                var button = LoseCanvas.transform.Find("PlayButton").gameObject;
+                Debug.Log(button);
+                EventSystem.current.SetSelectedGameObject(button);
             }
             else
             {
