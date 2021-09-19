@@ -14,7 +14,7 @@ namespace CargoHell {
         {
             WinCanvas.SetActive(true);
             var button = WinCanvas.transform.Find("PlayButton").gameObject;
-            Debug.Log(button);
+            //Debug.Log(button);
 
             EventSystem.current.SetSelectedGameObject(button);
         }
