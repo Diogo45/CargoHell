@@ -92,6 +92,9 @@ public class PlayerController : MonoBehaviour
     {
         var delta = obj.ReadValue<Vector2>();
 
+        delta.x /= Screen.currentResolution.width;
+        delta.y /= Screen.currentResolution.height;
+
         //_lookVector = new Vector3(delta.x, delta.y, 0f).normalized;
         _lookVector = delta;
     }
