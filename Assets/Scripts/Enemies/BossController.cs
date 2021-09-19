@@ -205,8 +205,6 @@ namespace CargoHell
                     currGoal = startPos + new Vector3(Random.Range(-1.5f, -1f) * side, Random.Range(-3f, -1f), 0f);
                     height = true;
                 }
-
-
                 turretLeft.shouldShoot = turretRight.shouldShoot = true;
             }
 
