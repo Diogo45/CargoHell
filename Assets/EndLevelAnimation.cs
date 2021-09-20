@@ -77,11 +77,6 @@ namespace CargoHell.Animation
             
         }
 
-        private void Update()
-        {
-            
-        }
-
 
         private void OnEnable()
         {

@@ -35,10 +35,21 @@ public class FirebaseManager : Singleton<FirebaseManager>
            
             try
             {
-                T resp = new T();
-                JsonUtility.FromJsonOverwrite(response.Text, resp);
-                _response = resp;
-                state = DBState.Succesful;
+                if(response.Text == "")
+                {
+                    state = DBState.Error;
+                    _response = default(T);
+
+                }
+                else
+                {
+                    T resp = new T();
+                    JsonUtility.FromJsonOverwrite(response.Text, resp);
+                    _response = resp;
+                    state = DBState.Succesful;
+                }
+
+               
             }
             catch (Exception e)
             {
@@ -65,9 +76,14 @@ public class FirebaseManager : Singleton<FirebaseManager>
 
     public void Put<T>(string key, T obj) where T : new()
     {
-        RestClient.Put(url + key + ".json", obj).Then(response =>
+
+        string jsonObj = JsonUtility.ToJson(obj);
+
+
+        RestClient.Put(url + key + ".json", jsonObj).Then(response =>
         {
             Debug.Log("SUCESS");
+
         }).Catch(e => { Debug.LogError(e);});
 
 
