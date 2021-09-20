@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 5.4, y: -7.6167}
+  m_AnchoredPosition: {x: 5.4000015, y: -7.6167}
   m_SizeDelta: {x: 30.619858, y: 13.396185}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &975129157848534823
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 1946538485512421950}
   - component: {fileID: 374823990869872648}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Place
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 5.6, y: -5.0967}
+  m_AnchoredPosition: {x: 5.5999985, y: -5.0967}
   m_SizeDelta: {x: 32.949783, y: 18.436188}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &8624627438794591261
@@ -871,7 +871,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2664663630011962243}
   m_HandleRect: {fileID: 2664663630011962252}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1141,7 +1141,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2664663631663712892}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5529597
+  m_Size: 0.5529596
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1364,7 +1364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5.1, y: -8.000053}
+  m_AnchoredPosition: {x: 5.0999985, y: -8.000053}
   m_SizeDelta: {x: 29.08995, y: 11.482876}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &9196655818265148900
@@ -2286,9 +2286,7 @@ GameObject:
   - component: {fileID: 4880227633516395128}
   - component: {fileID: 4880227633516395130}
   - component: {fileID: 4880227633516395129}
-  - component: {fileID: 315283964313502485}
-  - component: {fileID: 315283964313502479}
-  - component: {fileID: 6334994609243582764}
+  - component: {fileID: 7440162472798095501}
   m_Layer: 5
   m_Name: Scoreboard
   m_TagString: Untagged
@@ -2354,7 +2352,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &315283964313502485
+--- !u!114 &7440162472798095501
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2363,46 +2361,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4880227633516395079}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fbb83ae7887b944fa6784d8cde90f2b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5957b77f30c2f014088f9771679d6613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _title: {fileID: 4880227635080327252}
-  _position: {fileID: 4880227634918901840}
-  _direction: {fileID: 0}
-  _speed: {fileID: 0}
-  _delay: {fileID: 0}
-  _shouldMove: {fileID: 0}
---- !u!114 &315283964313502479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4880227633516395079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08a557233b9db3648b6b02a78aaafa2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PositionX: {fileID: 0}
-  PositionY: {fileID: 0}
-  Rotation: {fileID: 0}
-  Speed: {fileID: 0}
-  Delay: {fileID: 0}
-  ShouldMove: {fileID: 0}
-  _uiController: {fileID: 0}
---- !u!114 &6334994609243582764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4880227633516395079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea776e671c82278429d76ecbd6db76c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  scoresUI: []
+  scorePlacePrefab: {fileID: 8864664033397461241, guid: 829d7c95d55af144cab24a0b20780b89,
+    type: 3}
+  ScrollViewContent: {fileID: 2664663630311684127}
 --- !u!1 &4880227634864836723
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ScoreboardManager : MonoBehaviour
@@ -12,9 +13,6 @@ public class ScoreboardManager : MonoBehaviour
     [SerializeField] private GameObject ScrollViewContent;
 
     private int _id;
-
-    private Comparer<(Score score, int value)> scoreComp = Comparer<(Score score, int value)>.Create((x, y) => x.value > y.value ? 1 : x.value < y.value ? -1 : 0);
-
     public void Initialize(int id)
     {
         _id = id;
@@ -65,7 +63,13 @@ public class ScoreboardManager : MonoBehaviour
 
         }
 
-        Array.Sort(highScores.ToArray(), scoreComp);
+        var array = highScores.ToArray();
+
+        Array.Sort(array, (x,y) => x.value < y.value ? 1 : -1);
+
+        highScores = array.ToList();
+
+      
 
         for (int i = 0; i < highScores.Count; i++)
         {
@@ -82,12 +86,13 @@ public class ScoreboardManager : MonoBehaviour
 
 
             //TODO:In future prefetch these
-            TMPro.TMP_Text place = podiumPlace.transform.Find("Place").GetComponent<TMPro.TMP_Text>();
+           
             TMPro.TMP_Text playerName = podiumPlace.transform.Find("PlayerName").GetComponent<TMPro.TMP_Text>();
             TMPro.TMP_Text score = podiumPlace.transform.Find("PlayerScore").GetComponent<TMPro.TMP_Text>();
 
             if(i >= scoresUI.Count)
             {
+                 TMPro.TMP_Text place = podiumPlace.transform.Find("Place").GetComponent<TMPro.TMP_Text>();
                 place.text = (i + 1) + "th";
             }
 
