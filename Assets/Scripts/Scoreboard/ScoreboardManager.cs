@@ -105,9 +105,4 @@ public class ScoreboardManager : MonoBehaviour
     }
 
 
-    private void ShowScore(Score score)
-    {
-        Debug.Log(score);
-    }
-
 }
