@@ -21,6 +21,7 @@ public class UIController : MonoBehaviour
     public GameObject nonOptionsMenu;
     public GameObject OptionsMenu;
     public GameObject LevelSelector;
+    public GameObject ScoreboardMenu;
 
     public GameObject GlobalVolumeSlider;
     public GameObject SFXVolumeSlider;
@@ -78,6 +79,12 @@ public class UIController : MonoBehaviour
       
     }
 
+    public void HideOptions()
+    {
+        nonOptionsMenu.SetActive(true);
+        OptionsMenu.SetActive(false);
+    }
+
     public void ShowLevelSelector()
     {
 
@@ -94,16 +101,25 @@ public class UIController : MonoBehaviour
 
     }
 
-
-    public void HideOptions()
-    {
-        nonOptionsMenu.SetActive(true);
-        OptionsMenu.SetActive(false);
-    }
-
     public void SetJoystickType(int type)
     {
         PlayerPrefs.SetInt("InputType", type);
+    }
+
+    public void ShowScoreboard()
+    {
+
+        nonOptionsMenu.SetActive(false);
+        ScoreboardMenu.SetActive(true);
+
+    }
+
+    public void HideScoreboard()
+    {
+
+        nonOptionsMenu.SetActive(true);
+        ScoreboardMenu.SetActive(false);
+
     }
 
 
