@@ -32,15 +32,6 @@ public class HighScoreManager : MonoBehaviour
     private string scoreboardName = "";
     private string editedName;
 
-    private List<GameObject> scoresUI;
-
-    [SerializeField] private GameObject scorePlacePrefab;
-
-
-    
-
-    [SerializeField] private GameObject ScrollViewContent;
-
 
     public void InputName(string s)
     {
@@ -120,21 +111,7 @@ public class HighScoreManager : MonoBehaviour
         editedName = "";
     }
 
-    public void FillScores()
-    {
-
-    }
-
-    public void GetScore()
-    {
-        StartCoroutine(FirebaseManager.instance.Get<Score>("", ShowScore));
-    }
-
-    private void ShowScore(Score score)
-    {
-        Debug.Log(score);
-    }
-
+    
 
 
 

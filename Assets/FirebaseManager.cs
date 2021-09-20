@@ -15,29 +15,31 @@ public class FirebaseManager : Singleton<FirebaseManager>
 
     private const string url = @"https://cargohell-default-rtdb.firebaseio.com/";
 
-    public DBState state { get; private set; } = DBState.None;
+    public Dictionary<string, DBState> state { get; private set; } = new Dictionary<string, DBState>();
 
     private void Reset()
     {
-        state = DBState.None;
+        state = new Dictionary<string, DBState>();
     }
 
 
     public IEnumerator Get<T>(string key, Action<T> callback) where T : new()
     {
 
-        Reset();
+        //Reset();
 
         T _response = new T();
 
-        RestClient.Get(url + key + ".json").Then(response =>
+        state.Add(key, DBState.None);
+
+        var pro = RestClient.Get(url + key + ".json").Then(response =>
         {
            
             try
             {
                 if(response.Text == "")
                 {
-                    state = DBState.Error;
+                    state[key] = DBState.Error;
                     _response = default(T);
 
                 }
@@ -46,7 +48,7 @@ public class FirebaseManager : Singleton<FirebaseManager>
                     T resp = new T();
                     JsonUtility.FromJsonOverwrite(response.Text, resp);
                     _response = resp;
-                    state = DBState.Succesful;
+                    state[key] = DBState.Succesful;
                 }
 
                
@@ -54,22 +56,22 @@ public class FirebaseManager : Singleton<FirebaseManager>
             catch (Exception e)
             {
                 Debug.LogError(e);
-                state = DBState.Error;
+                state[key] = DBState.Error;
             }
 
 
 
-        }).Catch(e => { Debug.LogError(e); state = DBState.Error; });
+        }).Catch(e => { Debug.LogError(e); state[key] = DBState.Error; });
 
 
-        yield return new WaitWhile(() => state == DBState.None);
+        yield return new WaitWhile(() => state[key] == DBState.None);
 
-        if (state == DBState.Succesful)
+        if (state[key] == DBState.Succesful)
             callback(_response);
         else
             callback(default(T));
 
-
+        state.Remove(key);
 
     }
 
