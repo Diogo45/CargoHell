@@ -128,12 +128,6 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    public void ToScoreboard()
-    {
-        SceneManager.LoadScene("Menu");
-        ShowScoreboard();
-    }
-
     public void NextScene()
     {
         LevelController._levelID += 1;
