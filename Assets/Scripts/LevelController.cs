@@ -141,6 +141,8 @@ namespace CargoHell
 
             spawned = new EnemyObjectDictionary();
 
+            _enemyTypes.Initialize();
+
             foreach (var enemyType in _enemyTypes.Keys)
             {
                 spawned.Add((int)enemyType, 0);

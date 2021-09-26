@@ -99,7 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 7428070431825372695}
   AngleDamping: 0.5
-  shieldReflectSound: {fileID: 8300000, guid: f2a83e166cceb164b90067baedb623df, type: 3}
   shieldReactivationDelay: 5
 --- !u!50 &2849154092521919722
 Rigidbody2D:

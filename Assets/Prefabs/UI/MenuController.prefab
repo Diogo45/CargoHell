@@ -39,7 +39,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8911567794002422753}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc00733a9469e1b4cb9c1e5c66cdd854, type: 3}
   m_Name: 
@@ -51,6 +51,7 @@ MonoBehaviour:
   nonOptionsMenu: {fileID: 0}
   OptionsMenu: {fileID: 0}
   LevelSelector: {fileID: 0}
+  ScoreboardMenu: {fileID: 0}
   GlobalVolumeSlider: {fileID: 0}
   SFXVolumeSlider: {fileID: 0}
 --- !u!114 &513919302

@@ -26,12 +26,18 @@ public class Names
 }
 
 
-public class HighScoreManager : MonoBehaviour
+public class HighScoreManager : Singleton<HighScoreManager>
 {
+
+    public enum Status
+    {
+        Idle, Writing
+    }
 
     private string scoreboardName = "";
     private string editedName;
 
+    public Status status { get; private set;  } = Status.Idle;
 
     public void InputName(string s)
     {
@@ -43,6 +49,7 @@ public class HighScoreManager : MonoBehaviour
 
     public void StartWriteScore()
     {
+        status = Status.Writing;
         StartCoroutine(FirebaseManager.instance.Get<Score>(scoreboardName, WriteScore));
     }
 
@@ -62,8 +69,7 @@ public class HighScoreManager : MonoBehaviour
         }
 
         int currentLevel = CargoHell.LevelController._levelID + 1;
-        //int levelScore = CargoHell.LevelController.instance.Score;
-        int levelScore = 0;
+        int levelScore = CargoHell.LevelController.instance.Score;
 
         if (dbScore.high_scores.Count < currentLevel)
         {
@@ -105,10 +111,19 @@ public class HighScoreManager : MonoBehaviour
         {
             nameObj.names = new List<string>();
         }
-                
-        nameObj.names.Add(editedName);
-        FirebaseManager.instance.Put("Names", nameObj);
-        editedName = "";
+
+        if (!nameObj.names.Contains(editedName))
+        {
+
+            nameObj.names.Add(editedName);
+            FirebaseManager.instance.Put("Names", nameObj);
+            editedName = "";
+
+        }
+
+
+        status = Status.Idle;
+
     }
 
     

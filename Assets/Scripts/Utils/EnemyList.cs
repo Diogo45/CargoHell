@@ -28,6 +28,17 @@ public class EnemyList : ScriptableObject
        
     }
 
+    public void Initialize()
+    { 
+        EnemyTypes = new Dictionary<EnemyType, GameObject>();
+        for (int i = 0; i < _types.Count; i++)
+        {
+            EnemyTypes.Add(_types[i], _obj[i]);
+        }
+    }
+
+
+#if UNITY_EDITOR
     private void OnValidate()
     {
         EnemyTypes = new Dictionary<EnemyType, GameObject>();
@@ -36,6 +47,6 @@ public class EnemyList : ScriptableObject
             EnemyTypes.Add(_types[i], _obj[i]);
         }
     }
-
+#endif
 
 }
