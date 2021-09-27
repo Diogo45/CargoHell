@@ -960,7 +960,7 @@ MonoBehaviour:
     type: 3}
   <scoreCountAudio>k__BackingField: {fileID: 8300000, guid: ca05c29bd8d6d494c83577912303bd20,
     type: 3}
-  <shieldReflectSound>k__BackingField: {fileID: 8300000, guid: 97e9699b18d83374397c1fef29df7196,
+  <shieldReflectSound>k__BackingField: {fileID: 8300000, guid: f2a83e166cceb164b90067baedb623df,
     type: 3}
   <powerupGetAudio>k__BackingField: {fileID: 8300000, guid: 8e18f4408eac1c14fb507553a2f6a187,
     type: 3}
@@ -2644,7 +2644,7 @@ PrefabInstance:
     - target: {fileID: 8556390534889918911, guid: 9274e22cd7a8e3844b81c44af2e41ed5,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8556390535063996000, guid: 9274e22cd7a8e3844b81c44af2e41ed5,
         type: 3}

@@ -19,16 +19,14 @@ public class ShieldController : MonoBehaviour
     private Vector2 debugNormal;
     private Vector2 debugPoint;
 
-    //private AudioSource shieldReflectAudioSource;
-
     [SerializeField]
     private float shieldReactivationDelay;
 
     private bool shieldEnabled = true;
+    private bool forceShieldDisable = false;
 
     void Start()
     {
-        //shieldReflectAudioSource = gameObject.AddComponent<AudioSource>();
         shieldRender = gameObject.GetComponent<SpriteRenderer>();
 
         if (transform.parent.CompareTag("Player"))
@@ -40,7 +38,7 @@ public class ShieldController : MonoBehaviour
 
     private void Update()
     {
-        if (transform.parent.CompareTag("Player"))
+        if (transform.parent.CompareTag("Player") && !forceShieldDisable)
         {
             if (ship.velocity < 1f && shieldEnabled)
             {
@@ -58,14 +56,11 @@ public class ShieldController : MonoBehaviour
                 gameObject.GetComponent<Collider2D>().enabled = true;
                 shieldEnabled = true;
             }
-
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {               
-        //shieldReflectAudioSource.outputAudioMixerGroup = AudioController.instance.SFXMixer;
-
         if (collision.gameObject.name.Contains("Chaser"))
         {
             collision.gameObject.GetComponent<IEnemy>().health--;
@@ -73,12 +68,13 @@ public class ShieldController : MonoBehaviour
             StartCoroutine(ShieldFlickerUp(shieldReactivationDelay * 2));
             StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay * 2, gameObject.GetComponent<CapsuleCollider2D>()));
             StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay * 2, gameObject.GetComponent<SpriteRenderer>()));
+            StartCoroutine(ForceEnableShield(shieldReactivationDelay * 2));
 
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponent<Collider2D>().enabled = false;
+            forceShieldDisable = true;
             return;
         }
-
 
         var hit = collision.ClosestPoint(collision.gameObject.transform.position);
 
@@ -89,7 +85,6 @@ public class ShieldController : MonoBehaviour
             debugNormal = normalVector;
             debugPoint = hit;
             collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
-            //shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
             AudioController.instance.PlayShieldSound();
             collision.tag = "ProjectileSpinner";
 
@@ -101,7 +96,6 @@ public class ShieldController : MonoBehaviour
 
             if (projController.projectileType == ProjectileController.ProjectileType.HOMING)
             {
-
                 AnimationController.instance.Explosion(collision.transform.position);
                 Destroy(collision.gameObject);
 
@@ -109,13 +103,13 @@ public class ShieldController : MonoBehaviour
                 StartCoroutine(ShieldFlickerUp(shieldReactivationDelay));
                 StartCoroutine(Utils.ActivateBehaviour(shieldReactivationDelay, gameObject.GetComponent<CapsuleCollider2D>()));
                 StartCoroutine(Utils.ActivateRenderer(shieldReactivationDelay, gameObject.GetComponent<SpriteRenderer>()));
+                StartCoroutine(ForceEnableShield(shieldReactivationDelay));
 
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 gameObject.GetComponent<Collider2D>().enabled = false;
+                forceShieldDisable = true;
                 return;
-
             }
-
             var normalVector = hit - (Vector2)(LevelController.instance.Player.transform.position - player.transform.up / 3.5f);
             StartCoroutine(ReflectShot(collision));
             collision.tag = "ProjectileReflected";
@@ -127,8 +121,6 @@ public class ShieldController : MonoBehaviour
 
     IEnumerator ReflectShot(Collider2D collision)
     {
-        //if (!shieldEnabled) yield break;
-
         var comp = collision.GetComponent<ProjectileController>();
         var speed = comp.projectileSpeed;
         comp.projectileSpeed = 0f;
@@ -140,11 +132,9 @@ public class ShieldController : MonoBehaviour
         {
 
             var normalVector = hit - (Vector2)(playerPos - oldPlayerUp / 3.5f);
-            //Debug.Log("After: " + normalVector.x + " " + normalVector.y);
             debugNormal = normalVector;
             debugPoint = hit;
             collision.transform.up = Vector2.Reflect(collision.transform.up, normalVector.normalized);
-            //shieldReflectAudioSource.PlayOneShot(shieldReflectSound);
             AudioController.instance.PlayShieldSound();
 
         }
@@ -187,6 +177,15 @@ public class ShieldController : MonoBehaviour
         shieldRender.enabled = true;
     }
 
+    IEnumerator ForceEnableShield(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        forceShieldDisable = false;
+
+        yield break;
+    }
+
     IEnumerator ReflectShotDiscretized(Collider2D collision)
     {
         var hit = transform.InverseTransformPoint(collision.ClosestPoint(collision.gameObject.transform.position + (collision.transform.up / 2f)));
@@ -195,8 +194,6 @@ public class ShieldController : MonoBehaviour
 
         switch (hit.x)
         {
-
-
             case var expression when hit.x < -1.0:
                 angle = 45f;
                 break;
@@ -218,10 +215,10 @@ public class ShieldController : MonoBehaviour
                 angle = -25f;
                 break;
 
-
             case var expression when hit.x < -.4 && hit.x >= -.6:
                 angle = 15f;
                 break;
+
             case var expression when hit.x > .4 && hit.x <= .6:
                 angle = -15f;
                 break;
@@ -230,14 +227,11 @@ public class ShieldController : MonoBehaviour
                 angle = 0f;
                 break;
         }
-
-
+        
         collision.transform.up = -collision.transform.up;
         collision.transform.Rotate(0, 0, angle);
-
-
+        
         yield return null;
     }
-
 
 }

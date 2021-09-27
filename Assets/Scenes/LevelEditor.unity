@@ -1817,7 +1817,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 744619409}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.7491626
+  m_Size: 0.6434563
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2630,7 +2630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51817575f1e076c4c95773df6774b04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <_level>k__BackingField: {fileID: 11400000, guid: 31f46f604471a904789948ed798c4f08,
+  <_level>k__BackingField: {fileID: 11400000, guid: 4a9fcd95393948a4aa9e70f2f372e5eb,
     type: 2}
 --- !u!4 &831652841
 Transform:
@@ -4326,7 +4326,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1347486987}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc00733a9469e1b4cb9c1e5c66cdd854, type: 3}
   m_Name: 
