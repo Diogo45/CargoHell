@@ -8,8 +8,7 @@ using CargoHell;
 
 public class UIController : MonoBehaviour
 {
-
-
+  
     public GameObject DebugUIPrefab;
     private GameObject DebugUI;
 
@@ -56,27 +55,20 @@ public class UIController : MonoBehaviour
 
     public void SetLevel(float sliderValue)
     {
-        //Decibels are NOT LINEARRR AAA
-        //TODO: Store Volume and other preferences on PlayerPrefs!!!
         globalMixer.SetFloat("GlobalVolume", Mathf.Log10(sliderValue) * 20f);
         PlayerPrefs.SetFloat("GlobalVolume", sliderValue);
-
     }
 
     public void SetSFXLevel(float sliderValue)
     {
-        //Decibels are NOT LINEARRR AAA
-        //TODO: Store Volume and other preferences on PlayerPrefs!!!
         globalMixer.SetFloat("SFXVolume", Mathf.Log10(sliderValue) * 20f);
         PlayerPrefs.SetFloat("SFXVolume", sliderValue);
     }
 
     public void ShowOptions()
     {
-
         nonOptionsMenu.SetActive(false);
         OptionsMenu.SetActive(true);
-      
     }
 
     public void HideOptions()
@@ -87,18 +79,14 @@ public class UIController : MonoBehaviour
 
     public void ShowLevelSelector()
     {
-
         nonOptionsMenu.SetActive(false);
         LevelSelector.SetActive(true);
-
     }
 
     public void HideLevelSelector()
     {
-
         nonOptionsMenu.SetActive(true);
         LevelSelector.SetActive(false);
-
     }
 
     public void SetJoystickType(int type)
@@ -108,18 +96,14 @@ public class UIController : MonoBehaviour
 
     public void ShowScoreboard()
     {
-
         nonOptionsMenu.SetActive(false);
         ScoreboardMenu.SetActive(true);
-
     }
 
     public void HideScoreboard()
     {
-
         nonOptionsMenu.SetActive(true);
         ScoreboardMenu.SetActive(false);
-
     }
 
 
@@ -131,9 +115,7 @@ public class UIController : MonoBehaviour
     public void NextScene()
     {
         LevelController._levelID += 1;
-
-        SceneManager.LoadSceneAsync("Level1");
-        
+        SceneManager.LoadSceneAsync("Level1");        
     }
 
     public void Reload()
