@@ -51,13 +51,27 @@ public class PlayerController : MonoBehaviour
 
     public bool Movement = true;
 
+    private Vector2 _lookVector;
+
+
     void Start()
     {
+
+        int InputType = PlayerPrefs.GetInt("InputType", 0);
+
+        if (InputType == 1)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = false;
+        }
 
         material = gameObject.GetComponent<SpriteRenderer>().material;
 
         InputManager.instance.move.performed += Move_performed;
         InputManager.instance.move.canceled += Move_canceled;
+
+        InputManager.instance.look.performed += Look_performed;
+
 #if UNITY_ANDROID
 
         movType = (MOVEMENT)PlayerPrefs.GetInt("InputType", 0);
@@ -79,6 +93,19 @@ public class PlayerController : MonoBehaviour
         }
 #endif        
     }
+
+
+    private void Look_performed(InputAction.CallbackContext obj)
+    {
+        var delta = obj.ReadValue<Vector2>();
+
+        delta.x /= Screen.currentResolution.width;
+        delta.y /= Screen.currentResolution.height;
+
+        //_lookVector = new Vector3(delta.x, delta.y, 0f).normalized;
+        _lookVector = delta;
+    }
+
 
     private void Move_canceled(InputAction.CallbackContext obj)
     {
@@ -245,18 +272,6 @@ public class PlayerController : MonoBehaviour
 
 #if UNITY_ANDROID
 
-        //if(movType == MOVEMENT.TWO_JOYSTICK)
-        //{
-
-        //}
-        //else if (movType == MOVEMENT.ONE_JOYSTICK)
-        //{
-
-        //}
-        //else
-        //{
-
-        //}
         Vector2 direction = Vector2.zero;
 
         if (movType == MOVEMENT.TWO_JOYSTICK)
@@ -279,42 +294,31 @@ public class PlayerController : MonoBehaviour
 #if UNITY_STANDALONE
 
 
-        var mouseValue = Mouse.current.position.ReadValue();
+        int InputType = PlayerPrefs.GetInt("InputType", 0);
 
-        Vector3 mousePosition = new Vector3(mouseValue.x, mouseValue.y, 0f);
-        //Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(new Vector3(mouseValue.x, mouseValue.y, 0f));
-        //Vector3 played2dPos = new Vector3(transform.position.x, transform.position.y, 0f);
+        Vector2 mouseValue = Vector2.zero;
+        Vector3 direction = Vector3.zero;
+        Vector3 mousePosition = Vector3.zero;
 
-        Vector3 direction = (Camera.main.ScreenToWorldPoint(mousePosition) - (transform.position)).normalized;
+        switch (InputType)
+        {
+            case 0:
+                mouseValue = Mouse.current.position.ReadValue();
 
-        //var dist = Vector3.Distance(mouseWorld, played2dPos) - 10f;
+                mousePosition = new Vector3(mouseValue.x, mouseValue.y, 0f);
 
-        //Debug.Log(dist);
+                direction = (Camera.main.ScreenToWorldPoint(mousePosition) - (transform.position)).normalized;
+                break;
 
-        //Debug.DrawLine(mouseWorld + Vector3.forward * 10f, mouseWorld + new Vector3(direction.x, direction.y, 1f) * 100f);
+            case 1:
+                mouseValue = _lookVector;
 
-        //if (dist < 0.1f)
-        //{
-        //    mouseWorld += new Vector3(direction.x, direction.y, 0f);
+                mousePosition = new Vector3(mouseValue.x, mouseValue.y, 0f);
 
-        //    direction = (mouseWorld * 2f - (transform.position)).normalized;
-        //    Debug.Log(direction);
-        //}
+                direction = mousePosition;
+                break;
+        }
 
-        //Ray ray = new Ray(mouseWorld + Vector3.forward * mousePosition.z, Vector3.forward);
-
-        //var hit = Physics2D.GetRayIntersection(ray);
-
-
-
-        //if (hit && hit.transform.CompareTag("Player"))
-        //{
-        //    Movement = false;
-        //}
-        //else
-        //{
-        //    Movement = true;
-        //}
 
 
 
@@ -351,7 +355,7 @@ public class PlayerController : MonoBehaviour
         transform.position += transform.up * _moveAxis.y * moveSpeed * Time.deltaTime;
         velocity = (transform.position - lastPos).magnitude * (1f / Time.deltaTime);
 
-        
+
 
 #endif
 

@@ -17,7 +17,11 @@ namespace CargoHell {
 
         private void LevelController_onEndLevel(bool win)
         {
-            Debug.Log("ENEND");
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            
             if (!win)
             {
                 LoseCanvas.SetActive(true);
