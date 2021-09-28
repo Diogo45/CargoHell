@@ -48,7 +48,6 @@ public class ScoreboardManager : MonoBehaviour
 
         var scores = ScoreboardDataManager.instance.scores;
 
-
         List<(Score score, int value)> highScores = new List<(Score,int)>();
 
         for (int i = 0; i < scores.Count; i++)
@@ -69,10 +68,19 @@ public class ScoreboardManager : MonoBehaviour
 
         highScores = array.ToList();
 
-      
+        Debug.Log("highscore count: " + highScores.Count);
 
         for (int i = 0; i < highScores.Count; i++)
         {
+            if (i == highScores.Count - 1 && highScores.Count < 3)
+            {
+                for (int j = scoresUI.Count-1; j > i; j--)
+                {
+                    scoresUI[j].SetActive(false);
+                    //Debug.Log("set place " + j + " to false");
+                }
+            }
+
             GameObject podiumPlace = null;
 
             if(i < scoresUI.Count)

@@ -10,6 +10,7 @@ public class SubmitScoreUIManager : MonoBehaviour
     [SerializeField] private Button setHighScoreButton;
     [SerializeField] private Button closeScreenButton;
 
+    [SerializeField] private TMPro.TMP_Text scoreText;
     [SerializeField] private TMPro.TMP_InputField playerNameField;
 
 
@@ -28,6 +29,7 @@ public class SubmitScoreUIManager : MonoBehaviour
         setHighScoreButton.onClick.AddListener(SetScore);
         closeScreenButton.onClick.AddListener(CloseScreen);
 
+        scoreText.text = CargoHell.LevelController.instance.Score.ToString();
     }
 
     private void CloseScreen()
