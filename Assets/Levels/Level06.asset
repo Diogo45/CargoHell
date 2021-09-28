@@ -22,6 +22,6 @@ MonoBehaviour:
       speed: 1
       shouldMove: 1
   ShaderVariables:
-    color: {r: 0, g: 1, b: 0.75294125, a: 1}
+    color: {r: 0.003921569, g: 1, b: 0.7254902, a: 1}
   LevelMusicIndex: 0
   LevelClipIndex: 0

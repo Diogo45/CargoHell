@@ -1944,6 +1944,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8556390536415765821}
     m_Modifications:
+    - target: {fileID: 893476453, guid: d0ffec996315e0d4bba451655f4e72ef, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1456983545825255920}
+    - target: {fileID: 1456983545578441667, guid: d0ffec996315e0d4bba451655f4e72ef,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456983545578441667, guid: d0ffec996315e0d4bba451655f4e72ef,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456983545578441667, guid: d0ffec996315e0d4bba451655f4e72ef,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456983545578441667, guid: d0ffec996315e0d4bba451655f4e72ef,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456983546407157984, guid: d0ffec996315e0d4bba451655f4e72ef,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456983546407157984, guid: d0ffec996315e0d4bba451655f4e72ef,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456983546407157984, guid: d0ffec996315e0d4bba451655f4e72ef,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456983546407157984, guid: d0ffec996315e0d4bba451655f4e72ef,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 2164260863
+      objectReference: {fileID: 0}
     - target: {fileID: 1456983546584481677, guid: d0ffec996315e0d4bba451655f4e72ef,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2061,6 +2105,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0ffec996315e0d4bba451655f4e72ef, type: 3}
+--- !u!114 &1456983545825255920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1456983545783519751, guid: d0ffec996315e0d4bba451655f4e72ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 1456983545825255919}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1848730183387835322
 PrefabInstance:
   m_ObjectHideFlags: 0
