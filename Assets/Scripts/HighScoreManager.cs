@@ -64,7 +64,7 @@ public class HighScoreManager : Singleton<HighScoreManager>
 
         if (dbScore.high_scores == null)
         {
-            //Create TO CURRENT LEVEL SIZE
+            //Create IF NULL
             dbScore.high_scores = new List<int>();
         }
 
@@ -78,7 +78,7 @@ public class HighScoreManager : Singleton<HighScoreManager>
         }
 
         //ADD SCORE
-        dbScore.high_scores.Insert(currentLevel - 1, levelScore);
+        dbScore.high_scores[currentLevel - 1] = levelScore;
 
         dbScore.total_score = 0;
 
