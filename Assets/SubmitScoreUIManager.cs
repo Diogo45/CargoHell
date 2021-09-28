@@ -10,7 +10,6 @@ public class SubmitScoreUIManager : MonoBehaviour
     [SerializeField] private Button setHighScoreButton;
     [SerializeField] private Button closeScreenButton;
 
-    [SerializeField] private TMPro.TMP_Text scoreText;
     [SerializeField] private TMPro.TMP_InputField playerNameField;
 
 
@@ -24,11 +23,10 @@ public class SubmitScoreUIManager : MonoBehaviour
         if (!_highScoreManager)
             Debug.LogError("There's not  have a High Score Manager reference!");
 
+
         playerNameField.onValueChanged.AddListener(_highScoreManager.InputName);
         setHighScoreButton.onClick.AddListener(SetScore);
         closeScreenButton.onClick.AddListener(CloseScreen);
-
-        scoreText.text = CargoHell.LevelController.instance.Score.ToString();
 
     }
 
