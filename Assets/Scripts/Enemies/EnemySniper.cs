@@ -6,10 +6,6 @@ using UnityEngine;
 
 public class EnemySniper : IEnemy
 {
-    // Start is called before the first frame update
-
-
-
 
     void Start()
     {
@@ -20,9 +16,6 @@ public class EnemySniper : IEnemy
     }
 
 
-
-
-    // Update is called once per frame
     void Update()
     {
         base.Update();
