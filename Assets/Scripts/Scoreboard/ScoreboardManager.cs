@@ -68,8 +68,6 @@ public class ScoreboardManager : MonoBehaviour
 
         highScores = array.ToList();
 
-        Debug.Log("highscore count: " + highScores.Count);
-
         for (int i = 0; i < highScores.Count; i++)
         {
             if (i == highScores.Count - 1 && highScores.Count < 3)
@@ -77,7 +75,6 @@ public class ScoreboardManager : MonoBehaviour
                 for (int j = scoresUI.Count-1; j > i; j--)
                 {
                     scoresUI[j].SetActive(false);
-                    //Debug.Log("set place " + j + " to false");
                 }
             }
 
