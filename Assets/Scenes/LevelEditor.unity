@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -121,18 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &48056299 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3534983898242852141, guid: c3955e22cd4dbb94789fbde347b76bbc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1848730183387835322}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &49139576
 GameObject:
   m_ObjectHideFlags: 0
@@ -3309,7 +3297,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Score
       value: 
-      objectReference: {fileID: 1848730183387835323}
+      objectReference: {fileID: 0}
     - target: {fileID: 8911567794002422759, guid: 7eadf6ca5023a3a49bf68288c8515855,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3990,7 +3978,7 @@ PrefabInstance:
         type: 3}
       propertyPath: graphic
       value: 
-      objectReference: {fileID: 48056299}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98e54ed76470b554da564ec036879b85, type: 3}
 --- !u!224 &1763899132 stripped
@@ -5356,12 +5344,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3955e22cd4dbb94789fbde347b76bbc, type: 3}
---- !u!1 &1848730183387835323 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 359965588, guid: c3955e22cd4dbb94789fbde347b76bbc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1848730183387835322}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7943114564079803601
 PrefabInstance:
   m_ObjectHideFlags: 0

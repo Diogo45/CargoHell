@@ -16,12 +16,110 @@ MonoBehaviour:
   LevelConfig:
   - enemies:
     - enemyType: 6
-      viewportPosition: {x: 0.9462164, y: 0.53571427}
-      direction: {x: -1.0000001, y: -0.00000011920929}
+      viewportPosition: {x: 0.9685273, y: 0.5}
+      direction: {x: -0.99999994, y: -0.00000011920929}
+      delay: 2
+      speed: 0.8
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.9462164, y: 0.7}
+      direction: {x: -0.99999994, y: 0.0000005364418}
       delay: 0
       speed: 1
       shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.94061756, y: 0.3}
+      direction: {x: -0.99999994, y: 0.0000005364418}
+      delay: 0
+      speed: 1
+      shouldMove: 1
+    - enemyType: 7
+      viewportPosition: {x: 0.07609433, y: 0.5714286}
+      direction: {x: 0.99999994, y: 0.0000005364418}
+      delay: 10
+      speed: 1
+      shouldMove: 1
+    - enemyType: 2
+      viewportPosition: {x: 0.07609433, y: 0.42857143}
+      direction: {x: 0.99999994, y: 0.0000005364418}
+      delay: 10
+      speed: 1
+      shouldMove: 1
+  - enemies:
+    - enemyType: 6
+      viewportPosition: {x: 0.031472683, y: 0.5}
+      direction: {x: 0.99999994, y: -0.00000011920929}
+      delay: 0.5
+      speed: 0.8
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.053783506, y: 0.67857146}
+      direction: {x: 0.99999994, y: 0.0000005364418}
+      delay: 0
+      speed: 0.8
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.053783506, y: 0.32142857}
+      direction: {x: 0.99999994, y: 0.0000005364418}
+      delay: 0
+      speed: 0.8
+      shouldMove: 1
+    - enemyType: 7
+      viewportPosition: {x: 0.50831354, y: 0.88212925}
+      direction: {x: 0, y: -1}
+      delay: 4
+      speed: 1.5
+      shouldMove: 1
+    - enemyType: 7
+      viewportPosition: {x: 0.5, y: 0.107142836}
+      direction: {x: 0, y: 1}
+      delay: 10
+      speed: 1.5
+      shouldMove: 1
+  - enemies:
+    - enemyType: 6
+      viewportPosition: {x: 0.52231085, y: 0.8928572}
+      direction: {x: 0, y: -1}
+      delay: 0
+      speed: 0.8
+      shouldMove: 1
+    - enemyType: 7
+      viewportPosition: {x: 0.45537838, y: 0.92857146}
+      direction: {x: 0, y: -1}
+      delay: 0
+      speed: 1
+      shouldMove: 1
+    - enemyType: 7
+      viewportPosition: {x: 0.5892433, y: 0.92857146}
+      direction: {x: 0, y: -1}
+      delay: 0
+      speed: 1
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.053783506, y: 0.64285713}
+      direction: {x: 0.99999994, y: 0.0000005364418}
+      delay: 6
+      speed: 1
+      shouldMove: 1
+    - enemyType: 2
+      viewportPosition: {x: 0.053783506, y: 0.53571427}
+      direction: {x: 0.99999994, y: 0.0000005364418}
+      delay: 6
+      speed: 1
+      shouldMove: 1
+    - enemyType: 1
+      viewportPosition: {x: 0.053783506, y: 0.42857143}
+      direction: {x: 0.99999994, y: 0.0000005364418}
+      delay: 6
+      speed: 1
+      shouldMove: 1
+    - enemyType: 8
+      viewportPosition: {x: 0.9239057, y: 0.14285713}
+      direction: {x: -0.7071067, y: 0.7071068}
+      delay: 10
+      speed: 2
+      shouldMove: 1
   ShaderVariables:
     color: {r: 0, g: 1, b: 0.75294125, a: 1}
-  LevelMusicIndex: 0
-  LevelClipIndex: 0
+  LevelMusicIndex: -1
+  LevelClipIndex: 5

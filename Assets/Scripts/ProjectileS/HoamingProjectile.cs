@@ -16,8 +16,11 @@ public class HoamingProjectile : ProjectileController
     private float fuelStrobePercentage = 0.2f;
     [SerializeField]
     private float FuelConsumptionRate;
+    [SerializeField]
+    private int respawnTimes;
+    private int respawnCount;
 
-    [field: SerializeField] public GameObject Flame { get; private set; }
+   [field: SerializeField] public GameObject Flame { get; private set; }
 
     void Start()
     {
@@ -72,12 +75,19 @@ public class HoamingProjectile : ProjectileController
 
     public override void OutOfBounds()
     {
-        var pos = Camera.main.WorldToViewportPoint(transform.position);
-        if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
+        if (respawnCount <= respawnTimes)
         {
-            transform.position = FlowPos().Item1;
-            //tag = "ProjectileSpinner";
+            var pos = Camera.main.WorldToViewportPoint(transform.position);
+            if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
+            {
+                transform.position = FlowPos().Item1;
+            }                
         }
+        else
+        {
+            Destroy(this);
+        }
+        
     }
 
 

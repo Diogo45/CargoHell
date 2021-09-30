@@ -3715,7 +3715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 647703907}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!114 &1641811988
@@ -4693,6 +4693,36 @@ PrefabInstance:
         type: 3}
       propertyPath: TotalScore
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281542031757312238, guid: 6b8b8df0bce17a143b7b340b9117125d,
+        type: 3}
+      propertyPath: m_text
+      value: LEVEL 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281542031912432556, guid: 6b8b8df0bce17a143b7b340b9117125d,
+        type: 3}
+      propertyPath: m_text
+      value: LEVEL 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281542031927924366, guid: 6b8b8df0bce17a143b7b340b9117125d,
+        type: 3}
+      propertyPath: m_text
+      value: TOTAL
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281542032553486171, guid: 6b8b8df0bce17a143b7b340b9117125d,
+        type: 3}
+      propertyPath: m_text
+      value: LEVEL 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281542032791061752, guid: 6b8b8df0bce17a143b7b340b9117125d,
+        type: 3}
+      propertyPath: m_text
+      value: LEVEL 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281542032884468940, guid: 6b8b8df0bce17a143b7b340b9117125d,
+        type: 3}
+      propertyPath: m_text
+      value: LEVEL 5
       objectReference: {fileID: 0}
     - target: {fileID: 9150630308395351696, guid: 6b8b8df0bce17a143b7b340b9117125d,
         type: 3}

@@ -263,6 +263,10 @@ namespace CargoHell
 
                 if (!hasWon && !hasLost && !isThereEnemiesLeft)
                 {
+                    var projectiles = GameObject.FindGameObjectsWithTag("Projectile");
+
+                    foreach (var item in projectiles) Destroy(item);
+
                     Score += instance.Player.GetComponent<PlayerController>().currentHealth * 100;
                     onEndLevel?.Invoke(true);
                     hasWon = true;

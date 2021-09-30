@@ -231,11 +231,11 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4598761107281495892}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1104852525917040062, guid: c8b4f9cb673c9784cbcd173876c4be6b,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: e539d1d16061f1145aee1cca8d779920, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d5a73d10e3465d545883aa223a38a861, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -341,6 +341,7 @@ MonoBehaviour:
   <projectileType>k__BackingField: 1
   RotationSpeed: 2
   RotationSpeedIncrease: 2
-  Fuel: 50
+  Fuel: 25
   FuelConsumptionRate: 0.1
+  respawnTimes: 2
   <Flame>k__BackingField: {fileID: 549079905009441825}
