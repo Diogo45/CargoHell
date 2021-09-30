@@ -45,6 +45,12 @@ public class ScoreboardNavigator : MonoBehaviour
 
     }
 
+    public void Back()
+    {
+        gameObject.SetActive(false);
+    }
+
+
     public void NextPage()
     {
         if (page < maxPage)

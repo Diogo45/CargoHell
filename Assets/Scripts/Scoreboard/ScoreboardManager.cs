@@ -13,6 +13,9 @@ public class ScoreboardManager : MonoBehaviour
     [SerializeField] private GameObject ScrollViewContent;
 
     private int _id;
+
+    public bool TotalScore;
+
     public void Initialize(int id)
     {
         _id = id;
@@ -28,7 +31,7 @@ public class ScoreboardManager : MonoBehaviour
         var second = ScrollViewContent.transform.Find("2nd");
         var third = ScrollViewContent.transform.Find("3rd");
 
-        GameObject[] initial = {first.gameObject, second.gameObject, third.gameObject };
+        GameObject[] initial = { first.gameObject, second.gameObject, third.gameObject };
 
         scoresUI.AddRange(initial);
 
@@ -40,7 +43,7 @@ public class ScoreboardManager : MonoBehaviour
 
     }
 
-    
+
 
 
     public void StartFillScores()
@@ -48,15 +51,27 @@ public class ScoreboardManager : MonoBehaviour
 
         var scores = ScoreboardDataManager.instance.scores;
 
-        List<(Score score, int value)> highScores = new List<(Score,int)>();
+        List<(Score score, int value)> highScores = new List<(Score, int)>();
 
         for (int i = 0; i < scores.Count; i++)
         {
+            int levelHighScore = 0;
 
-            if (scores[i].high_scores.Count <= _id)
+            if (!TotalScore && scores[i].high_scores.Count <= _id)
+            {
                 continue;
+            }
 
-            int levelHighScore = scores[i].high_scores[_id];
+           
+            if (TotalScore)
+            {
+                levelHighScore = scores[i].total_score;
+            }
+            else
+            {
+                levelHighScore = scores[i].high_scores[_id];
+
+            }
 
             highScores.Add((scores[i], levelHighScore));
 
@@ -64,7 +79,7 @@ public class ScoreboardManager : MonoBehaviour
 
         var array = highScores.ToArray();
 
-        Array.Sort(array, (x,y) => x.value < y.value ? 1 : -1);
+        Array.Sort(array, (x, y) => x.value < y.value ? 1 : -1);
 
         highScores = array.ToList();
 
@@ -72,7 +87,7 @@ public class ScoreboardManager : MonoBehaviour
         {
             if (i == highScores.Count - 1 && highScores.Count < 3)
             {
-                for (int j = scoresUI.Count-1; j > i; j--)
+                for (int j = scoresUI.Count - 1; j > i; j--)
                 {
                     scoresUI[j].SetActive(false);
                 }
@@ -80,7 +95,7 @@ public class ScoreboardManager : MonoBehaviour
 
             GameObject podiumPlace = null;
 
-            if(i < scoresUI.Count)
+            if (i < scoresUI.Count)
             {
                 podiumPlace = scoresUI[i];
             }
@@ -91,13 +106,13 @@ public class ScoreboardManager : MonoBehaviour
 
 
             //TODO:In future prefetch these
-           
+
             TMPro.TMP_Text playerName = podiumPlace.transform.Find("PlayerName").GetComponent<TMPro.TMP_Text>();
             TMPro.TMP_Text score = podiumPlace.transform.Find("PlayerScore").GetComponent<TMPro.TMP_Text>();
 
-            if(i >= scoresUI.Count)
+            if (i >= scoresUI.Count)
             {
-                 TMPro.TMP_Text place = podiumPlace.transform.Find("Place").GetComponent<TMPro.TMP_Text>();
+                TMPro.TMP_Text place = podiumPlace.transform.Find("Place").GetComponent<TMPro.TMP_Text>();
                 place.text = (i + 1) + "th";
             }
 
