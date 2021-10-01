@@ -26,7 +26,7 @@ public class CreditsManager : MonoBehaviour
     [SerializeField] private float FadeSpeed;
 
     [SerializeField] private float alpha;
-    // Start is called before the first frame update
+
     void Start()
     {
         _creditPanels = new List<GameObject>();
