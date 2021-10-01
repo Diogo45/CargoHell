@@ -114,6 +114,12 @@ public class UIController : MonoBehaviour
 
     public void NextScene()
     {
+        if(LevelController._levelID == 5)
+        {
+            SceneManager.LoadSceneAsync("Menu");
+            return;
+        }
+
         LevelController._levelID += 1;
         SceneManager.LoadSceneAsync("Level1");        
     }

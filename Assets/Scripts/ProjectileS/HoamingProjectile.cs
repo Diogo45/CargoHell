@@ -81,11 +81,12 @@ public class HoamingProjectile : ProjectileController
             if (pos.x > 1 || pos.x < 0 || pos.y > 1 || pos.y < 0)
             {
                 transform.position = FlowPos().Item1;
+                respawnCount++;
             }                
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
         
     }
