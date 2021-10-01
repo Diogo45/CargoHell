@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class CreditsAnimController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    private Material nebulaMat;
+
+    [SerializeField]
+    private Color nebulaColor;
+
     void Start()
     {
-        
+        nebulaMat.SetColor("_Color", nebulaColor);
     }
 
-    // Update is called once per frame
     void Update()
     {
         

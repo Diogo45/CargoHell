@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b85a2a99ed3244e9ba40bfb22b038c, type: 3}
   m_Name: Level06
   m_EditorClassIdentifier: 
-  planetSprite: {fileID: 0}
+  planetSprite: {fileID: 4081543301678191023, guid: e76059066ea00d548803ec623a03e2f3,
+    type: 3}
   LevelConfig:
   - enemies:
     - enemyType: 6

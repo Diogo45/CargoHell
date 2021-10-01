@@ -15,9 +15,11 @@ public class CreditsManager : MonoBehaviour
 
     [SerializeField] private float ChangeScreenTimer;
 
+    [SerializeField] private float ChangeScreenTimerLastPanel;
+
     private List<GameObject> _creditPanels;
 
-    private int _currentScreen;
+    private int _currentScreen = 0;
 
     private TMPro.TMP_Text[] _screenTexts;
 
@@ -71,10 +73,15 @@ public class CreditsManager : MonoBehaviour
 
         Debug.Log("Done Fade In");
 
-
-        yield return new WaitForSeconds(ChangeScreenTimer);
-
-        
+        if (_currentScreen >= _creditPanels.Count-1)
+        {
+            yield return new WaitForSeconds(ChangeScreenTimerLastPanel);
+        }
+        else
+        {
+            yield return new WaitForSeconds(ChangeScreenTimer);
+        }    
+              
 
         fadeState = FadeState.None;
 
@@ -92,7 +99,7 @@ public class CreditsManager : MonoBehaviour
         _creditPanels[_currentScreen].SetActive(false);
 
 
-        if (_currentScreen < _creditPanels.Count)
+        if (_currentScreen < _creditPanels.Count-1)
         {
             _currentScreen++;
             _screenTexts = _creditPanels[_currentScreen].GetComponentsInChildren<TMPro.TMP_Text>();
@@ -157,8 +164,7 @@ public class CreditsManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-       
+    {       
         alpha = _screenTexts[0].alpha;
     }
 }
