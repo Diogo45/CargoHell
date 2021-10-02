@@ -112,6 +112,16 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
+    public void ToCredits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     public void NextScene()
     {
         if(LevelController._levelID == 5)

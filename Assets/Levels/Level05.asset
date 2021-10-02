@@ -17,26 +17,26 @@ MonoBehaviour:
   LevelConfig:
   - enemies:
     - enemyType: 1
-      viewportPosition: {x: 0.94217324, y: 0.6}
-      direction: {x: -1.0000001, y: -0.00000011920929}
+      viewportPosition: {x: 0.9421733, y: 0.6}
+      direction: {x: -0.99999994, y: -0.00000011920929}
       delay: 0
       speed: 1
       shouldMove: 1
     - enemyType: 1
-      viewportPosition: {x: 0.94217324, y: 0.4}
-      direction: {x: -1.0000001, y: -0.00000011920929}
+      viewportPosition: {x: 0.9421733, y: 0.4}
+      direction: {x: -0.99999994, y: -0.00000011920929}
       delay: 0
       speed: 1
       shouldMove: 1
     - enemyType: 7
       viewportPosition: {x: 0.96227205, y: 0.5}
-      direction: {x: -1.0000001, y: -0.00000011920929}
+      direction: {x: -0.99999994, y: -0.00000011920929}
       delay: 0
       speed: 1
       shouldMove: 1
     - enemyType: 8
-      viewportPosition: {x: 0.057826728, y: 0.5}
-      direction: {x: 1.0000001, y: -0.00000011920929}
+      viewportPosition: {x: 0.05791384, y: 0.107142836}
+      direction: {x: 0.7071072, y: 0.7071064}
       delay: 5
       speed: 2
       shouldMove: 1
