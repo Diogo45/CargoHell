@@ -443,8 +443,8 @@ MonoBehaviour:
 
     Harris Heller'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e28246cc5a728af4aaebea20e2cae0be, type: 2}
-  m_sharedMaterial: {fileID: 2047295572257110461, guid: e28246cc5a728af4aaebea20e2cae0be,
+  m_fontAsset: {fileID: 11400000, guid: 3327a9d4b71e6124fb06b01dc32fcf94, type: 2}
+  m_sharedMaterial: {fileID: -3470133270784107237, guid: 3327a9d4b71e6124fb06b01dc32fcf94,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -469,8 +469,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 88
+  m_fontSizeBase: 88
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -859,8 +859,8 @@ MonoBehaviour:
     you have the time, please answer our playtest questionnaire available on our
     itch.io page\n (diogo45.itch.io/cargo-hell)\n\nWe would love to hear your feedback!"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e28246cc5a728af4aaebea20e2cae0be, type: 2}
-  m_sharedMaterial: {fileID: 2047295572257110461, guid: e28246cc5a728af4aaebea20e2cae0be,
+  m_fontAsset: {fileID: 11400000, guid: 3327a9d4b71e6124fb06b01dc32fcf94, type: 2}
+  m_sharedMaterial: {fileID: -3470133270784107237, guid: 3327a9d4b71e6124fb06b01dc32fcf94,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -885,8 +885,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 88
+  m_fontSizeBase: 88
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1742,8 +1742,8 @@ MonoBehaviour:
     Celestial
     Objects Pixel Art Pack by N2D'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e28246cc5a728af4aaebea20e2cae0be, type: 2}
-  m_sharedMaterial: {fileID: 2047295572257110461, guid: e28246cc5a728af4aaebea20e2cae0be,
+  m_fontAsset: {fileID: 11400000, guid: 3327a9d4b71e6124fb06b01dc32fcf94, type: 2}
+  m_sharedMaterial: {fileID: -3470133270784107237, guid: 3327a9d4b71e6124fb06b01dc32fcf94,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1768,8 +1768,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 88
+  m_fontSizeBase: 88
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2080,8 +2080,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Game developed by\n\n\nDiogo Muller\n\nJulia Melgar\xE9\n\nConrado Boeira"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e28246cc5a728af4aaebea20e2cae0be, type: 2}
-  m_sharedMaterial: {fileID: 2047295572257110461, guid: e28246cc5a728af4aaebea20e2cae0be,
+  m_fontAsset: {fileID: 11400000, guid: 3327a9d4b71e6124fb06b01dc32fcf94, type: 2}
+  m_sharedMaterial: {fileID: -3470133270784107237, guid: 3327a9d4b71e6124fb06b01dc32fcf94,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2106,8 +2106,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 88
+  m_fontSizeBase: 88
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
