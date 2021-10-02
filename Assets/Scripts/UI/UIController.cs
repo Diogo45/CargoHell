@@ -116,7 +116,7 @@ public class UIController : MonoBehaviour
     {
         if(LevelController._levelID == 5)
         {
-            SceneManager.LoadSceneAsync("Menu");
+            SceneManager.LoadSceneAsync("Credits");
             return;
         }
 
