@@ -1499,7 +1499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CreditsScreen: {fileID: 1507296373}
-  ChangeScreenTimer: 3
+  ChangeScreenTimer: 5
   ChangeScreenTimerLastPanel: 10
   FadeSpeed: 1
   alpha: 0
