@@ -334,7 +334,7 @@ public class PlayerController : MonoBehaviour
         if (!Movement)
             return;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, AngularSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, (AngularSpeed  * Time.deltaTime) * mousePosition.magnitude);
 
 #if UNITY_ANDROID
 

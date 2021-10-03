@@ -325,7 +325,7 @@ MonoBehaviour:
   rotationSpeed: 150
   moveSpeed: 5
   _moveAxis: {x: 0, y: 0}
-  AngularSpeed: 15
+  AngularSpeed: 600
   PlayerInvulnerable: 0
   Movement: 1
 --- !u!61 &343232428141593761
