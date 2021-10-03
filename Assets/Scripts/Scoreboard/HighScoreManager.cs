@@ -49,8 +49,12 @@ public class HighScoreManager : Singleton<HighScoreManager>
 
     public void StartWriteScore()
     {
-        status = Status.Writing;
-        StartCoroutine(FirebaseManager.instance.Get<Score>(scoreboardName, WriteScore));
+        if(scoreboardName.Length > 0)
+        {
+            status = Status.Writing;
+            StartCoroutine(FirebaseManager.instance.Get<Score>(scoreboardName, WriteScore));
+        }
+        
     }
 
     private void WriteScore(Score dbScore)

@@ -22,7 +22,7 @@ public class SubmitScoreUIManager : MonoBehaviour
         _highScoreManager = HighScoreManager.instance;
 
         if (!_highScoreManager)
-            Debug.LogError("There's not  have a High Score Manager reference!");
+            Debug.LogError("There's not a High Score Manager reference!");
 
 
         playerNameField.onValueChanged.AddListener(_highScoreManager.InputName);
@@ -41,6 +41,8 @@ public class SubmitScoreUIManager : MonoBehaviour
     {
         if(_highScoreManager.status != HighScoreManager.Status.Writing)
             _highScoreManager.StartWriteScore();
+
+        CloseScreen();
         
     }
 }
