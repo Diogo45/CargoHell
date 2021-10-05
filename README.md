@@ -9,19 +9,15 @@ Cargo Hell is a 2D side scroller spaceship shooter game where your only weapon a
 Initially developed for the Digital Games Development discipline of the undergraduate course in Computer Science at PUCRS, we are still working on adding new features for a future release.
 
 Such features include:
- - New kinds of enemies, including boss fights
- 
- ![ezgif-6-22db090e388d](https://user-images.githubusercontent.com/42148950/125676671-984bcdf8-73de-419c-94e3-4defd8bb176b.gif)
-
- - Different stages to choose from
-
-![ezgif-6-7fe63e878340](https://user-images.githubusercontent.com/42148950/125673506-d3e1614e-b199-49ee-9797-6356ac07d413.gif)
-
- - Level editor/creator
+- Even more levels, enemies, and boss fights;
+- A tutorial session with dialogue, explaining the lore and contextualizing the player;
+- Original assets (sprites, art and even more original music);
+- Upgrade shop where you can spend your score points to purchase ship improvements;
+- And last but not least, a level editor where players can create and share their own levels using the enemies from the game.
 
 ![ezgif-6-06a28a97a685](https://user-images.githubusercontent.com/42148950/125694085-7a94ac2c-6497-44c6-8a88-7ffc1a689f1e.gif)
 
-Our playable prototype, which doesn't include all new the features yet, is available to download in our [releases](https://github.com/Diogo45/CargoHell/releases). There is also an Android version.
+We currently have released the first alpha version of the game on [Itch.io](https://diogo45.itch.io/cargo-hell), which is undergoing an open playtest phase to collect feedback.
 Stay tuned for more updates!
 
 ![ezgif-6-8b690316950e](https://user-images.githubusercontent.com/42148950/125678765-04beaa2a-54f4-4f1a-b519-b3f272da13e9.gif)
