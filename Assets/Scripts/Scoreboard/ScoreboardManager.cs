@@ -62,7 +62,7 @@ public class ScoreboardManager : MonoBehaviour
                 continue;
             }
 
-           
+
             if (TotalScore)
             {
                 levelHighScore = scores[i].total_score;
@@ -82,6 +82,7 @@ public class ScoreboardManager : MonoBehaviour
         Array.Sort(array, (x, y) => x.value < y.value ? 1 : -1);
 
         highScores = array.ToList();
+
 
         for (int i = 0; i < highScores.Count; i++)
         {

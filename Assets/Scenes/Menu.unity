@@ -355,9 +355,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Mouse
-      m_Image: {fileID: 0}
     - m_Text: ControllerLike
+      m_Image: {fileID: 0}
+    - m_Text: Mouse
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2555,7 +2555,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: a
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e28246cc5a728af4aaebea20e2cae0be, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5196,6 +5196,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 430108266102770324, guid: 6b8b8df0bce17a143b7b340b9117125d,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 430108266102770324, guid: 6b8b8df0bce17a143b7b340b9117125d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 430108266102770324, guid: 6b8b8df0bce17a143b7b340b9117125d,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 430108266102770324, guid: 6b8b8df0bce17a143b7b340b9117125d,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7113657065058368219, guid: 6b8b8df0bce17a143b7b340b9117125d,
         type: 3}

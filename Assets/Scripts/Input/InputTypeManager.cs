@@ -16,7 +16,7 @@ public class InputTypeManager : MonoBehaviour
 
     private void ChangeInputType(int type)
     {
-        PlayerPrefs.SetInt("InputType", type);
+        PlayerPrefs.SetString("InputType", InputType.options[type].text);
     }
 
 }

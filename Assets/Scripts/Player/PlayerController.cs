@@ -57,9 +57,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
 
-        int InputType = PlayerPrefs.GetInt("InputType", 0);
+        string InputType = PlayerPrefs.GetString("InputType", "ControllerLike");
 
-        if (InputType == 1)
+        if (InputType == "ControllerLike")
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = false;
@@ -229,14 +229,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
-    public void OnMove(InputValue value)
-    {
-
-        _moveAxis = value.Get<Vector2>();
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -294,15 +286,18 @@ public class PlayerController : MonoBehaviour
 #if UNITY_STANDALONE
 
 
-        int InputType = PlayerPrefs.GetInt("InputType", 0);
 
-        Vector2 mouseValue = Vector2.zero;
+        string InputType = PlayerPrefs.GetString("InputType", "ControllerLike");
+
+       
+
+            Vector2 mouseValue = Vector2.zero;
         Vector3 direction = Vector3.zero;
         Vector3 mousePosition = Vector3.zero;
 
         switch (InputType)
         {
-            case 0:
+            case "Mouse":
                 mouseValue = Mouse.current.position.ReadValue();
 
                 mousePosition = new Vector3(mouseValue.x, mouseValue.y, 0f);
@@ -310,7 +305,7 @@ public class PlayerController : MonoBehaviour
                 direction = (Camera.main.ScreenToWorldPoint(mousePosition) - (transform.position)).normalized;
                 break;
 
-            case 1:
+            case "ControllerLike":
                 mouseValue = _lookVector;
 
                 mousePosition = new Vector3(mouseValue.x, mouseValue.y, 0f);
@@ -334,7 +329,7 @@ public class PlayerController : MonoBehaviour
         if (!Movement)
             return;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, (AngularSpeed  * Time.deltaTime) * mousePosition.magnitude);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, (AngularSpeed * Time.deltaTime) * mousePosition.magnitude);
 
 #if UNITY_ANDROID
 
@@ -351,9 +346,15 @@ public class PlayerController : MonoBehaviour
 
         }
 #else
+
+
+
         var lastPos = transform.position;
         transform.position += transform.up * _moveAxis.y * moveSpeed * Time.deltaTime;
         velocity = (transform.position - lastPos).magnitude * (1f / Time.deltaTime);
+
+
+
 
 
 
