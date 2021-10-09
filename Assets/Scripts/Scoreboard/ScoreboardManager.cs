@@ -16,13 +16,18 @@ public class ScoreboardManager : MonoBehaviour
 
     public bool TotalScore;
 
+
+    private List<GameObject> _places;
+
     public void Initialize(int id)
     {
         _id = id;
+       
     }
 
 
-    private IEnumerator Start()
+
+    private void Start()
     {
 
         scoresUI = new List<GameObject>();
@@ -34,6 +39,33 @@ public class ScoreboardManager : MonoBehaviour
         GameObject[] initial = { first.gameObject, second.gameObject, third.gameObject };
 
         scoresUI.AddRange(initial);
+
+        _places = new List<GameObject>();
+
+        //StartCoroutine(StartFilling());
+    }
+
+    private void OnEnable()
+    {
+        if (_places == null)
+            _places = new List<GameObject>();
+
+        if(_places.Count > 0)
+        {
+            for (int i = 0; i < _places.Count; i++)
+            {
+                Destroy(_places[i]);
+            }
+        }
+
+
+        StartCoroutine(StartFilling());
+    }
+
+    private IEnumerator StartFilling()
+    {
+
+
 
         //TODO:For now waits until getting all the scores from every player, maybe in the future should have a limit -> 128?
         yield return new WaitUntil(() => ScoreboardDataManager.instance.status == ScoreboardDataManager.RetrivalStatus.Done);
@@ -79,10 +111,9 @@ public class ScoreboardManager : MonoBehaviour
 
         var array = highScores.ToArray();
 
-        Array.Sort(array, (x, y) => x.value < y.value ? 1 : -1);
+        Array.Sort(array, (x, y) => x.value <= y.value ? 1 : -1);
 
         highScores = array.ToList();
-
 
         for (int i = 0; i < highScores.Count; i++)
         {
@@ -103,6 +134,7 @@ public class ScoreboardManager : MonoBehaviour
             else
             {
                 podiumPlace = Instantiate(scorePlacePrefab, ScrollViewContent.transform);
+                _places.Add(podiumPlace);
             }
 
 

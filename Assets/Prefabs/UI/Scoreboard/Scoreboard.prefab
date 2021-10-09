@@ -403,8 +403,8 @@ RectTransform:
   m_Father: {fileID: 2664663631565214331}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.00000011920929, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -610,6 +610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2664663630311684126}
   - component: {fileID: 2664663630311684125}
+  - component: {fileID: 9170098704884605496}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -634,10 +635,10 @@ RectTransform:
   m_Father: {fileID: 2664663630420428609}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -67}
-  m_SizeDelta: {x: 0, y: 134}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -51.840034}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2664663630311684125
 MonoBehaviour:
@@ -664,6 +665,20 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &9170098704884605496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2664663630311684127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 1
 --- !u!1 &2664663630420428610
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2664663630505930527
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1140,8 +1155,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2664663631663712883}
   m_HandleRect: {fileID: 2664663631663712892}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.5531664
+  m_Value: 1.0001354
+  m_Size: 0.63818234
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2136,7 +2151,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 2.700001, y: 0}
-  m_SizeDelta: {x: 306.197, y: 213.5176}
+  m_SizeDelta: {x: 306.197, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4880227633516395130
 CanvasRenderer:

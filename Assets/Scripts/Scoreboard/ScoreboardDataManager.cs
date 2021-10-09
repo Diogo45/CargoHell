@@ -20,7 +20,7 @@ public class ScoreboardDataManager : Singleton<ScoreboardDataManager>
     public RetrivalStatus status { get; private set; } = RetrivalStatus.None;
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         base.Awake();
 
@@ -28,13 +28,26 @@ public class ScoreboardDataManager : Singleton<ScoreboardDataManager>
 
         var scoreboards = transform.GetComponentsInChildren<ScoreboardManager>(includeInactive: true);
 
+
         for (int i = 0; i < scoreboards.Length; i++)
         {
             scoreboards[i].Initialize(i);
         }
+    }
+
+
+    void OnEnable()
+    {
+
+        scores = new List<Score>();
 
         StartCoroutine(FirebaseManager.instance.Get<Names>("Names", GetScores));
 
+    }
+
+    private void OnDisable()
+    {
+        status = RetrivalStatus.None;
     }
 
     private void GetScores(Names obj)
