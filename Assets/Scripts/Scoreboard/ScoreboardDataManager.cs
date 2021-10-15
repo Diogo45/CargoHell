@@ -71,8 +71,12 @@ public class ScoreboardDataManager : Singleton<ScoreboardDataManager>
 
     private void AddScore(Score obj)
     {
-        if (obj == null || obj == default(Score))
+        if (obj == null)
+        {
+            scoresRetrivied++;
             return;
+        }
+            
 
         scores.Add(obj);
         scoresRetrivied++;

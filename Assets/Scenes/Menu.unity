@@ -5150,7 +5150,7 @@ PrefabInstance:
     - target: {fileID: 430108266102770327, guid: 6b8b8df0bce17a143b7b340b9117125d,
         type: 3}
       propertyPath: m_Padding.m_Bottom
-      value: 0
+      value: 237
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b8b8df0bce17a143b7b340b9117125d, type: 3}
